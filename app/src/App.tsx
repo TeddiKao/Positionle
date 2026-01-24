@@ -1,5 +1,7 @@
 import { Route, Routes } from "react-router";
 
+import "./app/global.css";
+
 function App() {
 	return (
 		<Routes>
