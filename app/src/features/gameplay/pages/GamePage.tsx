@@ -1,4 +1,4 @@
-import PawnLogo from "../icons/logo/PawnLogo.tsx";
+import PawnLogo from "../icons/logo/PawnLogo";
 
 function GamePage() {
 	return (
