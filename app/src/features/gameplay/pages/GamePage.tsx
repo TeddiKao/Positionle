@@ -29,7 +29,7 @@ function GamePage() {
 				</button>
 			</div>
 
-			<div className="grid grid-cols-8 w-full max-w-md aspect-square">
+			<div className="grid grid-cols-8 w-full max-w-md aspect-square shadow-lg shadow-gray-600">
 				{ranks.map((rank) => (
 					files.map((file) => {
 						const isDark = (rank + files.indexOf(file)) % 2 === 1;
