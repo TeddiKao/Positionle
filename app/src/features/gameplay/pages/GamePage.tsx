@@ -15,13 +15,13 @@ function GamePage() {
 			</span>
 
 			<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-100 shadow-gray-300">
-				<button type="button">
+				<button type="button" className="cursor-pointer">
 					<LeftArrow />
 				</button>
 
 				<p>Guess 1 of 6</p>
 
-				<button type="button">
+				<button type="button" className="cursor-pointer">
 					<RightArrow />
 				</button>
 			</div>
