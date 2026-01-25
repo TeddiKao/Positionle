@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 
 import "./app/global.css";
-import GamePage from "./features/gameplay/pages/GamePage.tsx";
+import GamePage from "./features/gameplay/pages/GamePage";
 
 function App() {
 	return (
