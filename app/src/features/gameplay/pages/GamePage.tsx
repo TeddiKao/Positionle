@@ -31,11 +31,11 @@ function GamePage() {
 
 			<div className="grid grid-cols-8 w-full max-w-md aspect-square shadow-lg shadow-gray-600">
 				{ranks.map((rank) => (
-					files.map((_, fileIndex) => {
+					files.map((file, fileIndex) => {
 						const isDark = (rank + fileIndex) % 2 === 1;
 
 						return (
-							<div className={`${isDark ? "bg-gray-400" : "bg-gray-100"}`}></div>
+							<div key={`${file}${rank}`} className={`${isDark ? "bg-gray-400" : "bg-gray-100"}`}></div>
 						)
 					})
 				))}
