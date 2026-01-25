@@ -14,7 +14,7 @@ function GamePage() {
 				<span className="-ml-1">onle</span>
 			</span>
 
-			<div className="flex flex-row items-center">
+			<div className="flex flex-row items-center gap-2">
 				<LeftArrow />
 				<p>Guess 1 of 6</p>
 				<RightArrow />
