@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
 @layer base {
-    font-family: Inter, system-ui;
+    body {
+        font-family: Inter, system-ui;
+    }
 }
