@@ -1,9 +1,13 @@
 import {IconChess} from "@tabler/icons-react";
 
-function PawnLogo() {
+type PawnLogoProps = {
+	className?: string;
+}
+
+function PawnLogo({ className = "" }: PawnLogoProps) {
 	return (
 		<span>
-			<IconChess />
+			<IconChess className={className} />
 		</span>
 	)
 }
