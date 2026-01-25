@@ -3,6 +3,9 @@ import LeftArrow from "../icons/guessNavigator/LeftArrow";
 import RightArrow from "../icons/guessNavigator/RightArrow";
 
 function GamePage() {
+	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
+	const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
+
 	return (
 		<div className="flex flex-col items-center gap-4">
 			<span className="flex flex-row items-end text-3xl font-bold mt-2 font-logo">
@@ -24,6 +27,18 @@ function GamePage() {
 				<button aria-label="Next guess" type="button" className="cursor-pointer">
 					<RightArrow />
 				</button>
+			</div>
+
+			<div className="grid grid-cols-8 w-full max-w-md aspect-square shadow-lg shadow-gray-600">
+				{ranks.map((rank) => (
+					files.map((file, fileIndex) => {
+						const isDark = (rank + fileIndex) % 2 === 1;
+
+						return (
+							<div key={`${file}${rank}`} className={`${isDark ? "bg-gray-400" : "bg-gray-100"}`}></div>
+						)
+					})
+				))}
 			</div>
 		</div>
 	)
