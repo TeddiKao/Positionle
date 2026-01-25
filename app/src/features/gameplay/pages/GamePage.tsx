@@ -14,7 +14,7 @@ function GamePage() {
 				<span className="-ml-1">onle</span>
 			</span>
 
-			<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-100 shadow-gray-300">
+			<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-50 shadow-gray-300">
 				<button type="button" className="cursor-pointer">
 					<LeftArrow />
 				</button>
