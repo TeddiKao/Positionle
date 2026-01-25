@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router";
 
 import "./app/global.css";
+import GamePage from "./features/gameplay/pages/GamePage.tsx";
 
 function App() {
 	return (
 		<Routes>
-			<Route path="/" element={<h1>Home Page</h1>} />
+			<Route path="/" element={<GamePage />} />
 		</Routes>
 	);
 }
