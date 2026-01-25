@@ -4,7 +4,7 @@ import RightArrow from "../icons/guessNavigator/RightArrow";
 
 function GamePage() {
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col items-center gap-4">
 			<span className="flex flex-row items-end text-3xl font-bold mt-2 font-logo">
 				{/* Pawn logo is used in place of the letter "i" */}
 				<span>Pos</span>
