@@ -1,4 +1,6 @@
 import PawnLogo from "../icons/logo/PawnLogo";
+import LeftArrow from "../icons/guessNavigator/LeftArrow";
+import RightArrow from "../icons/guessNavigator/RightArrow";
 
 function GamePage() {
 	return (
@@ -11,6 +13,12 @@ function GamePage() {
 				<PawnLogo className="inline-flex w-8 h-8 -ml-1" />
 				<span className="-ml-1">onle</span>
 			</span>
+
+			<div className="flex flex-row items-center">
+				<LeftArrow />
+				<p>Guess 1 of 6</p>
+				<RightArrow />
+			</div>
 		</div>
 	)
 }
