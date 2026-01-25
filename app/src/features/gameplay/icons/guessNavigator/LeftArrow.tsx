@@ -4,7 +4,7 @@ type LeftArrowProps = {
 	className?: string;
 }
 
-function LeftArrow({ className }: LeftArrowProps) {
+function LeftArrow({ className = "" }: LeftArrowProps) {
 	return (
 		<IconChevronLeft className={className} />
 	)
