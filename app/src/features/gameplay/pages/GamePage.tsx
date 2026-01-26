@@ -41,11 +41,11 @@ function GamePage() {
 								className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
 							>
 								{isSquareOnLeftEdge(file, "white") && (
-									<span className="absolute top-1 left-1">{rank}</span>
+									<span className="absolute top-1 left-1 text-sm">{rank}</span>
 								)}
 
 								{isSquareOnBottomEdge(rank, "white") && (
-									<span className="absolute right-1 bottom-1">{file}</span>
+									<span className="absolute right-1 bottom-1 text-sm">{file}</span>
 								)}
 							</div>
 						)
