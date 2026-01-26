@@ -45,7 +45,7 @@ function GamePage() {
 								)}
 
 								{isSquareOnBottomEdge(rank, "white") && (
-									<span className="absolute right-1 bottom-1 text-sm">{file}</span>
+									<span className="absolute right-1 bottom-0.5 text-sm">{file}</span>
 								)}
 							</div>
 						)
