@@ -1,6 +1,7 @@
 import PawnLogo from "../icons/logo/PawnLogo";
 import LeftArrow from "../icons/guessNavigator/LeftArrow";
 import RightArrow from "../icons/guessNavigator/RightArrow";
+import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "../utils/edgeDetection";
 
 function GamePage() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -35,7 +36,18 @@ function GamePage() {
 						const isDark = (rank + fileIndex) % 2 === 1;
 
 						return (
-							<div key={`${file}${rank}`} className={`${isDark ? "bg-gray-400" : "bg-gray-100"}`}></div>
+							<div
+								key={`${file}${rank}`}
+								className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
+							>
+								{isSquareOnLeftEdge(file, "white") && (
+									<span className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{rank}</span>
+								)}
+
+								{isSquareOnBottomEdge(rank, "white") && (
+									<span className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{file}</span>
+								)}
+							</div>
 						)
 					})
 				))}
