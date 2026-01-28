@@ -54,7 +54,7 @@ function GamePage() {
 				))}
 			</div>
 
-			<Button type="button" className="w-full max-w-md">Check</Button>
+			<Button type="button" className="w-full max-w-md hover:opacity-90">Check</Button>
 		</div>
 	)
 }
