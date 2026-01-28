@@ -2,6 +2,7 @@ import PawnLogo from "../icons/logo/PawnLogo";
 import LeftArrow from "../icons/guessNavigator/LeftArrow";
 import RightArrow from "../icons/guessNavigator/RightArrow";
 import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "../utils/edgeDetection";
+import {Button} from "@/components/ui/button";
 
 function GamePage() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -19,13 +20,13 @@ function GamePage() {
 			</span>
 
 			<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-50 shadow-gray-400">
-				<button aria-label="Previous guess" type="button" className="cursor-pointer">
+				<button aria-label="Previous guess" type="button">
 					<LeftArrow />
 				</button>
 
 				<p>Guess 1 of 6</p>
 
-				<button aria-label="Next guess" type="button" className="cursor-pointer">
+				<button aria-label="Next guess" type="button">
 					<RightArrow />
 				</button>
 			</div>
@@ -52,6 +53,8 @@ function GamePage() {
 					})
 				))}
 			</div>
+
+			<Button type="button" className="w-full max-w-md hover:opacity-90">Check</Button>
 		</div>
 	)
 }
