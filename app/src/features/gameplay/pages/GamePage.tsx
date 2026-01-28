@@ -2,6 +2,7 @@ import PawnLogo from "../icons/logo/PawnLogo";
 import LeftArrow from "../icons/guessNavigator/LeftArrow";
 import RightArrow from "../icons/guessNavigator/RightArrow";
 import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "../utils/edgeDetection";
+import {Button} from "@/components/ui/button";
 
 function GamePage() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -52,6 +53,8 @@ function GamePage() {
 					})
 				))}
 			</div>
+
+			<Button type="button" className="w-full max-w-md">Check</Button>
 		</div>
 	)
 }
