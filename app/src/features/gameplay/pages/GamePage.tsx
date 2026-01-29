@@ -62,9 +62,17 @@ function GamePage() {
 
 				<div className="flex flex-col justify-center">
 					<div className="flex flex-col shadow-gray-400 shadow-md w-max p-1 gap-2 rounded-md">
-						<Eraser />
-						<TrashCan />
-						<Flip />
+						<button type="button">
+							<Eraser />
+						</button>
+
+						<button type="button">
+							<TrashCan />
+						</button>
+
+						<button type="button">
+							<Flip />
+						</button>
 					</div>
 				</div>
 			</div>
