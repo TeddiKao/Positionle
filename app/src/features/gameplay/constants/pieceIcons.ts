@@ -12,7 +12,7 @@ import wQ from "../icons/chess/wQ.svg";
 import wB from "../icons/chess/wB.svg";
 import wR from "../icons/chess/wR.svg";
 
-const icons = {
+const pieceIcons = {
 	bK,
 	bN,
 	bQ,
@@ -28,4 +28,4 @@ const icons = {
 	wP
 }
 
-export { icons }
+export { pieceIcons }
