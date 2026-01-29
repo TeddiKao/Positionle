@@ -40,16 +40,16 @@ function GamePage() {
 					<div className="flex flex-row w-max p-1 rounded-md shadow-md shadow-gray-400">
 						<div className="flex flex-col">
 							{Object.entries(whitePieceIcons).map(([abbreviation, icon]) => (
-								<button type="button">
-									<img className="w-12 h-12" src={icon} alt={abbreviation} key={abbreviation} />
+								<button key={abbreviation} type="button">
+									<img className="w-12 h-12" src={icon} alt={abbreviation} />
 								</button>
 							))}
 						</div>
 
 						<div className="flex flex-col">
 							{Object.entries(blackPieceIcons).map(([abbreviation, icon]) => (
-								<button type="button">
-									<img className="w-12 h-12" src={icon} alt={abbreviation} key={abbreviation} />
+								<button type="button" key={abbreviation}>
+									<img className="w-12 h-12" src={icon} alt={abbreviation} />
 								</button>
 							))}
 						</div>
