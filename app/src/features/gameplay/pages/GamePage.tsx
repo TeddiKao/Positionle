@@ -62,15 +62,15 @@ function GamePage() {
 
 				<div className="flex flex-col justify-center">
 					<div className="flex flex-col shadow-gray-400 shadow-md w-max p-1 gap-2 rounded-md">
-						<button type="button">
+						<button aria-label="Eraser mode (remove a piece)" type="button">
 							<Eraser />
 						</button>
 
-						<button type="button">
+						<button aria-label="Clear board" type="button">
 							<TrashCan />
 						</button>
 
-						<button type="button">
+						<button aria-label="Flip board" type="button">
 							<Flip />
 						</button>
 					</div>
