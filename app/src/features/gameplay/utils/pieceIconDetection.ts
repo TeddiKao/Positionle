@@ -1,4 +1,4 @@
-import {colorAbbreviations, pieceAbbreviations} from "@/features/gameplay/constants/abbrieviations";
+import {colorAbbreviations, pieceAbbreviations} from "@/features/gameplay/constants/abbreviations";
 import {whitePieceIcons, blackPieceIcons} from "@/features/gameplay/constants/pieceIcons";
 
 function getPieceIcon(color: "white" | "black", piece: "queen" | "rook" | "knight" | "bishop" | "king" | "pawn") {
