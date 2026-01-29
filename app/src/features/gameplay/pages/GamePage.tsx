@@ -3,6 +3,9 @@ import LeftArrow from "../icons/guessNavigator/LeftArrow";
 import RightArrow from "../icons/guessNavigator/RightArrow";
 import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "../utils/edgeDetection";
 import {Button} from "@/components/ui/button";
+import Eraser from "@/features/gameplay/icons/actionMenu/Eraser";
+import TrashCan from "@/features/gameplay/icons/actionMenu/TrashCan";
+import Flip from "@/features/gameplay/icons/actionMenu/Flip";
 
 function GamePage() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -56,7 +59,9 @@ function GamePage() {
 				</div>
 
 				<div className="flex flex-col items-center justify-center">
-
+					<Eraser />
+					<TrashCan />
+					<Flip />
 				</div>
 			</div>
 
