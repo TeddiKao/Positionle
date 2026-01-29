@@ -31,27 +31,29 @@ function GamePage() {
 				</button>
 			</div>
 
-			<div className="grid grid-cols-8 w-full max-w-md aspect-square shadow-lg shadow-gray-600">
-				{ranks.map((rank) => (
-					files.map((file, fileIndex) => {
-						const isDark = (rank + fileIndex) % 2 === 1;
+			<div className="flex flex-row">
+				<div className="grid grid-cols-8 w-full max-w-md aspect-square shadow-lg shadow-gray-600">
+					{ranks.map((rank) => (
+						files.map((file, fileIndex) => {
+							const isDark = (rank + fileIndex) % 2 === 1;
 
-						return (
-							<div
-								key={`${file}${rank}`}
-								className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
-							>
-								{isSquareOnLeftEdge(file, "white") && (
-									<span className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{rank}</span>
-								)}
+							return (
+								<div
+									key={`${file}${rank}`}
+									className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
+								>
+									{isSquareOnLeftEdge(file, "white") && (
+										<span className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{rank}</span>
+									)}
 
-								{isSquareOnBottomEdge(rank, "white") && (
-									<span className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{file}</span>
-								)}
-							</div>
-						)
-					})
-				))}
+									{isSquareOnBottomEdge(rank, "white") && (
+										<span className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{file}</span>
+									)}
+								</div>
+							)
+						})
+					))}
+				</div>
 			</div>
 
 			<Button type="button" className="w-full max-w-md hover:opacity-90">Check</Button>
