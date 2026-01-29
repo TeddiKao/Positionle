@@ -34,8 +34,10 @@ function GamePage() {
 				</button>
 			</div>
 
-			<div className="flex flex-row">
-				<div className="grid grid-cols-8 w-full max-w-md aspect-square shadow-lg shadow-gray-600">
+			<div className="grid grid-cols-3 w-full justify-center gap-4">
+				<div></div>
+
+				<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
 					{ranks.map((rank) => (
 						files.map((file, fileIndex) => {
 							const isDark = (rank + fileIndex) % 2 === 1;
@@ -58,10 +60,12 @@ function GamePage() {
 					))}
 				</div>
 
-				<div className="flex flex-col items-center justify-center">
-					<Eraser />
-					<TrashCan />
-					<Flip />
+				<div className="flex flex-col justify-center">
+					<div className="flex flex-col shadow-gray-400 shadow-md w-max p-1 gap-2 rounded-md">
+						<Eraser />
+						<TrashCan />
+						<Flip />
+					</div>
 				</div>
 			</div>
 
