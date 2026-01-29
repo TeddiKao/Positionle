@@ -1,7 +1,7 @@
 import {IconRefresh} from "@tabler/icons-react";
 
 type FlipIconProps = {
-	className: string;
+	className?: string;
 }
 
 function Flip({ className = "" }: FlipIconProps) {
