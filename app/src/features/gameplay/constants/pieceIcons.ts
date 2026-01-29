@@ -12,20 +12,22 @@ import wQ from "../icons/chess/wQ.svg";
 import wB from "../icons/chess/wB.svg";
 import wR from "../icons/chess/wR.svg";
 
-const pieceIcons = {
-	bK,
-	bN,
-	bQ,
-	bB,
-	bR,
-	bP,
-
-	wK,
+const whitePieceIcons = {
+	wP,
 	wN,
-	wQ,
 	wB,
 	wR,
-	wP
+	wQ,
+	wK
 }
 
-export { pieceIcons }
+const blackPieceIcons = {
+	bP,
+	bN,
+	bB,
+	bR,
+	bQ,
+	bK
+}
+
+export { whitePieceIcons, blackPieceIcons }
