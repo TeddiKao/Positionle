@@ -6,9 +6,9 @@ function getPieceIcon(color: "white" | "black", piece: "queen" | "rook" | "knigh
 	const colorAbbreviation = colorAbbreviations[color];
 
 	if (colorAbbreviation === "w") {
-		return whitePieceIcons[`${colorAbbreviation}${pieceAbbreviation}`];
+		return whitePieceIcons[`${colorAbbreviation}${pieceAbbreviation}` as keyof typeof whitePieceIcons];
 	} else {
-		return blackPieceIcons[`${colorAbbreviation}${pieceAbbreviation}`];
+		return blackPieceIcons[`${colorAbbreviation}${pieceAbbreviation}` as keyof typeof blackPieceIcons];
 	}
 }
 
