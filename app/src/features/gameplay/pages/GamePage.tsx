@@ -3,6 +3,9 @@ import LeftArrow from "../icons/guessNavigator/LeftArrow";
 import RightArrow from "../icons/guessNavigator/RightArrow";
 import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "../utils/edgeDetection";
 import {Button} from "@/components/ui/button";
+import Eraser from "@/features/gameplay/icons/actionMenu/Eraser";
+import TrashCan from "@/features/gameplay/icons/actionMenu/TrashCan";
+import Flip from "@/features/gameplay/icons/actionMenu/Flip";
 
 function GamePage() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -31,27 +34,47 @@ function GamePage() {
 				</button>
 			</div>
 
-			<div className="grid grid-cols-8 w-full max-w-md aspect-square shadow-lg shadow-gray-600">
-				{ranks.map((rank) => (
-					files.map((file, fileIndex) => {
-						const isDark = (rank + fileIndex) % 2 === 1;
+			<div className="grid grid-cols-3 w-full justify-center gap-4">
+				<div></div>
 
-						return (
-							<div
-								key={`${file}${rank}`}
-								className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
-							>
-								{isSquareOnLeftEdge(file, "white") && (
-									<span className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{rank}</span>
-								)}
+				<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
+					{ranks.map((rank) => (
+						files.map((file, fileIndex) => {
+							const isDark = (rank + fileIndex) % 2 === 1;
 
-								{isSquareOnBottomEdge(rank, "white") && (
-									<span className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{file}</span>
-								)}
-							</div>
-						)
-					})
-				))}
+							return (
+								<div
+									key={`${file}${rank}`}
+									className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
+								>
+									{isSquareOnLeftEdge(file, "white") && (
+										<span className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{rank}</span>
+									)}
+
+									{isSquareOnBottomEdge(rank, "white") && (
+										<span className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{file}</span>
+									)}
+								</div>
+							)
+						})
+					))}
+				</div>
+
+				<div className="flex flex-col justify-center">
+					<div className="flex flex-col shadow-gray-400 shadow-md w-max p-1 gap-2 rounded-md">
+						<button aria-label="Eraser mode (remove a piece)" type="button">
+							<Eraser />
+						</button>
+
+						<button aria-label="Clear board" type="button">
+							<TrashCan />
+						</button>
+
+						<button aria-label="Flip board" type="button">
+							<Flip />
+						</button>
+					</div>
+				</div>
 			</div>
 
 			<Button type="button" className="w-full max-w-md hover:opacity-90">Check</Button>
