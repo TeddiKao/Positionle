@@ -1,0 +1,20 @@
+import LeftArrow from "@/features/gameplay/icons/guessNavigator/LeftArrow";
+import RightArrow from "@/features/gameplay/icons/guessNavigator/RightArrow";
+
+function GuessNavigator() {
+	return (
+		<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-50 shadow-gray-400">
+			<button aria-label="Previous guess" type="button" className="hover:bg-gray-400 rounded-md">
+				<LeftArrow />
+			</button>
+
+			<p>Guess 1 of 6</p>
+
+			<button aria-label="Next guess" type="button" className="hover:bg-gray-400 rounded-md">
+				<RightArrow />
+			</button>
+		</div>
+	)
+}
+
+export default GuessNavigator;
