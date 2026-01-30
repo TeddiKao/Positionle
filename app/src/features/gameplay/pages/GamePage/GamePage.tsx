@@ -1,7 +1,7 @@
-import PawnLogo from "../icons/logo/PawnLogo";
-import LeftArrow from "../icons/guessNavigator/LeftArrow";
-import RightArrow from "../icons/guessNavigator/RightArrow";
-import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "../utils/edgeDetection";
+import PawnLogo from "../../icons/logo/PawnLogo";
+import LeftArrow from "../../icons/guessNavigator/LeftArrow";
+import RightArrow from "../../icons/guessNavigator/RightArrow";
+import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "../../utils/edgeDetection";
 import {Button} from "@/components/ui/button";
 import Eraser from "@/features/gameplay/icons/actionMenu/Eraser";
 import TrashCan from "@/features/gameplay/icons/actionMenu/TrashCan";
