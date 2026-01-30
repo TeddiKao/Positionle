@@ -12,7 +12,7 @@ function GuessNavigator() {
 					<LeftArrow />
 				</button>
 			) : (
-				<button aria-label="Previous guess" type="button" className="opacity-0">
+				<button aria-label="Previous guess" type="button" className="opacity-40">
 					<LeftArrow />
 				</button>
 			)}
@@ -24,7 +24,7 @@ function GuessNavigator() {
 					<RightArrow />
 				</button>
 			) : (
-				<button aria-label="Next guess" type="button" className="opacity-0">
+				<button aria-label="Next guess" type="button" className="opacity-40">
 					<RightArrow />
 				</button>
 			)}
