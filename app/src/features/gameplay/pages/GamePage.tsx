@@ -24,13 +24,13 @@ function GamePage() {
 			</span>
 
 			<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-50 shadow-gray-400">
-				<button aria-label="Previous guess" type="button" className="hover:bg-gray-300 rounded-md">
+				<button aria-label="Previous guess" type="button" className="hover:bg-gray-400 rounded-md">
 					<LeftArrow />
 				</button>
 
 				<p>Guess 1 of 6</p>
 
-				<button aria-label="Next guess" type="button" className="hover:bg-gray-300 rounded-md">
+				<button aria-label="Next guess" type="button" className="hover:bg-gray-400 rounded-md">
 					<RightArrow />
 				</button>
 			</div>
@@ -40,7 +40,7 @@ function GamePage() {
 					<div className="flex flex-row w-max p-1 rounded-md shadow-md shadow-gray-400">
 						<div className="flex flex-col">
 							{Object.entries(whitePieceIcons).map(([abbreviation, icon]) => (
-								<button key={abbreviation} type="button" className="hover:bg-gray-300 rounded-md">
+								<button key={abbreviation} type="button" className="hover:bg-gray-400 rounded-md">
 									<img className="w-12 h-12" src={icon} alt={abbreviation} />
 								</button>
 							))}
@@ -48,7 +48,7 @@ function GamePage() {
 
 						<div className="flex flex-col">
 							{Object.entries(blackPieceIcons).map(([abbreviation, icon]) => (
-								<button type="button" key={abbreviation} className="hover:bg-gray-300 rounded-md">
+								<button type="button" key={abbreviation} className="hover:bg-gray-400 rounded-md">
 									<img className="w-12 h-12" src={icon} alt={abbreviation} />
 								</button>
 							))}
@@ -81,15 +81,15 @@ function GamePage() {
 
 				<div className="flex flex-col justify-center">
 					<div className="flex flex-col shadow-gray-400 shadow-md w-max px-1 py-2 gap-2 rounded-md">
-						<button aria-label="Eraser mode (remove a piece)" type="button" className="hover:bg-gray-300 rounded-md p-1">
+						<button aria-label="Eraser mode (remove a piece)" type="button" className="hover:bg-gray-400 rounded-md p-1">
 							<Eraser />
 						</button>
 
-						<button aria-label="Clear board" type="button" className="hover:bg-gray-300 rounded-md p-1">
+						<button aria-label="Clear board" type="button" className="hover:bg-gray-400 rounded-md p-1">
 							<TrashCan />
 						</button>
 
-						<button aria-label="Flip board" type="button" className="hover:bg-gray-300 rounded-md p-1">
+						<button aria-label="Flip board" type="button" className="hover:bg-gray-400 rounded-md p-1">
 							<Flip />
 						</button>
 					</div>
