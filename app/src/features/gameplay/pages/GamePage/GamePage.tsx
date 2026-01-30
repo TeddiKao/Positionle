@@ -6,7 +6,7 @@ import ChessboardGrid from "@/features/gameplay/pages/GamePage/components/Chessb
 import ActionsMenu from "@/features/gameplay/pages/GamePage/components/ActionsMenu";
 
 function GamePage() {
-		return (
+	return (
 		<div className="flex flex-col items-center gap-4">
 			<Logo />
 			<GuessNavigator />
