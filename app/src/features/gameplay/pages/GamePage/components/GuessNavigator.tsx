@@ -17,7 +17,7 @@ function GuessNavigator() {
 				</button>
 			)}
 
-			<p>Guess 1 of 6</p>
+			<p>Guess {currentGuess} of 6</p>
 
 			{currentGuess < 6 ? (
 				<button onClick={moveToNextGuess} aria-label="Next guess" type="button" className="hover:bg-gray-400 rounded-md">
