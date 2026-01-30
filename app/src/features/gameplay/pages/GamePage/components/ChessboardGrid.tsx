@@ -29,3 +29,5 @@ function ChessboardGrid() {
 		</div>
 	)
 }
+
+export default ChessboardGrid;
