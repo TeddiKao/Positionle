@@ -80,7 +80,7 @@ function GamePage() {
 				</div>
 
 				<div className="flex flex-col justify-center">
-					<div className="flex flex-col shadow-gray-400 shadow-md w-max p-1 gap-2 rounded-md">
+					<div className="flex flex-col shadow-gray-400 shadow-md w-max px-1 py-2 gap-2 rounded-md">
 						<button aria-label="Eraser mode (remove a piece)" type="button" className="hover:bg-gray-400 rounded-md p-1">
 							<Eraser />
 						</button>
