@@ -1,6 +1,8 @@
 
 // squareFile is a letter from a-h
-function isSquareOnLeftEdge(squareFile: string, orientation: "white" | "black") {
+import type {PieceColor} from "@/features/gameplay/types/chess";
+
+function isSquareOnLeftEdge(squareFile: string, orientation: PieceColor) {
 	if (orientation === "white") {
 		return squareFile === "a";
 	} else {
@@ -9,7 +11,7 @@ function isSquareOnLeftEdge(squareFile: string, orientation: "white" | "black") 
 }
 
 // squareRank is a number from 1-8
-function isSquareOnBottomEdge(squareRank: number, orientation: "white" | "black") {
+function isSquareOnBottomEdge(squareRank: number, orientation: PieceColor) {
 	if (orientation === "white") {
 		return squareRank === 1;
 	} else {
