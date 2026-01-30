@@ -1,10 +1,9 @@
-import {Button} from "@/components/ui/button";
-
 import Logo from "@/features/gameplay/pages/GamePage/components/Logo";
 import GuessNavigator from "@/features/gameplay/pages/GamePage/components/GuessNavigator";
 import PieceSetupMenu from "@/features/gameplay/pages/GamePage/components/PieceSetupMenu";
 import ChessboardGrid from "@/features/gameplay/pages/GamePage/components/ChessboardGrid";
 import ActionsMenu from "@/features/gameplay/pages/GamePage/components/ActionsMenu";
+import CheckAnswerButton from "@/features/gameplay/pages/GamePage/components/CheckAnswerButton";
 
 function GamePage() {
 	return (
@@ -18,7 +17,7 @@ function GamePage() {
 				<ActionsMenu />
 			</div>
 
-			<Button type="button" className="w-full max-w-md hover:opacity-90">Check</Button>
+			<CheckAnswerButton />
 		</div>
 	)
 }
