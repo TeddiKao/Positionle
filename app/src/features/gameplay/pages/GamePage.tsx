@@ -6,6 +6,7 @@ import {Button} from "@/components/ui/button";
 import Eraser from "@/features/gameplay/icons/actionMenu/Eraser";
 import TrashCan from "@/features/gameplay/icons/actionMenu/TrashCan";
 import Flip from "@/features/gameplay/icons/actionMenu/Flip";
+import {blackPieceIcons, whitePieceIcons} from "@/features/gameplay/constants/pieceIcons";
 
 function GamePage() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
@@ -35,7 +36,25 @@ function GamePage() {
 			</div>
 
 			<div className="grid grid-cols-3 w-full justify-center gap-4">
-				<div></div>
+				<div className="flex flex-row justify-end items-center">
+					<div className="flex flex-row w-max p-1 rounded-md shadow-md shadow-gray-400">
+						<div className="flex flex-col">
+							{Object.entries(whitePieceIcons).map(([abbreviation, icon]) => (
+								<button key={abbreviation} type="button">
+									<img className="w-12 h-12" src={icon} alt={abbreviation} />
+								</button>
+							))}
+						</div>
+
+						<div className="flex flex-col">
+							{Object.entries(blackPieceIcons).map(([abbreviation, icon]) => (
+								<button type="button" key={abbreviation}>
+									<img className="w-12 h-12" src={icon} alt={abbreviation} />
+								</button>
+							))}
+						</div>
+					</div>
+				</div>
 
 				<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
 					{ranks.map((rank) => (
