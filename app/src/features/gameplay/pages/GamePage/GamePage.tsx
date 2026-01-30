@@ -1,4 +1,5 @@
 import {Button} from "@/components/ui/button";
+
 import Logo from "@/features/gameplay/pages/GamePage/components/Logo";
 import GuessNavigator from "@/features/gameplay/pages/GamePage/components/GuessNavigator";
 import PieceSetupMenu from "@/features/gameplay/pages/GamePage/components/PieceSetupMenu";
