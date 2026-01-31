@@ -1,23 +1,17 @@
-type ColorAbbreviations = {
+import type {ChessPiece, PieceColor} from "@/features/gameplay/types/chess";
+import type {ColorAbbreviation, PieceNameAbbreviation} from "@/features/gameplay/types/abbreviations";
+
+type ColorToAbbreviation = Record<PieceColor, ColorAbbreviation>
+type PieceToAbbreviation = Record<ChessPiece, PieceNameAbbreviation>;
+type AbbreviationToColor = Record<ColorAbbreviation, PieceColor>;
+type AbbreviationToPiece = Record<PieceNameAbbreviation, ChessPiece>;
+
+const colorAbbreviations: ColorToAbbreviation = {
 	white: "w",
 	black: "b",
 }
 
-type PieceAbbreviations = {
-	king: "K",
-	queen: "Q",
-	rook: "R",
-	knight: "N",
-	bishop: "B",
-	pawn: "P",
-}
-
-const colorAbbreviations: ColorAbbreviations = {
-	white: "w",
-	black: "b",
-}
-
-const pieceAbbreviations: PieceAbbreviations = {
+const pieceAbbreviations: PieceToAbbreviation = {
 	king: "K",
 	queen: "Q",
 	rook: "R",
@@ -26,7 +20,7 @@ const pieceAbbreviations: PieceAbbreviations = {
 	pawn: "P"
 }
 
-const abbreviationsToPieces = {
+const abbreviationsToPieces: AbbreviationToPiece = {
 	K: "king",
 	Q: "queen",
 	R: "rook",
@@ -35,7 +29,7 @@ const abbreviationsToPieces = {
 	P: "pawn"
 }
 
-const abbreviationsToColors = {
+const abbreviationsToColors: AbbreviationToColor = {
 	w: "white",
 	b: "black"
 }
