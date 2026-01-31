@@ -26,4 +26,18 @@ const pieceAbbreviations: PieceAbbreviations = {
 	pawn: "P"
 }
 
-export { colorAbbreviations, pieceAbbreviations }
+const abbreviationsToPieces = {
+	K: "king",
+	Q: "queen",
+	R: "rook",
+	N: "knight",
+	B: "bishop",
+	P: "pawn"
+}
+
+const abbreviationsToColors = {
+	w: "white",
+	b: "black"
+}
+
+export { colorAbbreviations, pieceAbbreviations, abbreviationsToColors, abbreviationsToPieces }
