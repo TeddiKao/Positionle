@@ -1,5 +1,6 @@
 import {blackPieceIcons, whitePieceIcons} from "@/features/gameplay/constants/pieceIcons";
 import {DndContext} from "@dnd-kit/core";
+import PieceForSetup from "@/features/gameplay/pages/GamePage/components/PieceSetupMenu/components/PieceForSetup";
 
 function PieceSetupMenu() {
 	return (
@@ -8,17 +9,13 @@ function PieceSetupMenu() {
 				<div className="flex flex-row w-max p-1 rounded-md shadow-md shadow-gray-400">
 					<div className="flex flex-col">
 						{Object.entries(whitePieceIcons).map(([abbreviation, icon]) => (
-							<button key={abbreviation} type="button" className="hover:bg-gray-400 rounded-md">
-								<img className="w-12 h-12" src={icon} alt={abbreviation}/>
-							</button>
+							<PieceForSetup abbreviation={abbreviation} icon={icon} />
 						))}
 					</div>
 
 					<div className="flex flex-col">
 						{Object.entries(blackPieceIcons).map(([abbreviation, icon]) => (
-							<button type="button" key={abbreviation} className="hover:bg-gray-400 rounded-md">
-								<img className="w-12 h-12" src={icon} alt={abbreviation}/>
-							</button>
+							<PieceForSetup abbreviation={abbreviation} icon={icon} />
 						))}
 					</div>
 				</div>
