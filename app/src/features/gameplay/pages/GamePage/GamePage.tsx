@@ -5,12 +5,23 @@ import ChessboardGrid from "@/features/gameplay/pages/GamePage/components/Chessb
 import ActionsMenu from "@/features/gameplay/pages/GamePage/components/ActionsMenu";
 import CheckAnswerButton from "@/features/gameplay/pages/GamePage/components/CheckAnswerButton";
 import {DndContext, type DragEndEvent} from "@dnd-kit/core";
+import {getPieceInfoFromAbbreviation} from "@/features/gameplay/utils/abbreviations";
+import type {PieceAbbreviation} from "@/features/gameplay/types/abbreviations";
+import useGuessesStore from "@/features/gameplay/stores/guesses";
+import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
 
 function GamePage() {
+	const { addToBoard } = useGuessesStore();
+
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
-			console.log(event.active.id);
-			console.log(event.over.id);
+			if (!event.active.id) return null;
+			if (!event.over.id) return null;
+
+			const draggedPieceInfo = getPieceInfoFromAbbreviation(event.active.id as PieceAbbreviation);
+			const droppedCoordinate = event.over.id as SquareCoordinate;
+
+			addToBoard(droppedCoordinate, draggedPieceInfo)
 		}
 	}
 
