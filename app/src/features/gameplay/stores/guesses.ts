@@ -1,12 +1,13 @@
 import {create} from "zustand";
-import type {BoardRepresentation} from "@/features/gameplay/types/chess";
+import type {GuessInfo} from "@/features/gameplay/types/guesses";
+import {defaultGuessInfo} from "@/features/gameplay/constants/guesses";
 
 type GuessesStore = {
 	currentGuess: number;
 	moveToPreviousGuess: () => void;
 	moveToNextGuess: () => void;
 
-	guesses: Record<1 | 2 | 3 | 4 | 5 | 6, BoardRepresentation>
+	guesses: Record<1 | 2 | 3 | 4 | 5 | 6, GuessInfo>
 }
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -31,12 +32,12 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	},
 
 	guesses: {
-		1: {},
-		2: {},
-		3: {},
-		4: {},
-		5: {},
-		6: {},
+		1: defaultGuessInfo,
+		2: defaultGuessInfo,
+		3: defaultGuessInfo,
+		4: defaultGuessInfo,
+		5: defaultGuessInfo,
+		6: defaultGuessInfo,
 	}
 }))
 
