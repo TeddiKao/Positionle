@@ -46,7 +46,7 @@ function Square({file, rank}: SquareProps) {
 				const key = `${coordinate} ${color} ${piece}`
 
 				return (
-					<img src={pieceIcon} key={key} alt={key} />
+					<img className="absolute" src={pieceIcon} key={key} alt={key} />
 				)
 			})}
 		</div>
