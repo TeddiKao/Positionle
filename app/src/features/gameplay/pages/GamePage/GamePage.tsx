@@ -9,9 +9,10 @@ import {getPieceInfoFromAbbreviation} from "@/features/gameplay/utils/abbreviati
 import type {PieceAbbreviation} from "@/features/gameplay/types/abbreviations";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
+import type {DragMethods} from "@/features/gameplay/types/dragAndDrop";
 
 function GamePage() {
-	const { addToBoard } = useGuessesStore();
+	const { addToBoard, movePieceOnBoard } = useGuessesStore();
 
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
@@ -21,10 +22,18 @@ function GamePage() {
 			if (typeof event.active.id !== "string") return null;
 			if (typeof event.over.id !== "string") return null;
 
-			const draggedPieceInfo = getPieceInfoFromAbbreviation(event.active.id as PieceAbbreviation);
-			const droppedCoordinate = event.over.id as SquareCoordinate;
+			const [dragMethod, info] = event.active.id.split(" ")
+			if ((dragMethod as DragMethods) === "from-menu") {
+				const draggedPieceInfo = getPieceInfoFromAbbreviation(info as PieceAbbreviation);
+				const droppedCoordinate = event.over.id as SquareCoordinate;
 
-			addToBoard(droppedCoordinate, draggedPieceInfo)
+				addToBoard(droppedCoordinate, draggedPieceInfo)
+			} else if ((dragMethod as DragMethods) === "from-square") {
+				const draggedFrom = info;
+				const draggedTo = event.over.id;
+
+				movePieceOnBoard(draggedFrom as SquareCoordinate, draggedTo as SquareCoordinate);
+			}
 		}
 	}
 
