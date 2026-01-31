@@ -24,7 +24,7 @@ function GuessNavigator() {
 					<RightArrow />
 				</button>
 			) : (
-				<button aria-label="Next guess" type="button" className="opacity-40">
+				<button aria-disabled disabled aria-label="Next guess" type="button" className="opacity-40">
 					<RightArrow />
 				</button>
 			)}
