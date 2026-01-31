@@ -18,6 +18,9 @@ function GamePage() {
 			if (!event.active.id) return null;
 			if (!event.over.id) return null;
 
+			if (typeof event.active.id !== "string") return null;
+			if (typeof event.over.id !== "string") return null;
+
 			const draggedPieceInfo = getPieceInfoFromAbbreviation(event.active.id as PieceAbbreviation);
 			const droppedCoordinate = event.over.id as SquareCoordinate;
 
