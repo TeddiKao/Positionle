@@ -35,7 +35,7 @@ function Square({file, rank}: SquareProps) {
 					className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}>{file}</span>
 			)}
 
-			{Object.entries(guesses[currentGuess].guess).map(([coordinate, squareInfo]) => {
+			{Object.entries(guesses[currentGuess]?.guess ?? {}).map(([coordinate, squareInfo]) => {
 				if (!squareInfo) return null;
 				if (coordinate !== `${file}${rank}`) return null;
 
