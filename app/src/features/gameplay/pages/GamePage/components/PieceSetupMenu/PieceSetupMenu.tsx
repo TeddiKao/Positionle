@@ -4,23 +4,25 @@ import PieceForSetup from "@/features/gameplay/pages/GamePage/components/PieceSe
 
 function PieceSetupMenu() {
 	return (
-		<DndContext>
-			<div className="flex flex-row justify-end items-center">
-				<div className="flex flex-row w-max p-1 rounded-md shadow-md shadow-gray-400">
-					<div className="flex flex-col">
+		<div className="flex flex-row justify-end items-center">
+			<div className="flex flex-row w-max p-1 rounded-md shadow-md shadow-gray-400">
+				<div className="flex flex-col">
+					<DndContext>
 						{Object.entries(whitePieceIcons).map(([abbreviation, icon]) => (
 							<PieceForSetup abbreviation={abbreviation} icon={icon} />
 						))}
-					</div>
+					</DndContext>
+				</div>
 
-					<div className="flex flex-col">
+				<div className="flex flex-col">
+					<DndContext>
 						{Object.entries(blackPieceIcons).map(([abbreviation, icon]) => (
 							<PieceForSetup abbreviation={abbreviation} icon={icon} />
 						))}
-					</div>
+					</DndContext>
 				</div>
 			</div>
-		</DndContext>
+		</div>
 	)
 }
 
