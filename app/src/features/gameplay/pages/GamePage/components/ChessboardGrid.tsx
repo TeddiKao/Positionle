@@ -29,6 +29,7 @@ function ChessboardGrid() {
 
 							{Object.entries(guesses[currentGuess].guess).map(([coordinate, squareInfo]) => {
 								if (!squareInfo) return null;
+								if (coordinate !== `${file}${rank}`) return null;
 
 								const color = squareInfo.color;
 								const piece = squareInfo.piece;
