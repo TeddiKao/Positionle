@@ -8,6 +8,6 @@ type SquareInfo = {
 	pieces: ChessPieces;
 }
 
-type BoardRepresentation = Record<SquareCoordinate, SquareInfo>
+type BoardRepresentation = Partial<Record<SquareCoordinate, SquareInfo>>
 
 export type { PieceColor, ChessPieces, BoardRepresentation }
