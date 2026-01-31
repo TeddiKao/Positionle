@@ -1,15 +1,15 @@
 import {create} from "zustand";
-import type {GuessInfo} from "@/features/gameplay/types/guesses";
+import type {GuessInfo, GuessNumbers} from "@/features/gameplay/types/guesses";
 import {defaultGuessInfo} from "@/features/gameplay/constants/guesses";
 import type {SquareInfo} from "@/features/gameplay/types/chess";
 import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
 
 type GuessesStore = {
-	currentGuess: 1 | 2 | 3 | 4 | 5 | 6;
+	currentGuess: GuessNumbers;
 	moveToPreviousGuess: () => void;
 	moveToNextGuess: () => void;
 
-	guesses: Record<1 | 2 | 3 | 4 | 5 | 6, GuessInfo>;
+	guesses: Record<GuessNumbers, GuessInfo>;
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
 	removeFromBoard: (square: SquareCoordinate) => void;
 }
@@ -19,7 +19,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	moveToPreviousGuess: () => {
 		set((state) => {
 			if (state.currentGuess > 1) {
-				return { currentGuess: state.currentGuess - 1 as 1 | 2 | 3 | 4 | 5 | 6 }
+				return { currentGuess: state.currentGuess - 1 as GuessNumbers }
 			} else {
 				return { currentGuess: state.currentGuess }
 			}
@@ -28,7 +28,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	moveToNextGuess: () => {
 		set((state) => {
 			if (state.currentGuess < 6) {
-				return { currentGuess: state.currentGuess + 1 as 1 | 2 | 3 | 4 | 5 | 6 }
+				return { currentGuess: state.currentGuess + 1 as GuessNumbers }
 			} else {
 				return { currentGuess: state.currentGuess }
 			}
