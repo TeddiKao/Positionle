@@ -1,6 +1,6 @@
-type ColorAbbreviations = "w" | "b";
-type PieceNameAbbreviations = "P" | "N" | "B" | "R" | "Q" | "K";
+type ColorAbbreviation = "w" | "b";
+type PieceNameAbbreviation = "P" | "N" | "B" | "R" | "Q" | "K";
 
-type PieceAbbreviation = `${ColorAbbreviations}${PieceNameAbbreviations}`
+type PieceAbbreviation = `${ColorAbbreviation}${PieceNameAbbreviation}`
 
-export type { ColorAbbreviations, PieceNameAbbreviations, PieceAbbreviation };
+export type { ColorAbbreviation, PieceNameAbbreviation, PieceAbbreviation };
