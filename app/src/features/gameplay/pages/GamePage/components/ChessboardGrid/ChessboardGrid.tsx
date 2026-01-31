@@ -1,4 +1,4 @@
-import Square from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square";
+import Square from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/Square";
 
 function ChessboardGrid() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
