@@ -10,4 +10,4 @@ type SquareInfo = {
 
 type BoardRepresentation = Partial<Record<SquareCoordinate, SquareInfo>>
 
-export type { PieceColor, ChessPieces, BoardRepresentation }
+export type { PieceColor, ChessPieces, BoardRepresentation, SquareInfo }
