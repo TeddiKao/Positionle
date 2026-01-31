@@ -1,13 +1,14 @@
 import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "@/features/gameplay/utils/edgeDetection";
-import {getPieceIcon} from "@/features/gameplay/utils/pieceIconDetection";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import {DndContext} from "@dnd-kit/core";
+import Square from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square";
+import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
 
 function ChessboardGrid() {
 	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 	const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
 
-	const { currentGuess, guesses } = useGuessesStore();
+	const {currentGuess, guesses} = useGuessesStore();
 
 	return (
 		<DndContext>
@@ -35,13 +36,9 @@ function ChessboardGrid() {
 									if (!squareInfo) return null;
 									if (coordinate !== `${file}${rank}`) return null;
 
-									const color = squareInfo.color;
-									const piece = squareInfo.piece;
-
-									const pieceIcon = getPieceIcon(color, piece);
-
-									return <img key={`${coordinate} ${color} ${piece}`} src={pieceIcon}
-												alt={`${color} ${piece}`}/>
+									return <Square color={squareInfo.color} piece={squareInfo.piece}
+												   coordinate={coordinate as SquareCoordinate}
+												   key={`${coordinate} ${squareInfo.color} ${squareInfo.piece}`}/>
 								})}
 							</div>
 						)
