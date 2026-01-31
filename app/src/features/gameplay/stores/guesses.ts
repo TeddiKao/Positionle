@@ -1,9 +1,12 @@
 import {create} from "zustand";
+import type {BoardRepresentation} from "@/features/gameplay/types/chess";
 
 type GuessesStore = {
 	currentGuess: number;
 	moveToPreviousGuess: () => void;
 	moveToNextGuess: () => void;
+
+	guesses: Record<1 | 2 | 3 | 4 | 5 | 6, BoardRepresentation>
 }
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -25,6 +28,15 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				return { currentGuess: state.currentGuess }
 			}
 		})
+	},
+
+	guesses: {
+		1: {},
+		2: {},
+		3: {},
+		4: {},
+		5: {},
+		6: {},
 	}
 }))
 
