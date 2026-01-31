@@ -6,17 +6,25 @@ type GuessesStore = {
 	moveToNextGuess: () => void;
 }
 
-const useGuessesStore = create<GuessesStore>((set, get) => ({
+const useGuessesStore = create<GuessesStore>((set) => ({
 	currentGuess: 1,
 	moveToPreviousGuess: () => {
-		if (get().currentGuess > 1) {
-			set({ currentGuess: get().currentGuess - 1 });
-		}
+		set((state) => {
+			if (state.currentGuess > 1) {
+				return { currentGuess: state.currentGuess - 1 }
+			} else {
+				return { currentGuess: state.currentGuess }
+			}
+		})
 	},
 	moveToNextGuess: () => {
-		if (get().currentGuess < 6) {
-			set({ currentGuess: get().currentGuess + 1 });
-		}
+		set((state) => {
+			if (state.currentGuess < 6) {
+				return { currentGuess: state.currentGuess + 1 }
+			} else {
+				return { currentGuess: state.currentGuess }
+			}
+		})
 	}
 }))
 
