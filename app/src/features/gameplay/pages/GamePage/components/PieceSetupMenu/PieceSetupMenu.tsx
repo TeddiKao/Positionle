@@ -7,13 +7,13 @@ function PieceSetupMenu() {
 			<div className="flex flex-row w-max p-1 rounded-md shadow-md shadow-gray-400">
 				<div className="flex flex-col">
 					{Object.entries(whitePieceIcons).map(([abbreviation, icon]) => (
-						<PieceForSetup abbreviation={abbreviation} icon={icon} />
+						<PieceForSetup key={abbreviation} abbreviation={abbreviation} icon={icon} />
 					))}
 				</div>
 
 				<div className="flex flex-col">
 					{Object.entries(blackPieceIcons).map(([abbreviation, icon]) => (
-						<PieceForSetup abbreviation={abbreviation} icon={icon} />
+						<PieceForSetup key={abbreviation} abbreviation={abbreviation} icon={icon} />
 					))}
 			</div>
 			</div>
