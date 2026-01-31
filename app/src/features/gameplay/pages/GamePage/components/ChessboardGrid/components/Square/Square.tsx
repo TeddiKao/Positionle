@@ -11,7 +11,7 @@ type SquareProps = {
 }
 
 function Square({file, rank}: SquareProps) {
-	const {setNodeRef: setDroppableNodeRef} = useDroppable({
+	const {setNodeRef} = useDroppable({
 		id: `${file}${rank}`
 	});
 
@@ -23,7 +23,7 @@ function Square({file, rank}: SquareProps) {
 
 	return (
 		<div
-			ref={setDroppableNodeRef}
+			ref={setNodeRef}
 			key={`${file}${rank}`}
 			className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
 		>
