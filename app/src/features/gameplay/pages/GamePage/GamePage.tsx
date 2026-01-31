@@ -1,6 +1,6 @@
 import Logo from "@/features/gameplay/pages/GamePage/components/Logo";
 import GuessNavigator from "@/features/gameplay/pages/GamePage/components/GuessNavigator";
-import PieceSetupMenu from "@/features/gameplay/pages/GamePage/components/PieceSetupMenu";
+import PieceSetupMenu from "@/features/gameplay/pages/GamePage/components/PieceSetupMenu/PieceSetupMenu";
 import ChessboardGrid from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/ChessboardGrid";
 import ActionsMenu from "@/features/gameplay/pages/GamePage/components/ActionsMenu";
 import CheckAnswerButton from "@/features/gameplay/pages/GamePage/components/CheckAnswerButton";
