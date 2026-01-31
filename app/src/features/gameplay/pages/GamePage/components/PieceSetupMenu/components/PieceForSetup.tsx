@@ -6,7 +6,7 @@ type PieceForSetupProps = {
 }
 
 function PieceForSetup({ abbreviation, icon }: PieceForSetupProps) {
-	const { attributes, listeners, setNodeRef, transform } = useDraggable({
+	const { isDragging, attributes, listeners, setNodeRef, transform } = useDraggable({
 		id: abbreviation
 	});
 
@@ -14,8 +14,12 @@ function PieceForSetup({ abbreviation, icon }: PieceForSetupProps) {
 		transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
 	} : undefined;
 
-	return (
-		<button style={style} ref={setNodeRef} type="button" key={abbreviation} {...listeners} {...attributes} className="hover:bg-gray-400 rounded-md">
+	return isDragging ? (
+		<button style={style} ref={setNodeRef} type="button" key={abbreviation} {...listeners} {...attributes} className="rounded-md z-50">
+			<img className="w-12 h-12" src={icon} alt={abbreviation}/>
+		</button>
+	) : (
+		<button style={style} ref={setNodeRef} type="button" key={abbreviation} {...listeners} {...attributes} className="hover:bg-gray-400 rounded-md z-50">
 			<img className="w-12 h-12" src={icon} alt={abbreviation}/>
 		</button>
 	)
