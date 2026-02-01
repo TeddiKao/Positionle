@@ -21,6 +21,8 @@ function getPieceCounts(position: BoardRepresentation) {
 }
 
 function detectCorrectPlacements(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation, guessResult: GuessResult) {
+	const correctPlacements: BoardRepresentation = {}
+
 	Object.entries(submittedPosition).forEach(([squareCoordinate, submittedSquareInfo]) => {
 		const correctSquareInfo = correctPosition[squareCoordinate as SquareCoordinate];
 		if (!correctSquareInfo) return;
@@ -32,39 +34,53 @@ function detectCorrectPlacements(correctPosition: BoardRepresentation, submitted
 			resultType: "correct",
 			taxiDistance: null
 		}
+
+		correctPlacements[squareCoordinate as SquareCoordinate] = submittedSquareInfo;
 	})
 
+
+	return correctPlacements;
 }
 
-function detectPlacementsNotInGame(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation, guessResult: GuessResult) {
+function detectPlacementsNotInGame(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation, correctPieces: BoardRepresentation, guessResult: GuessResult) {
 	const correctPositionPieceCounts = getPieceCounts(correctPosition);
 	const submittedPositionPieceCounts = structuredClone(pieceCounts);
 
-	console.log(correctPositionPieceCounts);
+	Object.entries(correctPieces).forEach(([, correctSquareInfo]) => {
+		const submittedPiece = correctSquareInfo.piece;
+		const submittedPieceColor = correctSquareInfo.color;
+
+		const abbreviation = `${colorAbbreviations[submittedPieceColor]}${pieceAbbreviations[submittedPiece]}`;
+
+		submittedPositionPieceCounts[abbreviation as PieceAbbreviation] += 1;
+	})
 
 	Object.entries(submittedPosition).forEach(([squareCoordinate, submittedSquareInfo]) => {
+		if (Object.keys(correctPieces).includes(squareCoordinate)) return;
+
 		const submittedPiece = submittedSquareInfo.piece;
 		const submittedPieceColor = submittedSquareInfo.color;
 
 		const abbreviation = `${colorAbbreviations[submittedPieceColor]}${pieceAbbreviations[submittedPiece]}`;
-
-		console.log(correctPositionPieceCounts[abbreviation as PieceAbbreviation]);
-		console.log(submittedPositionPieceCounts[abbreviation as PieceAbbreviation]);
 
 		if (correctPositionPieceCounts[abbreviation as PieceAbbreviation] <= submittedPositionPieceCounts[abbreviation as PieceAbbreviation]) {
 			guessResult[squareCoordinate as SquareCoordinate] = {
 				resultType: "notInGame",
 				taxiDistance: null
 			}
+
+			return;
 		}
+
+		submittedPositionPieceCounts[abbreviation as PieceAbbreviation] += 1;
 	})
 }
 
 function checkAnswer(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation) {
 	const guessResult: GuessResult = {}
 
-	detectCorrectPlacements(correctPosition, submittedPosition, guessResult);
-	detectPlacementsNotInGame(correctPosition, submittedPosition, guessResult);
+	const correctPlacements = detectCorrectPlacements(correctPosition, submittedPosition, guessResult);
+	detectPlacementsNotInGame(correctPosition, submittedPosition, correctPlacements, guessResult);
 
 	return guessResult;
 }
