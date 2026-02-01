@@ -5,6 +5,7 @@ import PieceIcon
 	from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/components/PieceIcon";
 import type {File, Rank, SquareCoordinate} from "@/features/gameplay/types/coordinates";
 import {files} from "@/features/gameplay/constants/coordinates";
+import {clsx} from "clsx";
 
 type SquareProps = {
 	file: File,
@@ -17,15 +18,33 @@ function Square({file, rank}: SquareProps) {
 	});
 
 	const { guesses, currentGuess } = useGuessesStore();
+	const guessResult = guesses[currentGuess].guessResult;
+	const squareResult = guessResult?.[`${file}${rank}`]
 
 	const fileIndex = files.indexOf(file);
 	const isDark = (rank + fileIndex) % 2 === 1;
+
+	function getColorClass() {
+		if (squareResult?.resultType === "correct") {
+			if (isDark) {
+				return "bg-green-700"
+			} else {
+				return "bg-green-600"
+			}
+		}
+
+		if (isDark) {
+			return "bg-gray-400";
+		} else {
+			return "bg-gray-100"
+		}
+	}
 
 	return (
 		<div
 			ref={setNodeRef}
 			key={`${file}${rank}`}
-			className={`${isDark ? "bg-gray-400" : "bg-gray-100"} relative`}
+			className={clsx(getColorClass(), "relative")}
 		>
 			{isSquareOnLeftEdge(file, "white") && (
 				<span
