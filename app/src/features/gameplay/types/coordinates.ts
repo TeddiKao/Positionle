@@ -3,4 +3,4 @@ type Rank = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 type SquareCoordinate = `${File}${Rank}`
 
-export type { SquareCoordinate }
+export type { SquareCoordinate, File, Rank }
