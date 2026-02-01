@@ -7,6 +7,8 @@ import {pieceCounts} from "@/features/gameplay/constants/answerCheck";
 import {getAbbreviationFromPieceInfo, getPieceInfoFromAbbreviation} from "@/features/gameplay/utils/abbreviations";
 import {calculateTaxiDistance} from "@/features/gameplay/utils/distanceCalculation";
 
+type PieceDistances = Partial<Record<SquareCoordinate, Partial<Record<SquareCoordinate, number>>>>;
+
 function getPieceCounts(position: BoardRepresentation) {
 	const positionPieceCounts = structuredClone(pieceCounts);
 
@@ -96,7 +98,7 @@ function detectCorrectPlacements(correctPosition: BoardRepresentation, submitted
 	return correctPlacements;
 }
 
-function sortPieceDistances(pieceDistances: Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", number>>>>) {
+function sortPieceDistances(pieceDistances: PieceDistances) {
 	Object.entries(pieceDistances).forEach(([coordinateToGuess, guessedPieceDistances]) => {
 		const distanceEntries = Object.entries(guessedPieceDistances)
 
@@ -114,7 +116,7 @@ function sortPieceDistances(pieceDistances: Partial<Record<"a1" | "a2" | "a3" | 
 	});
 }
 
-function selectClosestPiecesToDisplayAsWrongLocation(pieceDistances: Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", number>>>>, guessResult: GuessResult) {
+function selectClosestPiecesToDisplayAsWrongLocation(pieceDistances: PieceDistances, guessResult: GuessResult) {
 	Object.entries(pieceDistances).forEach(([, guessedPieceDistances]) => {
 		const closestCoordinate = Object.keys(guessedPieceDistances)[0];
 		const closestDistance = guessedPieceDistances[closestCoordinate as SquareCoordinate];
@@ -128,7 +130,7 @@ function selectClosestPiecesToDisplayAsWrongLocation(pieceDistances: Partial<Rec
 	});
 }
 
-function markLeftoverSquaresAsNotInGame(pieceDistances: Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", number>>>>, guessResult: GuessResult) {
+function markLeftoverSquaresAsNotInGame(pieceDistances: PieceDistances, guessResult: GuessResult) {
 	Object.entries(pieceDistances).forEach(([, leftoverDistances]) => {
 		Object.keys(leftoverDistances).forEach((leftoverSquareCoordinate) => {
 			markSquareAsNotInGame(leftoverSquareCoordinate as SquareCoordinate, guessResult);
@@ -136,7 +138,7 @@ function markLeftoverSquaresAsNotInGame(pieceDistances: Partial<Record<"a1" | "a
 	})
 }
 
-function constructPieceDistances(allSubmittedPieces: BoardRepresentation, correctPieces: BoardRepresentation, allPiecesInPositionToGuess: BoardRepresentation, pieceDistances: Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", Partial<Record<"a1" | "a2" | "a3" | "a4" | "a5" | "a6" | "a7" | "a8" | "b1" | "b2" | "b3" | "b4" | "b5" | "b6" | "b7" | "b8" | "c1" | "c2" | "c3" | "c4" | "c5" | "c6" | "c7" | "c8" | "d1" | "d2" | "d3" | "d4" | "d5" | "d6" | "d7" | "d8" | "e1" | "e2" | "e3" | "e4" | "e5" | "e6" | "e7" | "e8" | "f1" | "f2" | "f3" | "f4" | "f5" | "f6" | "f7" | "f8" | "g1" | "g2" | "g3" | "g4" | "g5" | "g6" | "g7" | "g8" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "h7" | "h8", number>>>>) {
+function constructPieceDistances(allSubmittedPieces: BoardRepresentation, correctPieces: BoardRepresentation, allPiecesInPositionToGuess: BoardRepresentation, pieceDistances: PieceDistances) {
 	Object.keys(allSubmittedPieces).forEach((submittedPieceCoordinate) => {
 		if (Object.keys(correctPieces).includes(submittedPieceCoordinate)) return;
 
@@ -162,7 +164,7 @@ function detectIncorrectPlacements(correctPosition: BoardRepresentation, submitt
 		submittedPositionPieceCounts[abbreviation as PieceAbbreviation] += 1;
 	})
 
-	const pieceDistances: Partial<Record<SquareCoordinate, Partial<Record<SquareCoordinate, number>>>> = {};
+	const pieceDistances: PieceDistances = {};
 
 	Object.entries(submittedPosition).forEach(([squareCoordinate, submittedSquareInfo]) => {
 		if (Object.keys(correctPieces).includes(squareCoordinate)) return;
