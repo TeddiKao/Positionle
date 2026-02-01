@@ -15,12 +15,8 @@ function PieceForSetup({ abbreviation, icon }: PieceForSetupProps) {
 		transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
 	} : undefined;
 
-	return isDragging ? (
-		<button style={style} ref={setNodeRef} type="button" key={abbreviation} {...listeners} {...attributes} className="rounded-md z-50">
-			<img className="w-12 h-12" src={icon} alt={abbreviation}/>
-		</button>
-	) : (
-		<button style={style} ref={setNodeRef} type="button" key={abbreviation} {...listeners} {...attributes} className="hover:bg-gray-400 rounded-md z-50">
+	return (
+		<button style={style} ref={setNodeRef} type="button" key={abbreviation} {...listeners} {...attributes} className={`${isDragging ? "" : "hover:bg-gray-400"} rounded-md z-50`}>
 			<img className="w-12 h-12" src={icon} alt={abbreviation}/>
 		</button>
 	)
