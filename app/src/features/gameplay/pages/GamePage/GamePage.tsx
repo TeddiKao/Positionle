@@ -18,6 +18,7 @@ function GamePage() {
 
 	// Only use in development. For production, comment this out
 	useEffect(() => {
+		// Replace "dualKingsideCastlingTest" with any position you like
 		updateCorrectPosition(dualKingsideCastlingTest);
 	}, [updateCorrectPosition]);
 
