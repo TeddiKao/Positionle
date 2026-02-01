@@ -1,7 +1,9 @@
-import {getPieceIcon} from "@/features/gameplay/utils/pieceIconDetection";
 import {useDroppable} from "@dnd-kit/core";
 import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "@/features/gameplay/utils/edgeDetection";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
+import PieceIcon
+	from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/components/PieceIcon";
+import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
 
 type SquareProps = {
 	file: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h",
@@ -39,15 +41,7 @@ function Square({file, rank}: SquareProps) {
 				if (!squareInfo) return null;
 				if (coordinate !== `${file}${rank}`) return null;
 
-				const color = squareInfo.color;
-				const piece = squareInfo.piece;
-
-				const pieceIcon = getPieceIcon(color, piece);
-				const key = `${coordinate} ${color} ${piece}`
-
-				return (
-					<img className="absolute" src={pieceIcon} key={key} alt={key} />
-				)
+				return <PieceIcon key={coordinate} squareInfo={squareInfo} coordinate={coordinate as SquareCoordinate} />
 			})}
 		</div>
 	)

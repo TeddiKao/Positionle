@@ -7,7 +7,7 @@ type PieceForSetupProps = {
 
 function PieceForSetup({ abbreviation, icon }: PieceForSetupProps) {
 	const { isDragging, attributes, listeners, setNodeRef, transform } = useDraggable({
-		id: abbreviation
+		id: `from-menu ${abbreviation}`
 	});
 
 	const style = transform ? {

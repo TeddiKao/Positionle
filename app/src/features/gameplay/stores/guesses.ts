@@ -12,6 +12,7 @@ type GuessesStore = {
 	guesses: Record<GuessNumbers, GuessInfo>;
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
 	removeFromBoard: (square: SquareCoordinate) => void;
+	movePieceOnBoard: (from: SquareCoordinate, to: SquareCoordinate) => void;
 }
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -65,6 +66,30 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 		set((state) => {
 			const copiedBoard = structuredClone(state.guesses[state.currentGuess].guess);
 			delete copiedBoard[square];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						guess: copiedBoard
+					}
+				}
+			}
+		})
+	},
+
+	movePieceOnBoard: (from, to) => {
+		set((state) => {
+			const copiedBoard = structuredClone(state.guesses[state.currentGuess].guess);
+			const squareInfo = copiedBoard[from];
+
+			if (from === to) return state;
+			if (!squareInfo) return state;
+
+			delete copiedBoard[from];
+
+			copiedBoard[to] = squareInfo;
 
 			return {
 				guesses: {
