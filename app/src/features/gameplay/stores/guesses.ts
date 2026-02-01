@@ -11,6 +11,7 @@ type GuessesStore = {
 
 	usedGuesses: 0 | GuessNumbers;
 	increaseUsedGuesses: () => void;
+	resetUsedGuesses: () => void;
 
 	guesses: Record<GuessNumbers, GuessInfo>;
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
@@ -48,6 +49,10 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				return { usedGuesses: state.usedGuesses }
 			}
 		})
+	},
+
+	resetUsedGuesses: () => {
+		set({ usedGuesses: 0 })
 	},
 
 	guesses: {
