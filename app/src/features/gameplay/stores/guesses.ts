@@ -27,7 +27,7 @@ type GuessesStore = {
 	submitGuess: () => void;
 }
 
-const useGuessesStore = create<GuessesStore>((set, get) => ({
+const useGuessesStore = create<GuessesStore>((set) => ({
 	currentGuess: 1,
 	moveToPreviousGuess: () => {
 		set((state) => {
@@ -142,13 +142,12 @@ const useGuessesStore = create<GuessesStore>((set, get) => ({
 			if (!state.correctPosition) return {};
 
 			const submission = state.guesses[state.currentGuess].guess;
-			if (!submission) return {}
+			if (!submission) return {};
 
 			const guessResult = checkAnswer(state.correctPosition, submission);
 
-			get().increaseUsedGuesses();
-
 			return {
+				usedGuesses: state.usedGuesses < 6 ? state.usedGuesses + 1 as GuessNumbers : state.usedGuesses,
 				guesses: {
 					...state.guesses,
 					[state.currentGuess]: {
