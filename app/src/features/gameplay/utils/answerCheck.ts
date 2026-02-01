@@ -40,8 +40,6 @@ function getDistancesOfCoordinateFromCoordinates(coordinate: SquareCoordinate, c
 		}
 	})
 
-	console.log(distanceEntries);
-
 	return Object.fromEntries(distanceEntries);
 }
 
@@ -107,24 +105,80 @@ function detectIncorrectPlacements(correctPosition: BoardRepresentation, submitt
 		submittedPositionPieceCounts[abbreviation as PieceAbbreviation] += 1;
 	})
 
+	const pieceDistances: Partial<Record<SquareCoordinate, Partial<Record<SquareCoordinate, number>>>> = {};
+
 	Object.entries(submittedPosition).forEach(([squareCoordinate, submittedSquareInfo]) => {
 		if (Object.keys(correctPieces).includes(squareCoordinate)) return;
 
 		const abbreviation = getAbbreviationFromPieceInfo(submittedSquareInfo);
 
-		if (correctPositionPieceCounts[abbreviation as PieceAbbreviation] <= submittedPositionPieceCounts[abbreviation as PieceAbbreviation]) {
+		if (correctPositionPieceCounts[abbreviation as PieceAbbreviation] === 0) {
 			markSquareAsNotInGame(squareCoordinate as SquareCoordinate, guessResult);
 			return;
 		}
 
-		// Represents all pieces of the current type in the position the user should guess
-		const allPiecesInCorrectPosition = getAllPiecesInPosition(correctPosition, abbreviation);
-		const sortedDistances = getDistancesOfCoordinateFromCoordinates(squareCoordinate as SquareCoordinate, Object.keys(allPiecesInCorrectPosition) as SquareCoordinate[]);
-		const closestDistance = Object.values(sortedDistances)[0];
+		const allSubmittedPieces = getAllPiecesInPosition(submittedPosition, abbreviation);
+		const numSubmittedPieces = Object.keys(allSubmittedPieces).length;
+		const allPiecesInPositionToGuess = getAllPiecesInPosition(correctPosition, abbreviation);
+		const numPiecesInPositionToGuess = Object.keys(allPiecesInPositionToGuess).length;
 
-		markSquareAsWrongPosition(squareCoordinate as SquareCoordinate, closestDistance, guessResult);
-		submittedPositionPieceCounts[abbreviation as PieceAbbreviation] += 1;
-	})
+
+		if (numSubmittedPieces <= numPiecesInPositionToGuess) {
+			const distances = getDistancesOfCoordinateFromCoordinates(squareCoordinate as SquareCoordinate, Object.keys(allPiecesInPositionToGuess) as SquareCoordinate[]);
+			const closestDistance = Object.values(distances)[0];
+
+			markSquareAsWrongPosition(squareCoordinate as SquareCoordinate, closestDistance, guessResult);
+		} else {
+			Object.keys(allSubmittedPieces).forEach((submittedPieceCoordinate) => {
+				if (Object.keys(correctPieces).includes(submittedPieceCoordinate)) return;
+
+				Object.keys(allPiecesInPositionToGuess).forEach((pieceToGuessCoordinate) => {
+					if (Object.keys(correctPieces).includes(pieceToGuessCoordinate)) return;
+
+					const taxiDistance = calculateTaxiDistance(submittedPieceCoordinate as SquareCoordinate, pieceToGuessCoordinate as SquareCoordinate);
+					if (pieceDistances[pieceToGuessCoordinate as SquareCoordinate] === undefined) {
+						pieceDistances[pieceToGuessCoordinate as SquareCoordinate] = {};
+					}
+
+					pieceDistances[pieceToGuessCoordinate as SquareCoordinate]![submittedPieceCoordinate as SquareCoordinate] = taxiDistance;
+				})
+			})
+
+			Object.entries(pieceDistances).forEach(([coordinateToGuess, guessedPieceDistances]) => {
+				const distanceEntries = Object.entries(guessedPieceDistances)
+
+				distanceEntries.sort(([, aDistance], [, bDistance]) => {
+					if (aDistance < bDistance) {
+						return -1
+					} else if (aDistance > bDistance) {
+						return 1;
+					} else {
+						return 0;
+					}
+				});
+
+				pieceDistances[coordinateToGuess as SquareCoordinate] = Object.fromEntries(distanceEntries);
+			});
+
+			Object.entries(pieceDistances).forEach(([, guessedPieceDistances]) => {
+				const closestCoordinate = Object.keys(guessedPieceDistances)[0];
+				const closestDistance = guessedPieceDistances[closestCoordinate as SquareCoordinate];
+				if (!closestDistance) return;
+
+				markSquareAsWrongPosition(closestCoordinate as SquareCoordinate, closestDistance, guessResult);
+
+				Object.entries(pieceDistances).forEach(([, otherGuessedPieceDistances]) => {
+					delete otherGuessedPieceDistances[closestCoordinate as SquareCoordinate];
+				})
+			});
+
+			Object.entries(pieceDistances).forEach(([, leftoverDistances]) => {
+				Object.keys(leftoverDistances).forEach((leftoverSquareCoordinate) => {
+					markSquareAsNotInGame(leftoverSquareCoordinate as SquareCoordinate, guessResult);
+				})
+			})
+		}
+	});
 }
 
 function checkAnswer(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation) {
