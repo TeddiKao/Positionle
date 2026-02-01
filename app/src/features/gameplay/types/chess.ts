@@ -1,4 +1,13 @@
-type PieceColor = "white" | "black";
-type ChessPieces = "queen" | "rook" | "knight" | "bishop" | "pawn";
+import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
 
-export type { PieceColor, ChessPieces }
+type PieceColor = "white" | "black";
+type ChessPiece = "queen" | "rook" | "knight" | "bishop" | "pawn" | "king";
+
+type SquareInfo = {
+	color: PieceColor;
+	piece: ChessPiece;
+}
+
+type BoardRepresentation = Partial<Record<SquareCoordinate, SquareInfo>>
+
+export type { PieceColor, ChessPiece, BoardRepresentation, SquareInfo }
