@@ -1,7 +1,8 @@
 import {useDraggable} from "@dnd-kit/core";
+import type {PieceAbbreviation} from "@/features/gameplay/types/abbreviations";
 
 type PieceForSetupProps = {
-	abbreviation: string,
+	abbreviation: PieceAbbreviation,
 	icon: string,
 }
 
