@@ -4,6 +4,7 @@ import type {GuessResult} from "@/features/gameplay/types/guesses";
 import type {PieceAbbreviation} from "@/features/gameplay/types/abbreviations";
 import {colorAbbreviations, pieceAbbreviations} from "@/features/gameplay/constants/abbreviations";
 import {pieceCounts} from "@/features/gameplay/constants/answerCheck";
+import {getAbbreviationFromPieceInfo} from "@/features/gameplay/utils/abbreviations";
 
 function getPieceCounts(position: BoardRepresentation) {
 	const positionPieceCounts = structuredClone(pieceCounts);
@@ -47,21 +48,14 @@ function detectPlacementsNotInGame(correctPosition: BoardRepresentation, submitt
 	const submittedPositionPieceCounts = structuredClone(pieceCounts);
 
 	Object.entries(correctPieces).forEach(([, correctSquareInfo]) => {
-		const submittedPiece = correctSquareInfo.piece;
-		const submittedPieceColor = correctSquareInfo.color;
-
-		const abbreviation = `${colorAbbreviations[submittedPieceColor]}${pieceAbbreviations[submittedPiece]}`;
-
+		const abbreviation = getAbbreviationFromPieceInfo(correctSquareInfo);
 		submittedPositionPieceCounts[abbreviation as PieceAbbreviation] += 1;
 	})
 
 	Object.entries(submittedPosition).forEach(([squareCoordinate, submittedSquareInfo]) => {
 		if (Object.keys(correctPieces).includes(squareCoordinate)) return;
 
-		const submittedPiece = submittedSquareInfo.piece;
-		const submittedPieceColor = submittedSquareInfo.color;
-
-		const abbreviation = `${colorAbbreviations[submittedPieceColor]}${pieceAbbreviations[submittedPiece]}`;
+		const abbreviation = getAbbreviationFromPieceInfo(submittedSquareInfo);
 
 		if (correctPositionPieceCounts[abbreviation as PieceAbbreviation] <= submittedPositionPieceCounts[abbreviation as PieceAbbreviation]) {
 			guessResult[squareCoordinate as SquareCoordinate] = {
