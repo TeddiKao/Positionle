@@ -9,6 +9,9 @@ type GuessesStore = {
 	moveToPreviousGuess: () => void;
 	moveToNextGuess: () => void;
 
+	usedGuesses: 0 | GuessNumbers;
+	increaseUsedGuesses: () => void;
+
 	guesses: Record<GuessNumbers, GuessInfo>;
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
 	removeFromBoard: (square: SquareCoordinate) => void;
@@ -32,6 +35,17 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				return { currentGuess: state.currentGuess + 1 as GuessNumbers }
 			} else {
 				return { currentGuess: state.currentGuess }
+			}
+		})
+	},
+
+	usedGuesses: 0,
+	increaseUsedGuesses: () => {
+		set((state) => {
+			if (state.usedGuesses < 6) {
+				return { usedGuesses: state.usedGuesses + 1 as GuessNumbers }
+			} else {
+				return { usedGuesses: state.usedGuesses }
 			}
 		})
 	},
