@@ -21,6 +21,6 @@ function getPieceInfoFromAbbreviation(abbreviation: PieceAbbreviation): PieceInf
 	const piece = getPieceTypeFromAbbreviation(pieceAbbreviation);
 
 	return { color, piece }
-};
+}
 
 export { getPieceInfoFromAbbreviation }
