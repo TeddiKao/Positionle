@@ -8,12 +8,12 @@ type SquareResult = {
 	taxiDistance: number | null
 }
 
-type GuessResults= Partial<Record<SquareCoordinate, SquareResult>>
+type GuessResult = Partial<Record<SquareCoordinate, SquareResult>>
 
 type GuessInfo = {
 	guess: BoardRepresentation;
 	isSubmitted: boolean;
-	guessResult: GuessResults | null
+	guessResult: GuessResult | null
 }
 
-export type { GuessInfo, GuessNumbers };
+export type { GuessInfo, GuessNumbers, GuessResult };
