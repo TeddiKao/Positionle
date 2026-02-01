@@ -14,7 +14,7 @@ import {useEffect} from "react";
 import {dualKingsideCastlingTest} from "@/dev/testPositions";
 
 function GamePage() {
-	const { addToBoard, movePieceOnBoard, updateCorrectPosition } = useGuessesStore();
+	const { guesses, currentGuess, addToBoard, movePieceOnBoard, updateCorrectPosition } = useGuessesStore();
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
@@ -30,6 +30,8 @@ function GamePage() {
 
 			if (typeof event.active.id !== "string") return null;
 			if (typeof event.over.id !== "string") return null;
+
+			if (guesses[currentGuess].isSubmitted) return null;
 
 			const [dragMethod, info] = event.active.id.split(" ")
 			if ((dragMethod as DragMethods) === "from-menu") {
