@@ -41,7 +41,7 @@ function Square({file, rank}: SquareProps) {
 				if (!squareInfo) return null;
 				if (coordinate !== `${file}${rank}`) return null;
 
-				return <PieceIcon squareInfo={squareInfo} coordinate={coordinate as SquareCoordinate} />
+				return <PieceIcon key={coordinate} squareInfo={squareInfo} coordinate={coordinate as SquareCoordinate} />
 			})}
 		</div>
 	)
