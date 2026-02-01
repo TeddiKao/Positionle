@@ -33,6 +33,14 @@ function Square({file, rank}: SquareProps) {
 			}
 		}
 
+		if (squareResult?.resultType === "notInGame") {
+			if (isDark) {
+				return "bg-gray-700"
+			} else {
+				return "bg-gray-600"
+			}
+		}
+
 		if (isDark) {
 			return "bg-gray-400";
 		} else {
