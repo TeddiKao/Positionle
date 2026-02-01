@@ -5,6 +5,7 @@ import type {PieceAbbreviation} from "@/features/gameplay/types/abbreviations";
 import {colorAbbreviations, pieceAbbreviations} from "@/features/gameplay/constants/abbreviations";
 import {pieceCounts} from "@/features/gameplay/constants/answerCheck";
 import {getAbbreviationFromPieceInfo, getPieceInfoFromAbbreviation} from "@/features/gameplay/utils/abbreviations";
+import {calculateTaxiDistance} from "@/features/gameplay/utils/distanceCalculation";
 
 function getPieceCounts(position: BoardRepresentation) {
 	const positionPieceCounts = structuredClone(pieceCounts);
@@ -19,6 +20,29 @@ function getPieceCounts(position: BoardRepresentation) {
 	});
 
 	return positionPieceCounts;
+}
+
+function getDistancesOfCoordinateFromCoordinates(coordinate: SquareCoordinate, coordinates: SquareCoordinate[]) {
+	const distances: Partial<Record<SquareCoordinate, number>> = {};
+
+	coordinates.forEach((coordinateToCompare) => {
+		distances[coordinateToCompare] = calculateTaxiDistance(coordinate, coordinateToCompare);
+	})
+
+	const distanceEntries = Object.entries(distances);
+	distanceEntries.sort(([, aDistance], [, bDistance]) => {
+		if (aDistance < bDistance) {
+			return -1
+		} else if (bDistance > aDistance) {
+			return 1;
+		} else {
+			return 0;
+		}
+	})
+
+	console.log(distanceEntries);
+
+	return Object.fromEntries(distanceEntries);
 }
 
 function getAllPiecesInPosition(position: BoardRepresentation, pieceAbbreviation: PieceAbbreviation) {
@@ -42,6 +66,13 @@ function markSquareAsNotInGame(squareCoordinate: SquareCoordinate, guessResult: 
 	guessResult[squareCoordinate as SquareCoordinate] = {
 		resultType: "notInGame",
 		taxiDistance: null
+	}
+}
+
+function markSquareAsWrongPosition(squareCoordinate: SquareCoordinate, distance: number, guessResult: GuessResult) {
+	guessResult[squareCoordinate as SquareCoordinate] = {
+		resultType: "wrongPosition",
+		taxiDistance: distance
 	}
 }
 
@@ -86,6 +117,12 @@ function detectIncorrectPlacements(correctPosition: BoardRepresentation, submitt
 			return;
 		}
 
+		// Represents all pieces of the current type in the position the user should guess
+		const allPiecesInCorrectPosition = getAllPiecesInPosition(correctPosition, abbreviation);
+		const sortedDistances = getDistancesOfCoordinateFromCoordinates(squareCoordinate as SquareCoordinate, Object.keys(allPiecesInCorrectPosition) as SquareCoordinate[]);
+		const closestDistance = Object.values(sortedDistances)[0];
+
+		markSquareAsWrongPosition(squareCoordinate as SquareCoordinate, closestDistance, guessResult);
 		submittedPositionPieceCounts[abbreviation as PieceAbbreviation] += 1;
 	})
 }
