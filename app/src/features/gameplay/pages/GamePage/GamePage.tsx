@@ -10,9 +10,18 @@ import type {PieceAbbreviation} from "@/features/gameplay/types/abbreviations";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
 import type {DragMethods} from "@/features/gameplay/types/dragAndDrop";
+import {useEffect} from "react";
+import {dualKingsideCastlingTest} from "@/dev/testPositions";
 
 function GamePage() {
-	const { addToBoard, movePieceOnBoard } = useGuessesStore();
+	const { addToBoard, movePieceOnBoard, updateCorrectPosition } = useGuessesStore();
+
+	useEffect(() => {
+		// Replace "dualKingsideCastlingTest" with any position you like
+		if (import.meta.env?.DEV) {
+			updateCorrectPosition(dualKingsideCastlingTest);
+		}
+	}, [updateCorrectPosition]);
 
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
