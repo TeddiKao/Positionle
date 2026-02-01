@@ -14,11 +14,7 @@ function getPieceCounts(position: BoardRepresentation) {
 
 		const abbreviation = `${colorAbbreviations[color]}${pieceAbbreviations[piece]}`;
 
-		if (pieceCounts[abbreviation as PieceAbbreviation] === undefined) {
-			pieceCounts[abbreviation as PieceAbbreviation] = 1;
-		} else {
-			pieceCounts[abbreviation as PieceAbbreviation] += 1;
-		}
+		positionPieceCounts[abbreviation as PieceAbbreviation] += 1;
 	});
 
 	return positionPieceCounts;
@@ -44,11 +40,16 @@ function detectPlacementsNotInGame(correctPosition: BoardRepresentation, submitt
 	const correctPositionPieceCounts = getPieceCounts(correctPosition);
 	const submittedPositionPieceCounts = structuredClone(pieceCounts);
 
+	console.log(correctPositionPieceCounts);
+
 	Object.entries(submittedPosition).forEach(([squareCoordinate, submittedSquareInfo]) => {
 		const submittedPiece = submittedSquareInfo.piece;
 		const submittedPieceColor = submittedSquareInfo.color;
 
 		const abbreviation = `${colorAbbreviations[submittedPieceColor]}${pieceAbbreviations[submittedPiece]}`;
+
+		console.log(correctPositionPieceCounts[abbreviation as PieceAbbreviation]);
+		console.log(submittedPositionPieceCounts[abbreviation as PieceAbbreviation]);
 
 		if (correctPositionPieceCounts[abbreviation as PieceAbbreviation] <= submittedPositionPieceCounts[abbreviation as PieceAbbreviation]) {
 			guessResult[squareCoordinate as SquareCoordinate] = {
