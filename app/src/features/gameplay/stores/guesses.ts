@@ -84,6 +84,9 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			const copiedBoard = structuredClone(state.guesses[state.currentGuess].guess);
 			const squareInfo = copiedBoard[from];
 
+			if (from === to) return state;
+			if (!squareInfo) return state;
+
 			delete copiedBoard[from];
 
 			copiedBoard[to] = squareInfo;
