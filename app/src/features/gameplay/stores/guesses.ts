@@ -60,7 +60,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 
 	correctPosition: null,
 	updateCorrectPosition: (position) => {
-		set({ correctPosition: position })
+		set({ correctPosition: structuredClone(position) })
 	},
 	clearCorrectPosition: () => {
 		set({ correctPosition: null })
