@@ -4,6 +4,7 @@ import useGuessesStore from "@/features/gameplay/stores/guesses";
 import PieceIcon
 	from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/components/PieceIcon";
 import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
+import {files} from "@/features/gameplay/constants/coordinates";
 
 type SquareProps = {
 	file: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h",
@@ -17,7 +18,6 @@ function Square({file, rank}: SquareProps) {
 
 	const { guesses, currentGuess } = useGuessesStore();
 
-	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 	const fileIndex = files.indexOf(file);
 	const isDark = (rank + fileIndex) % 2 === 1;
 

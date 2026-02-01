@@ -1,9 +1,7 @@
 import Square from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/Square";
+import {files, ranks} from "@/features/gameplay/constants/coordinates";
 
 function ChessboardGrid() {
-	const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
-	const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
-
 	return (
 		<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
 			{ranks.map((rank) => (
