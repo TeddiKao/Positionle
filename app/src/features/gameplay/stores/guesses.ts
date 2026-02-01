@@ -1,7 +1,7 @@
 import {create} from "zustand";
 import type {GuessInfo, GuessNumbers} from "@/features/gameplay/types/guesses";
 import {defaultGuessInfo} from "@/features/gameplay/constants/guesses";
-import type {SquareInfo} from "@/features/gameplay/types/chess";
+import type {BoardRepresentation, SquareInfo} from "@/features/gameplay/types/chess";
 import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
 
 type GuessesStore = {
@@ -12,6 +12,10 @@ type GuessesStore = {
 	usedGuesses: 0 | GuessNumbers;
 	increaseUsedGuesses: () => void;
 	resetUsedGuesses: () => void;
+
+	correctPosition: BoardRepresentation | null;
+	updateCorrectPosition: (position: BoardRepresentation) => void;
+	clearCorrectPosition: () => void;
 
 	guesses: Record<GuessNumbers, GuessInfo>;
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
@@ -50,9 +54,16 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			}
 		})
 	},
-
 	resetUsedGuesses: () => {
 		set({ usedGuesses: 0 })
+	},
+
+	correctPosition: null,
+	updateCorrectPosition: (position) => {
+		set({ correctPosition: position })
+	},
+	clearCorrectPosition: () => {
+		set({ correctPosition: null })
 	},
 
 	guesses: {
