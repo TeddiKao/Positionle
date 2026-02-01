@@ -3,7 +3,7 @@ import RightArrow from "@/features/gameplay/icons/guessNavigator/RightArrow";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function GuessNavigator() {
-	const { currentGuess, moveToPreviousGuess, moveToNextGuess } = useGuessesStore();
+	const { currentGuess, usedGuesses, moveToPreviousGuess, moveToNextGuess } = useGuessesStore();
 
 	return (
 		<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-50 shadow-gray-400">
@@ -19,7 +19,7 @@ function GuessNavigator() {
 
 			<p>Guess {currentGuess} of 6</p>
 
-			{currentGuess < 6 ? (
+			{currentGuess < 6 && usedGuesses >= currentGuess ? (
 				<button onClick={moveToNextGuess} aria-label="Next guess" type="button" className="hover:bg-gray-400 rounded-md">
 					<RightArrow />
 				</button>
