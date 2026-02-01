@@ -3,12 +3,12 @@ import {isSquareOnBottomEdge, isSquareOnLeftEdge} from "@/features/gameplay/util
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import PieceIcon
 	from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/components/PieceIcon";
-import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
+import type {File, Rank, SquareCoordinate} from "@/features/gameplay/types/coordinates";
 import {files} from "@/features/gameplay/constants/coordinates";
 
 type SquareProps = {
-	file: "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h",
-	rank: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+	file: File,
+	rank: Rank,
 }
 
 function Square({file, rank}: SquareProps) {
