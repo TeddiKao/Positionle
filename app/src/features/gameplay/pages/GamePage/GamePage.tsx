@@ -16,10 +16,11 @@ import {dualKingsideCastlingTest} from "@/dev/testPositions";
 function GamePage() {
 	const { addToBoard, movePieceOnBoard, updateCorrectPosition } = useGuessesStore();
 
-	// Only use in development. For production, comment this out
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
-		updateCorrectPosition(dualKingsideCastlingTest);
+		if (import.meta.env?.DEV) {
+			updateCorrectPosition(dualKingsideCastlingTest);
+		}
 	}, [updateCorrectPosition]);
 
 	function handleDragEnd(event: DragEndEvent) {
