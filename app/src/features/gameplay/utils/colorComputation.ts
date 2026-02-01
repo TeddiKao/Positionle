@@ -2,9 +2,9 @@ function getColorByDistance(distance: number, isDark: boolean) {
 	switch (true) {
 		case (distance >= 1 && distance <= 3):
 			if (isDark) {
-				return "bg-yellow-800"
+				return "bg-lime-500"
 			} else {
-				return "bg-yellow-700"
+				return "bg-lime-400"
 			}
 
 		case (distance >= 4 && distance <= 6):
