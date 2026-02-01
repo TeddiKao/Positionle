@@ -21,6 +21,13 @@ function getPieceCounts(position: BoardRepresentation) {
 	return positionPieceCounts;
 }
 
+function markSquareAsNotInGame(squareCoordinate: SquareCoordinate, guessResult: GuessResult) {
+	guessResult[squareCoordinate as SquareCoordinate] = {
+		resultType: "notInGame",
+		taxiDistance: null
+	}
+}
+
 function detectCorrectPlacements(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation, guessResult: GuessResult) {
 	const correctPlacements: BoardRepresentation = {}
 
@@ -43,7 +50,7 @@ function detectCorrectPlacements(correctPosition: BoardRepresentation, submitted
 	return correctPlacements;
 }
 
-function detectPlacementsNotInGame(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation, correctPieces: BoardRepresentation, guessResult: GuessResult) {
+function detectIncorrectPlacements(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation, correctPieces: BoardRepresentation, guessResult: GuessResult) {
 	const correctPositionPieceCounts = getPieceCounts(correctPosition);
 	const submittedPositionPieceCounts = structuredClone(pieceCounts);
 
@@ -58,11 +65,7 @@ function detectPlacementsNotInGame(correctPosition: BoardRepresentation, submitt
 		const abbreviation = getAbbreviationFromPieceInfo(submittedSquareInfo);
 
 		if (correctPositionPieceCounts[abbreviation as PieceAbbreviation] <= submittedPositionPieceCounts[abbreviation as PieceAbbreviation]) {
-			guessResult[squareCoordinate as SquareCoordinate] = {
-				resultType: "notInGame",
-				taxiDistance: null
-			}
-
+			markSquareAsNotInGame(squareCoordinate as SquareCoordinate, guessResult);
 			return;
 		}
 
@@ -74,7 +77,7 @@ function checkAnswer(correctPosition: BoardRepresentation, submittedPosition: Bo
 	const guessResult: GuessResult = {}
 
 	const correctPlacements = detectCorrectPlacements(correctPosition, submittedPosition, guessResult);
-	detectPlacementsNotInGame(correctPosition, submittedPosition, correctPlacements, guessResult);
+	detectIncorrectPlacements(correctPosition, submittedPosition, correctPlacements, guessResult);
 
 	return guessResult;
 }
