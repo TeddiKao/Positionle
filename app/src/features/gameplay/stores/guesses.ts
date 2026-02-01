@@ -37,12 +37,12 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	},
 
 	guesses: {
-		1: defaultGuessInfo,
-		2: defaultGuessInfo,
-		3: defaultGuessInfo,
-		4: defaultGuessInfo,
-		5: defaultGuessInfo,
-		6: defaultGuessInfo,
+		1: structuredClone(defaultGuessInfo),
+		2: structuredClone(defaultGuessInfo),
+		3: structuredClone(defaultGuessInfo),
+		4: structuredClone(defaultGuessInfo),
+		5: structuredClone(defaultGuessInfo),
+		6: structuredClone(defaultGuessInfo),
 	},
 
 	addToBoard: (square, pieceInfo) => {
