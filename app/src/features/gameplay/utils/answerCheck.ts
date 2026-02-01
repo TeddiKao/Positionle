@@ -4,7 +4,7 @@ import type {GuessResult} from "@/features/gameplay/types/guesses";
 import type {PieceAbbreviation} from "@/features/gameplay/types/abbreviations";
 import {colorAbbreviations, pieceAbbreviations} from "@/features/gameplay/constants/abbreviations";
 import {pieceCounts} from "@/features/gameplay/constants/answerCheck";
-import {getAbbreviationFromPieceInfo} from "@/features/gameplay/utils/abbreviations";
+import {getAbbreviationFromPieceInfo, getPieceInfoFromAbbreviation} from "@/features/gameplay/utils/abbreviations";
 
 function getPieceCounts(position: BoardRepresentation) {
 	const positionPieceCounts = structuredClone(pieceCounts);
@@ -19,6 +19,23 @@ function getPieceCounts(position: BoardRepresentation) {
 	});
 
 	return positionPieceCounts;
+}
+
+function getAllPiecesInPosition(position: BoardRepresentation, pieceAbbreviation: PieceAbbreviation) {
+	const detectedPieces: BoardRepresentation = {}
+	const pieceInfo = getPieceInfoFromAbbreviation(pieceAbbreviation);
+
+	Object.entries(position).forEach(([squareCoordinate, squareInfo]) => {
+		const color = squareInfo.color;
+		const piece = squareInfo.piece;
+
+		if (pieceInfo.color !== color) return;
+		if (pieceInfo.piece !== piece) return;
+
+		detectedPieces[squareCoordinate as SquareCoordinate] = pieceInfo;
+	});
+
+	return detectedPieces;
 }
 
 function markSquareAsNotInGame(squareCoordinate: SquareCoordinate, guessResult: GuessResult) {
