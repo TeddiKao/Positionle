@@ -177,18 +177,26 @@ function detectIncorrectPlacements(correctPosition: BoardRepresentation, submitt
 		}
 
 		const allSubmittedPieces = getAllPiecesInPosition(submittedPosition, abbreviation);
-		const numSubmittedPieces = Object.keys(allSubmittedPieces).length;
+		const remainingSubmittedPieces = Object.fromEntries(
+			Object.entries(allSubmittedPieces).filter(([coordinate]) => !correctPieces[coordinate as SquareCoordinate])
+		)
+		const numSubmittedPieces = Object.keys(remainingSubmittedPieces).length;
+
 		const allPiecesInPositionToGuess = getAllPiecesInPosition(correctPosition, abbreviation);
+		const remainingPiecesToGuess = Object.fromEntries(
+			Object.entries(allPiecesInPositionToGuess).filter(([coordinate]) => !correctPieces[coordinate as SquareCoordinate])
+		)
 		const numPiecesInPositionToGuess = Object.keys(allPiecesInPositionToGuess).length;
 
-
 		if (numSubmittedPieces <= numPiecesInPositionToGuess) {
-			const distances = getDistancesOfCoordinateFromCoordinates(squareCoordinate as SquareCoordinate, Object.keys(allPiecesInPositionToGuess) as SquareCoordinate[]);
+			console.log(remainingPiecesToGuess);
+			console.log("Submitted pieces is less than or equal to number of pieces in position to guess")
+			const distances = getDistancesOfCoordinateFromCoordinates(squareCoordinate as SquareCoordinate, Object.keys(remainingPiecesToGuess) as SquareCoordinate[]);
 			const closestDistance = Object.values(distances)[0];
 
 			markSquareAsWrongPosition(squareCoordinate as SquareCoordinate, closestDistance, guessResult);
 		} else {
-			constructPieceDistances(allSubmittedPieces, correctPieces, allPiecesInPositionToGuess, pieceDistances);
+			constructPieceDistances(remainingSubmittedPieces, correctPieces, allPiecesInPositionToGuess, pieceDistances);
 			sortPieceDistances(pieceDistances);
 			selectClosestPiecesToDisplayAsWrongLocation(pieceDistances, guessResult);
 			markLeftoverSquaresAsNotInGame(pieceDistances, guessResult);
