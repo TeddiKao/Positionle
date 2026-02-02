@@ -35,7 +35,7 @@ function getDistancesOfCoordinateFromCoordinates(coordinate: SquareCoordinate, c
 	distanceEntries.sort(([, aDistance], [, bDistance]) => {
 		if (aDistance < bDistance) {
 			return -1
-		} else if (bDistance > aDistance) {
+		} else if (aDistance > bDistance) {
 			return 1;
 		} else {
 			return 0;
