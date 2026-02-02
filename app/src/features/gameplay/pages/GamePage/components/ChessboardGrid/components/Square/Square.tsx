@@ -6,6 +6,7 @@ import PieceIcon
 import type {File, Rank, SquareCoordinate} from "@/features/gameplay/types/coordinates";
 import {files} from "@/features/gameplay/constants/coordinates";
 import {clsx} from "clsx";
+import {getColorByDistance} from "@/features/gameplay/utils/colorComputation";
 
 type SquareProps = {
 	file: File,
@@ -31,6 +32,12 @@ function Square({file, rank}: SquareProps) {
 			} else {
 				return "bg-green-600"
 			}
+		}
+
+		if (squareResult?.resultType === "wrongPosition") {
+			if (squareResult.taxiDistance === null) return;
+
+			return getColorByDistance(squareResult?.taxiDistance, isDark)
 		}
 
 		if (squareResult?.resultType === "notInGame") {
