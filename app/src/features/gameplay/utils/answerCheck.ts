@@ -99,8 +99,6 @@ function detectCorrectPlacements(correctPosition: BoardRepresentation, submitted
 }
 
 function sortPieceDistances(pieceDistances: PieceDistances) {
-	console.log("Sorting using", pieceDistances);
-
 	Object.entries(pieceDistances).forEach(([coordinateToGuess, guessedPieceDistances]) => {
 		const distanceEntries = Object.entries(guessedPieceDistances)
 
@@ -157,8 +155,6 @@ function constructPieceDistances(allSubmittedPieces: BoardRepresentation, correc
 		}
 
 		Object.keys(allPiecesInPositionToGuess).forEach((pieceToGuessCoordinate) => {
-			console.log("Original piece distances", JSON.parse(JSON.stringify(newPieceDistances)))
-
 			if (Object.keys(correctPieces).includes(pieceToGuessCoordinate)) {
 				const correctPieceInfo = correctPieces[pieceToGuessCoordinate as SquareCoordinate];
 				if (!correctPieceInfo) return;
@@ -177,14 +173,8 @@ function constructPieceDistances(allSubmittedPieces: BoardRepresentation, correc
 			}
 
 			newPieceDistances[pieceToGuessCoordinate as SquareCoordinate]![submittedPieceCoordinate as SquareCoordinate] = taxiDistance
-
-			console.log("New piece distances", JSON.parse(JSON.stringify(newPieceDistances)));
 		})
-
-		console.log("loop ended");
 	});
-
-	console.log("Constructed piece distances", newPieceDistances)
 
 	return newPieceDistances;
 }
