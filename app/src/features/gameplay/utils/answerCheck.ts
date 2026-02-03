@@ -99,6 +99,8 @@ function detectCorrectPlacements(correctPosition: BoardRepresentation, submitted
 }
 
 function sortPieceDistances(pieceDistances: PieceDistances) {
+	console.log("Sorting using", pieceDistances);
+
 	Object.entries(pieceDistances).forEach(([coordinateToGuess, guessedPieceDistances]) => {
 		const distanceEntries = Object.entries(guessedPieceDistances)
 
@@ -139,20 +141,52 @@ function markLeftoverSquaresAsNotInGame(pieceDistances: PieceDistances, guessRes
 }
 
 function constructPieceDistances(allSubmittedPieces: BoardRepresentation, correctPieces: BoardRepresentation, allPiecesInPositionToGuess: BoardRepresentation, pieceDistances: PieceDistances) {
+	const newPieceDistances = structuredClone(pieceDistances);
+
 	Object.keys(allSubmittedPieces).forEach((submittedPieceCoordinate) => {
-		if (Object.keys(correctPieces).includes(submittedPieceCoordinate)) return;
+		if (Object.keys(correctPieces).includes(submittedPieceCoordinate)) {
+			const correctPieceInfo = correctPieces[submittedPieceCoordinate as SquareCoordinate];
+			if (!correctPieceInfo) return;
+
+			const submittedPieceInfo = allSubmittedPieces[submittedPieceCoordinate as SquareCoordinate];
+			if (!submittedPieceInfo) return;
+
+			if (correctPieceInfo.color === submittedPieceInfo.color && correctPieceInfo.piece === submittedPieceInfo.piece) {
+				return;
+			}
+		}
 
 		Object.keys(allPiecesInPositionToGuess).forEach((pieceToGuessCoordinate) => {
-			if (Object.keys(correctPieces).includes(pieceToGuessCoordinate)) return;
+			console.log("Original piece distances", JSON.parse(JSON.stringify(newPieceDistances)))
 
-			const taxiDistance = calculateTaxiDistance(submittedPieceCoordinate as SquareCoordinate, pieceToGuessCoordinate as SquareCoordinate);
-			if (pieceDistances[pieceToGuessCoordinate as SquareCoordinate] === undefined) {
-				pieceDistances[pieceToGuessCoordinate as SquareCoordinate] = {};
+			if (Object.keys(correctPieces).includes(pieceToGuessCoordinate)) {
+				const correctPieceInfo = correctPieces[pieceToGuessCoordinate as SquareCoordinate];
+				if (!correctPieceInfo) return;
+
+				const pieceToGuessInfo = allPiecesInPositionToGuess[pieceToGuessCoordinate as SquareCoordinate];
+				if (!pieceToGuessInfo) return;
+
+				if (pieceToGuessInfo.color === correctPieceInfo.color && pieceToGuessInfo.piece === correctPieceInfo.piece) {
+					return;
+				}
 			}
 
-			pieceDistances[pieceToGuessCoordinate as SquareCoordinate]![submittedPieceCoordinate as SquareCoordinate] = taxiDistance;
+			const taxiDistance = calculateTaxiDistance(submittedPieceCoordinate as SquareCoordinate, pieceToGuessCoordinate as SquareCoordinate);
+			if (newPieceDistances[pieceToGuessCoordinate as SquareCoordinate] === undefined) {
+				newPieceDistances[pieceToGuessCoordinate as SquareCoordinate] = {};
+			}
+
+			newPieceDistances[pieceToGuessCoordinate as SquareCoordinate]![submittedPieceCoordinate as SquareCoordinate] = taxiDistance
+
+			console.log("New piece distances", JSON.parse(JSON.stringify(newPieceDistances)));
 		})
-	})
+
+		console.log("loop ended");
+	});
+
+	console.log("Constructed piece distances", newPieceDistances)
+
+	return newPieceDistances;
 }
 
 function detectIncorrectPlacements(correctPosition: BoardRepresentation, submittedPosition: BoardRepresentation, correctPieces: BoardRepresentation, guessResult: GuessResult) {
@@ -180,7 +214,7 @@ function detectIncorrectPlacements(correctPosition: BoardRepresentation, submitt
 		const remainingSubmittedPieces = Object.fromEntries(
 			Object.entries(allSubmittedPieces).filter(([coordinate]) => !correctPieces[coordinate as SquareCoordinate])
 		)
-		const numSubmittedPieces = Object.keys(remainingSubmittedPieces).length;
+		const numSubmittedPieces = Object.keys(allSubmittedPieces).length;
 
 		const allPiecesInPositionToGuess = getAllPiecesInPosition(correctPosition, abbreviation);
 		const remainingPiecesToGuess = Object.fromEntries(
@@ -189,17 +223,15 @@ function detectIncorrectPlacements(correctPosition: BoardRepresentation, submitt
 		const numPiecesInPositionToGuess = Object.keys(allPiecesInPositionToGuess).length;
 
 		if (numSubmittedPieces <= numPiecesInPositionToGuess) {
-			console.log(remainingPiecesToGuess);
-			console.log("Submitted pieces is less than or equal to number of pieces in position to guess")
 			const distances = getDistancesOfCoordinateFromCoordinates(squareCoordinate as SquareCoordinate, Object.keys(remainingPiecesToGuess) as SquareCoordinate[]);
 			const closestDistance = Object.values(distances)[0];
 
 			markSquareAsWrongPosition(squareCoordinate as SquareCoordinate, closestDistance, guessResult);
 		} else {
-			constructPieceDistances(remainingSubmittedPieces, correctPieces, allPiecesInPositionToGuess, pieceDistances);
-			sortPieceDistances(pieceDistances);
-			selectClosestPiecesToDisplayAsWrongLocation(pieceDistances, guessResult);
-			markLeftoverSquaresAsNotInGame(pieceDistances, guessResult);
+			const constructedPieceDistances = constructPieceDistances(remainingSubmittedPieces, correctPieces, remainingPiecesToGuess, pieceDistances);
+			sortPieceDistances(constructedPieceDistances);
+			selectClosestPiecesToDisplayAsWrongLocation(constructedPieceDistances, guessResult);
+			markLeftoverSquaresAsNotInGame(constructedPieceDistances, guessResult);
 		}
 	});
 }
