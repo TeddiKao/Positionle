@@ -3,6 +3,7 @@ import type {GuessInfo, GuessNumbers} from "@/features/gameplay/types/guesses";
 import {defaultGuessInfo} from "@/features/gameplay/constants/guesses";
 import type {BoardRepresentation, SquareInfo} from "@/features/gameplay/types/chess";
 import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
+import {checkAnswer} from "@/features/gameplay/utils/answerCheck";
 
 type GuessesStore = {
 	currentGuess: GuessNumbers;
@@ -18,9 +19,12 @@ type GuessesStore = {
 	clearCorrectPosition: () => void;
 
 	guesses: Record<GuessNumbers, GuessInfo>;
+
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
 	removeFromBoard: (square: SquareCoordinate) => void;
 	movePieceOnBoard: (from: SquareCoordinate, to: SquareCoordinate) => void;
+
+	submitGuess: () => void;
 }
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -129,6 +133,29 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 						guess: copiedBoard
 					}
 				}
+			}
+		})
+	},
+
+	submitGuess: () => {
+		set((state) => {
+			if (!state.correctPosition) return {};
+
+			const submission = state.guesses[state.currentGuess].guess;
+			if (!submission) return {};
+
+			const guessResult = checkAnswer(state.correctPosition, submission);
+
+			return {
+				usedGuesses: state.usedGuesses < 6 ? state.usedGuesses + 1 as GuessNumbers : state.usedGuesses,
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						guessResult,
+						isSubmitted: true
+					}
+				},
 			}
 		})
 	}

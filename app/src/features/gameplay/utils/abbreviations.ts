@@ -3,7 +3,7 @@ import type {
 	ColorAbbreviation, PieceAbbreviation,
 	PieceNameAbbreviation
 } from "@/features/gameplay/types/abbreviations";
-import {abbreviationsToColors, abbreviationsToPieces} from "@/features/gameplay/constants/abbreviations";
+import {abbreviationsToColors, abbreviationsToPieces, colorAbbreviations, pieceAbbreviations} from "@/features/gameplay/constants/abbreviations";
 
 function getPieceColorFromAbbreviation(abbreviation: ColorAbbreviation): PieceColor {
 	return abbreviationsToColors[abbreviation];
@@ -23,4 +23,14 @@ function getPieceInfoFromAbbreviation(abbreviation: PieceAbbreviation): PieceInf
 	return { color, piece }
 }
 
-export { getPieceInfoFromAbbreviation }
+function getAbbreviationFromPieceInfo(pieceInfo: PieceInfo): PieceAbbreviation {
+	const color = pieceInfo.color;
+	const piece = pieceInfo.piece;
+
+	const colorAbbreviation = colorAbbreviations[color];
+	const pieceAbbreviation = pieceAbbreviations[piece];
+
+	return `${colorAbbreviation}${pieceAbbreviation}`
+}
+
+export { getPieceInfoFromAbbreviation, getAbbreviationFromPieceInfo }
