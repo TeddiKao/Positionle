@@ -141,7 +141,10 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 		set((state) => {
 			if (!state.correctPosition) return {};
 
-			const submission = state.guesses[state.currentGuess].guess;
+			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (currentGuessInfo.isSubmitted) return {};
+
+			const submission = currentGuessInfo.guess;
 			if (!submission) return {};
 
 			const guessResult = checkAnswer(state.correctPosition, submission);
@@ -151,7 +154,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[state.currentGuess]: {
-						...state.guesses[state.currentGuess],
+						...currentGuessInfo,
 						guessResult,
 						isSubmitted: true
 					}
