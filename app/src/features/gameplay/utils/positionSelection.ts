@@ -9,6 +9,7 @@ import { abbreviationsToPieces } from "@/features/gameplay/constants/abbreviatio
 import type { PieceNameAbbreviation } from "@/features/gameplay/types/abbreviations";
 import { files } from "@/features/gameplay/constants/coordinates";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
+import { positions } from "@/positions/positions";
 
 function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 	const board: BoardRepresentation = {};
@@ -51,6 +52,10 @@ function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 	return board;
 }
 
-console.log(
-	convertFenToBoardRepresentation('B7/8/4b3/4kp2/6p1/6P1/1r3R2/6K1"'),
-);
+function randomlySelectPosition(): BoardRepresentation {
+	const randomIndex = Math.floor(Math.random() * positions.length);
+
+	return convertFenToBoardRepresentation(positions[randomIndex].positionFen);
+}
+
+export { randomlySelectPosition };
