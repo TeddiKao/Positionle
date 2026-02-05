@@ -25,7 +25,7 @@ function GamePage() {
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
-		if (import.meta.env.VITE_USE_DEV_POSITION) {
+		if (import.meta.env.VITE_USE_DEV_POSITION === "true") {
 			updateCorrectPosition(dualKingsideCastlingTest);
 		} else {
 			const selectedPosition = randomlySelectPosition();
