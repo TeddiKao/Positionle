@@ -89,11 +89,25 @@ function Square({ file, rank }: SquareProps) {
 			{isShowingExactDistances && (
 				<span
 					className={clsx(
-						"relative w-full h-full",
-						isDark ? "text-white" : "text-gray-950",
+						"absolute top-0 bottom-0 left-0 right-0 text-4xl flex flex-row items-center justify-center z-50 font-bold",
+						(() => {
+							console.log("Deciding color");
+
+							const coordinate = `${file}${rank}`;
+							const guess = guesses[currentGuess]?.guess;
+							const color =
+								guess?.[coordinate as SquareCoordinate]?.color;
+
+							console.log(color);
+							if (!color) return "";
+
+							return color === "white"
+								? "text-gray-950"
+								: "text-gray-50";
+						})(),
 					)}
 				>
-					{squareResult?.taxiDistance}
+					{squareResult?.taxiDistance ?? ""}
 				</span>
 			)}
 
