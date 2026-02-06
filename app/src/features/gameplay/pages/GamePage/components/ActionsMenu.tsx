@@ -10,7 +10,8 @@ import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useDistanceDisplayStore } from "@/features/gameplay/stores/distanceDisplay";
 
 function ActionsMenu() {
-	const { isShowingExactDistances } = useDistanceDisplayStore();
+	const { isShowingExactDistances, showExactDistances, hideExactDistances } =
+		useDistanceDisplayStore();
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -65,6 +66,11 @@ function ActionsMenu() {
 							aria-label="Flip board"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
+							onClick={() =>
+								isShowingExactDistances
+									? hideExactDistances()
+									: showExactDistances()
+							}
 						>
 							{isShowingExactDistances ? (
 								<IconEyeOff />
