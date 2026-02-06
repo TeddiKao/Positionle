@@ -73,9 +73,9 @@ function ActionsMenu() {
 							}
 						>
 							{isShowingExactDistances ? (
-								<IconEyeOff />
-							) : (
 								<IconEye />
+							) : (
+								<IconEyeOff />
 							)}
 						</button>
 					</TooltipTrigger>
