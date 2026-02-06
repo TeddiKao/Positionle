@@ -18,10 +18,6 @@ function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 	let currentRank = 8;
 
 	for (const char of fen) {
-		if (currentRank === 1 && currentFileIndex > 7) {
-			break;
-		}
-
 		if (isCharDigit(char)) {
 			currentFileIndex += Number(char);
 			continue;
@@ -61,5 +57,7 @@ function randomlySelectPosition(): BoardRepresentation {
 
 	return convertFenToBoardRepresentation(positions[randomIndex].positionFen);
 }
+
+console.log(convertFenToBoardRepresentation("B7/8/4b3/4kp2/6p1/6P1/1r3R2/6K1"));
 
 export { randomlySelectPosition };
