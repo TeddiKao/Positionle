@@ -6,7 +6,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { IconEye } from "@tabler/icons-react";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useDistanceDisplayStore } from "@/features/gameplay/stores/distanceDisplay";
 
 function ActionsMenu() {
@@ -66,7 +66,11 @@ function ActionsMenu() {
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 						>
-							<IconEye />
+							{isShowingExactDistances ? (
+								<IconEyeOff />
+							) : (
+								<IconEye />
+							)}
 						</button>
 					</TooltipTrigger>
 
