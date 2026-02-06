@@ -53,6 +53,10 @@ function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 }
 
 function randomlySelectPosition(): BoardRepresentation {
+	if (positions.length === 0) {
+		throw new Error("No positions available");
+	}
+
 	const randomIndex = Math.floor(Math.random() * positions.length);
 
 	return convertFenToBoardRepresentation(positions[randomIndex].positionFen);
