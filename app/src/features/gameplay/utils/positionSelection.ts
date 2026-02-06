@@ -18,12 +18,25 @@ function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 	let currentRank = 8;
 
 	for (const char of fen) {
+		if (currentRank < 1) {
+			throw new Error("Invalid FEN: Too many ranks");
+		}
+
 		if (isCharDigit(char)) {
 			currentFileIndex += Number(char);
+
+			if (currentFileIndex > 8) {
+				throw new Error("Invalid FEN: File overflow");
+			}
+
 			continue;
 		}
 
 		if (char === "/") {
+			if (currentFileIndex !== 8) {
+				throw new Error("Invalid FEN: Files do not add up to 8");
+			}
+
 			currentRank--;
 			currentFileIndex = 0;
 
@@ -34,7 +47,15 @@ function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 		const piece: ChessPiece =
 			abbreviationsToPieces[char.toUpperCase() as PieceNameAbbreviation];
 
+		if (!piece) {
+			throw new Error(`Unknown piece ${char}`);
+		}
+
 		const fileCoordinate = files[currentFileIndex];
+		if (!fileCoordinate) {
+			throw new Error("Invalid FEN: File index out of range");
+		}
+
 		const rankCoordinate = currentRank;
 
 		board[`${fileCoordinate}${rankCoordinate}` as SquareCoordinate] = {
