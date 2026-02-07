@@ -13,7 +13,6 @@ import type {
 import { files } from "@/features/gameplay/constants/coordinates";
 import { clsx } from "clsx";
 import { getColorByDistance } from "@/features/gameplay/utils/colorComputation";
-import { useDistanceDisplayStore } from "@/features/gameplay/stores/distanceDisplay";
 
 type SquareProps = {
 	file: File;
@@ -29,9 +28,10 @@ function Square({ file, rank }: SquareProps) {
 
 	const guessResult = guesses[currentGuess].guessResult;
 	const squareResult = guessResult?.[`${file}${rank}`];
-	const orientation = guesses[currentGuess].orientation;
 
-	const { isShowingExactDistances } = useDistanceDisplayStore();
+	const orientation = guesses[currentGuess].orientation;
+	const isShowingExactDistances =
+		guesses[currentGuess].isShowingExactDistances;
 
 	const fileIndex = files.indexOf(file);
 	const isDark = (rank + fileIndex) % 2 === 1;
