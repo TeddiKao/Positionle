@@ -63,7 +63,7 @@ function ActionsMenu() {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
-							aria-label="Flip board"
+							aria-label="Show exact distances"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 							onClick={() =>
