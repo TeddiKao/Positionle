@@ -14,7 +14,7 @@ function ActionsMenu() {
 	const { isShowingExactDistances, showExactDistances, hideExactDistances } =
 		useDistanceDisplayStore();
 
-	const { clearGuess } = useGuessesStore();
+	const { clearGuess, flipBoard } = useGuessesStore();
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -53,6 +53,7 @@ function ActionsMenu() {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
+							onClick={flipBoard}
 							aria-label="Flip board"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
