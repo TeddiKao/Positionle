@@ -1,12 +1,15 @@
-import Eraser from "@/features/gameplay/icons/actionMenu/Eraser";
-import TrashCan from "@/features/gameplay/icons/actionMenu/TrashCan";
-import Flip from "@/features/gameplay/icons/actionMenu/Flip";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import {
+	IconEraser,
+	IconEye,
+	IconEyeOff,
+	IconRefresh as IconFlip,
+	IconTrash,
+} from "@tabler/icons-react";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function ActionsMenu() {
@@ -31,7 +34,7 @@ function ActionsMenu() {
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 						>
-							<Eraser />
+							<IconEraser />
 						</button>
 					</TooltipTrigger>
 
@@ -48,7 +51,7 @@ function ActionsMenu() {
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 						>
-							<TrashCan />
+							<IconTrash />
 						</button>
 					</TooltipTrigger>
 
@@ -63,7 +66,7 @@ function ActionsMenu() {
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 						>
-							<Flip />
+							<IconFlip />
 						</button>
 					</TooltipTrigger>
 
