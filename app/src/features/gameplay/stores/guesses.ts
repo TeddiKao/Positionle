@@ -263,6 +263,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	activateEraserMode: () => {
 		set((state) => {
 			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (currentGuessInfo.isSubmitted) return {};
 
 			return {
 				guesses: {
@@ -279,6 +280,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	deactivateEraserMode: () => {
 		set((state) => {
 			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (currentGuessInfo.isSubmitted) return {};
 
 			return {
 				guesses: {
