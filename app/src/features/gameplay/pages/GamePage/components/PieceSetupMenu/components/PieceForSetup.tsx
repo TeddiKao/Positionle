@@ -1,5 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import type { PieceAbbreviation } from "@/features/gameplay/types/abbreviations";
+import { clsx } from "clsx";
 
 type PieceForSetupProps = {
 	abbreviation: PieceAbbreviation;
@@ -26,7 +27,11 @@ function PieceForSetup({ abbreviation, icon }: PieceForSetupProps) {
 			key={abbreviation}
 			{...listeners}
 			{...attributes}
-			className={`${isDragging ? "" : "hover:bg-gray-400"} rounded-md z-50`}
+			className={clsx(
+				isDragging ? "hover:bg-gray-400" : "",
+				isDragging ? "z-50" : "",
+				"rounded-md",
+			)}
 		>
 			<img className="w-12 h-12" src={icon} alt={abbreviation} />
 		</button>
