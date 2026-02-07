@@ -35,7 +35,11 @@ function SquareContainer({
 			{children}
 		</button>
 	) : (
-		<div className={className} ref={setNodeRef} key={`${file}${rank}`}>
+		<div
+			className={clsx(className, "flex")}
+			ref={setNodeRef}
+			key={`${file}${rank}`}
+		>
 			{children}
 		</div>
 	);
