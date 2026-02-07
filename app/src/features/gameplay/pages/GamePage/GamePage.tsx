@@ -13,6 +13,7 @@ import type { DragMethods } from "@/features/gameplay/types/dragAndDrop";
 import { useEffect } from "react";
 import { dualKingsideCastlingTest } from "@/dev/testPositions";
 import { randomlySelectPosition } from "@/features/gameplay/utils/positionSelection";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 
 function GamePage() {
 	const {
@@ -69,7 +70,10 @@ function GamePage() {
 			<GuessNavigator />
 
 			<div className="grid grid-cols-3 w-full justify-center gap-4">
-				<DndContext onDragEnd={handleDragEnd}>
+				<DndContext
+					modifiers={[restrictToWindowEdges]}
+					onDragEnd={handleDragEnd}
+				>
 					<PieceSetupMenu />
 					<ChessboardGrid />
 				</DndContext>
