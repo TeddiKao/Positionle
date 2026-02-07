@@ -7,14 +7,19 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
-import { useDistanceDisplayStore } from "@/features/gameplay/stores/distanceDisplay";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function ActionsMenu() {
-	const { isShowingExactDistances, showExactDistances, hideExactDistances } =
-		useDistanceDisplayStore();
-
-	const { clearGuess, flipBoard } = useGuessesStore();
+	const {
+		guesses,
+		currentGuess,
+		clearGuess,
+		flipBoard,
+		showExactDistances,
+		hideExactDistances,
+	} = useGuessesStore();
+	const isShowingExactDistances =
+		guesses[currentGuess].isShowingExactDistances;
 
 	return (
 		<div className="flex flex-col justify-center">
