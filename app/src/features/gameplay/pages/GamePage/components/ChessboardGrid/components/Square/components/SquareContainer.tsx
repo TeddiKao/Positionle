@@ -21,12 +21,13 @@ function SquareContainer({
 		id: `${file}${rank}`,
 	});
 
-	const { guesses, currentGuess } = useGuessesStore();
+	const { guesses, currentGuess, removeFromBoard } = useGuessesStore();
 	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
 
 	return isEraserModeActive ? (
 		<button
 			className={clsx(className, "flex")}
+			onClick={() => removeFromBoard(`${file}${rank}`)}
 			ref={setNodeRef}
 			key={`${file}${rank}`}
 			type="button"
