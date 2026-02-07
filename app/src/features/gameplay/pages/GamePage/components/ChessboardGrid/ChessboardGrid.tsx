@@ -27,8 +27,6 @@ function ChessboardGrid() {
 					)
 				: reversedRanks.map((rank) =>
 						reversedFiles.map((file) => {
-							console.log(`${file}${rank}`);
-
 							return (
 								<Square
 									key={`${file}${rank}`}
