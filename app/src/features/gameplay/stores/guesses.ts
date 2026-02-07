@@ -37,6 +37,9 @@ type GuessesStore = {
 
 	showExactDistances: () => void;
 	hideExactDistances: () => void;
+
+	activateEraserMode: () => void;
+	deactivateEraserMode: () => void;
 };
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -256,6 +259,10 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			};
 		});
 	},
+
+	activateEraserMode: () => {},
+
+	deactivateEraserMode: () => {},
 }));
 
 export default useGuessesStore;
