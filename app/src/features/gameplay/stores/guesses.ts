@@ -1,9 +1,15 @@
-import {create} from "zustand";
-import type {GuessInfo, GuessNumbers} from "@/features/gameplay/types/guesses";
-import {defaultGuessInfo} from "@/features/gameplay/constants/guesses";
-import type {BoardRepresentation, SquareInfo} from "@/features/gameplay/types/chess";
-import type {SquareCoordinate} from "@/features/gameplay/types/coordinates";
-import {checkAnswer} from "@/features/gameplay/utils/answerCheck";
+import { create } from "zustand";
+import type {
+	GuessInfo,
+	GuessNumbers,
+} from "@/features/gameplay/types/guesses";
+import { defaultGuessInfo } from "@/features/gameplay/constants/guesses";
+import type {
+	BoardRepresentation,
+	SquareInfo,
+} from "@/features/gameplay/types/chess";
+import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
+import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
 
 type GuessesStore = {
 	currentGuess: GuessNumbers;
@@ -25,49 +31,53 @@ type GuessesStore = {
 	movePieceOnBoard: (from: SquareCoordinate, to: SquareCoordinate) => void;
 
 	submitGuess: () => void;
-}
+};
 
 const useGuessesStore = create<GuessesStore>((set) => ({
 	currentGuess: 1,
 	moveToPreviousGuess: () => {
 		set((state) => {
 			if (state.currentGuess > 1) {
-				return { currentGuess: state.currentGuess - 1 as GuessNumbers }
+				return {
+					currentGuess: (state.currentGuess - 1) as GuessNumbers,
+				};
 			} else {
-				return { currentGuess: state.currentGuess }
+				return { currentGuess: state.currentGuess };
 			}
-		})
+		});
 	},
 	moveToNextGuess: () => {
 		set((state) => {
 			if (state.currentGuess < 6) {
-				return { currentGuess: state.currentGuess + 1 as GuessNumbers }
+				return {
+					currentGuess: (state.currentGuess + 1) as GuessNumbers,
+				};
 			} else {
-				return { currentGuess: state.currentGuess }
+				return { currentGuess: state.currentGuess };
 			}
-		})
+		});
 	},
 
 	usedGuesses: 0,
 	increaseUsedGuesses: () => {
 		set((state) => {
 			if (state.usedGuesses < 6) {
-				return { usedGuesses: state.usedGuesses + 1 as GuessNumbers }
+				return { usedGuesses: (state.usedGuesses + 1) as GuessNumbers };
 			} else {
-				return { usedGuesses: state.usedGuesses }
+				return { usedGuesses: state.usedGuesses };
 			}
-		})
+		});
 	},
 	resetUsedGuesses: () => {
-		set({ usedGuesses: 0 })
+		set({ usedGuesses: 0 });
 	},
 
 	correctPosition: null,
 	updateCorrectPosition: (position) => {
-		set({ correctPosition: structuredClone(position) })
+		set({ correctPosition: structuredClone(position) });
 	},
 	clearCorrectPosition: () => {
-		set({ correctPosition: null })
+		set({ correctPosition: null });
 	},
 
 	guesses: {
@@ -81,7 +91,9 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 
 	addToBoard: (square, pieceInfo) => {
 		set((state) => {
-			const copiedBoard = structuredClone(state.guesses[state.currentGuess].guess);
+			const copiedBoard = structuredClone(
+				state.guesses[state.currentGuess].guess,
+			);
 			copiedBoard[square] = pieceInfo;
 
 			return {
@@ -89,16 +101,18 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 					...state.guesses,
 					[state.currentGuess]: {
 						...state.guesses[state.currentGuess],
-						guess: copiedBoard
-					}
-				}
-			}
-		})
+						guess: copiedBoard,
+					},
+				},
+			};
+		});
 	},
 
 	removeFromBoard: (square) => {
 		set((state) => {
-			const copiedBoard = structuredClone(state.guesses[state.currentGuess].guess);
+			const copiedBoard = structuredClone(
+				state.guesses[state.currentGuess].guess,
+			);
 			delete copiedBoard[square];
 
 			return {
@@ -106,16 +120,18 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 					...state.guesses,
 					[state.currentGuess]: {
 						...state.guesses[state.currentGuess],
-						guess: copiedBoard
-					}
-				}
-			}
-		})
+						guess: copiedBoard,
+					},
+				},
+			};
+		});
 	},
 
 	movePieceOnBoard: (from, to) => {
 		set((state) => {
-			const copiedBoard = structuredClone(state.guesses[state.currentGuess].guess);
+			const copiedBoard = structuredClone(
+				state.guesses[state.currentGuess].guess,
+			);
 			const squareInfo = copiedBoard[from];
 
 			if (from === to) return state;
@@ -130,11 +146,11 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 					...state.guesses,
 					[state.currentGuess]: {
 						...state.guesses[state.currentGuess],
-						guess: copiedBoard
-					}
-				}
-			}
-		})
+						guess: copiedBoard,
+					},
+				},
+			};
+		});
 	},
 
 	submitGuess: () => {
@@ -152,18 +168,38 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			const guessResult = checkAnswer(state.correctPosition, submission);
 
 			return {
-				usedGuesses: state.usedGuesses < 6 ? state.usedGuesses + 1 as GuessNumbers : state.usedGuesses,
+				usedGuesses:
+					state.usedGuesses < 6
+						? ((state.usedGuesses + 1) as GuessNumbers)
+						: state.usedGuesses,
 				guesses: {
 					...state.guesses,
 					[currentGuess]: {
 						...currentGuessInfo,
 						guessResult,
-						isSubmitted: true
-					}
+						isSubmitted: true,
+					},
 				},
-			}
-		})
-	}
-}))
+			};
+		});
+	},
+
+	clearGuess: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (currentGuessInfo.isSubmitted) return {};
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						guess: {},
+					},
+				},
+			};
+		});
+	},
+}));
 
 export default useGuessesStore;
