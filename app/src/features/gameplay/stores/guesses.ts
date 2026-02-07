@@ -6,6 +6,7 @@ import type {
 import { defaultGuessInfo } from "@/features/gameplay/constants/guesses";
 import type {
 	BoardRepresentation,
+	PieceColor,
 	SquareInfo,
 } from "@/features/gameplay/types/chess";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
@@ -32,6 +33,7 @@ type GuessesStore = {
 
 	submitGuess: () => void;
 	clearGuess: () => void;
+	flipBoard: () => void;
 };
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -196,6 +198,24 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 					[state.currentGuess]: {
 						...currentGuessInfo,
 						guess: {},
+					},
+				},
+			};
+		});
+	},
+
+	flipBoard: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+			const newOrientation: PieceColor =
+				currentGuessInfo.orientation === "white" ? "black" : "white";
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						orientation: newOrientation,
 					},
 				},
 			};
