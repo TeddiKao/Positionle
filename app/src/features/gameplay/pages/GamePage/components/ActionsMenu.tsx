@@ -8,10 +8,13 @@ import {
 } from "@/components/ui/tooltip";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useDistanceDisplayStore } from "@/features/gameplay/stores/distanceDisplay";
+import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function ActionsMenu() {
 	const { isShowingExactDistances, showExactDistances, hideExactDistances } =
 		useDistanceDisplayStore();
+
+	const { clearGuess } = useGuessesStore();
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -35,6 +38,7 @@ function ActionsMenu() {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
+							onClick={clearGuess}
 							aria-label="Clear board"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
