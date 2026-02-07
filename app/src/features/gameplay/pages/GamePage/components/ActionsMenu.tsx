@@ -21,8 +21,10 @@ function ActionsMenu() {
 		showExactDistances,
 		hideExactDistances,
 	} = useGuessesStore();
+
 	const isShowingExactDistances =
 		guesses[currentGuess].isShowingExactDistances;
+	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -34,7 +36,11 @@ function ActionsMenu() {
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 						>
-							<IconEraser />
+							<IconEraser
+								className={
+									isEraserModeActive ? "stroke-white" : ""
+								}
+							/>
 						</button>
 					</TooltipTrigger>
 
