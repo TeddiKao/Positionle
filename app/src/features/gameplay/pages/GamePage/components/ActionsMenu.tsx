@@ -20,6 +20,8 @@ function ActionsMenu() {
 		flipBoard,
 		showExactDistances,
 		hideExactDistances,
+		activateEraserMode,
+		deactivateEraserMode,
 	} = useGuessesStore();
 
 	const isShowingExactDistances =
@@ -35,6 +37,13 @@ function ActionsMenu() {
 							aria-label="Eraser mode (remove a piece)"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
+							onClick={() => {
+								if (isEraserModeActive) {
+									deactivateEraserMode();
+								} else {
+									activateEraserMode();
+								}
+							}}
 						>
 							<IconEraser
 								className={
