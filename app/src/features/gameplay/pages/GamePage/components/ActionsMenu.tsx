@@ -11,6 +11,7 @@ import {
 	IconTrash,
 } from "@tabler/icons-react";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
+import { clsx } from "clsx";
 
 function ActionsMenu() {
 	const {
@@ -36,7 +37,10 @@ function ActionsMenu() {
 						<button
 							aria-label="Eraser mode (remove a piece)"
 							type="button"
-							className="hover:bg-gray-400 rounded-md p-1"
+							className={clsx(
+								"hover:bg-gray-400 rounded-md p-1",
+								isEraserModeActive ? "bg-black" : "",
+							)}
 							onClick={() => {
 								if (isEraserModeActive) {
 									deactivateEraserMode();
