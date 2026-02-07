@@ -1,6 +1,7 @@
 import Square from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/Square";
 import { files, ranks } from "@/features/gameplay/constants/coordinates";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
+import type { File, Rank } from "@/features/gameplay/types/coordinates";
 
 function ChessboardGrid() {
 	const { guesses, currentGuess } = useGuessesStore();
@@ -14,18 +15,8 @@ function ChessboardGrid() {
 					return (
 						<Square
 							key={`${file}${rank}`}
-							file={
-								file as
-									| "a"
-									| "b"
-									| "c"
-									| "d"
-									| "e"
-									| "f"
-									| "g"
-									| "h"
-							}
-							rank={rank as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}
+							file={file as File}
+							rank={rank as Rank}
 						/>
 					);
 				}),
@@ -38,18 +29,8 @@ function ChessboardGrid() {
 					return (
 						<Square
 							key={`${file}${rank}`}
-							file={
-								file as
-									| "a"
-									| "b"
-									| "c"
-									| "d"
-									| "e"
-									| "f"
-									| "g"
-									| "h"
-							}
-							rank={rank as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8}
+							file={file as File}
+							rank={rank as Rank}
 						/>
 					);
 				}),
