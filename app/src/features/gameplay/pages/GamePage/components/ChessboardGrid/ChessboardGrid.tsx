@@ -8,33 +8,31 @@ function ChessboardGrid() {
 
 	const orientation = guesses[currentGuess].orientation;
 
-	return orientation === "white" ? (
+	return (
 		<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
-			{ranks.map((rank) =>
-				files.map((file) => {
-					return (
-						<Square
-							key={`${file}${rank}`}
-							file={file as File}
-							rank={rank as Rank}
-						/>
-					);
-				}),
-			)}
-		</div>
-	) : (
-		<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
-			{ranks.reverse().map((rank) =>
-				files.reverse().map((file) => {
-					return (
-						<Square
-							key={`${file}${rank}`}
-							file={file as File}
-							rank={rank as Rank}
-						/>
-					);
-				}),
-			)}
+			{orientation === "white"
+				? ranks.map((rank) =>
+						files.map((file) => {
+							return (
+								<Square
+									key={`${file}${rank}`}
+									file={file as File}
+									rank={rank as Rank}
+								/>
+							);
+						}),
+					)
+				: ranks.reverse().map((rank) =>
+						files.reverse().map((file) => {
+							return (
+								<Square
+									key={`${file}${rank}`}
+									file={file as File}
+									rank={rank as Rank}
+								/>
+							);
+						}),
+					)}
 		</div>
 	);
 }
