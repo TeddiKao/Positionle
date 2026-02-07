@@ -260,9 +260,37 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 		});
 	},
 
-	activateEraserMode: () => {},
+	activateEraserMode: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
 
-	deactivateEraserMode: () => {},
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isEraserModeActive: true,
+					},
+				},
+			};
+		});
+	},
+
+	deactivateEraserMode: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isEraserModeActive: false,
+					},
+				},
+			};
+		});
+	},
 }));
 
 export default useGuessesStore;
