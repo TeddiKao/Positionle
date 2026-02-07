@@ -26,8 +26,10 @@ function Square({ file, rank }: SquareProps) {
 	});
 
 	const { guesses, currentGuess } = useGuessesStore();
+
 	const guessResult = guesses[currentGuess].guessResult;
 	const squareResult = guessResult?.[`${file}${rank}`];
+	const orientation = guesses[currentGuess].orientation;
 
 	const { isShowingExactDistances } = useDistanceDisplayStore();
 
@@ -70,7 +72,7 @@ function Square({ file, rank }: SquareProps) {
 			key={`${file}${rank}`}
 			className={clsx(getColorClass(), "relative")}
 		>
-			{isSquareOnLeftEdge(file, "white") && (
+			{isSquareOnLeftEdge(file, orientation) && (
 				<span
 					className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}
 				>
@@ -78,7 +80,7 @@ function Square({ file, rank }: SquareProps) {
 				</span>
 			)}
 
-			{isSquareOnBottomEdge(rank, "white") && (
+			{isSquareOnBottomEdge(rank, orientation) && (
 				<span
 					className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}
 				>
