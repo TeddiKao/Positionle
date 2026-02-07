@@ -195,6 +195,9 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			};
 		});
 
+		if (!nextGuess) return {};
+		if (nextGuess > 6) return {};
+
 		setTimeout(() => {
 			set({ currentGuess: nextGuess as GuessNumbers });
 		}, 3000);
