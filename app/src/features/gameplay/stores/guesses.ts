@@ -31,6 +31,7 @@ type GuessesStore = {
 	movePieceOnBoard: (from: SquareCoordinate, to: SquareCoordinate) => void;
 
 	submitGuess: () => void;
+	clearGuess: () => void;
 };
 
 const useGuessesStore = create<GuessesStore>((set) => ({
