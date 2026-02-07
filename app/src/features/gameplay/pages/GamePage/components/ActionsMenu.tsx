@@ -38,8 +38,11 @@ function ActionsMenu() {
 							aria-label="Eraser mode (remove a piece)"
 							type="button"
 							className={clsx(
-								"hover:bg-gray-400 rounded-md p-1",
+								" rounded-md p-1",
 								isEraserModeActive ? "bg-black" : "",
+								isEraserModeActive
+									? "hover:bg-gray-700"
+									: "hover:bg-gray-400",
 							)}
 							onClick={() => {
 								if (isEraserModeActive) {
