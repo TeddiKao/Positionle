@@ -2,6 +2,7 @@ import useGuessesStore from "@/features/gameplay/stores/guesses";
 import type { ReactNode } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import type { File, Rank } from "@/features/gameplay/types/coordinates";
+import { clsx } from "clsx";
 
 type SquareContainerProps = {
 	file: File;
@@ -25,7 +26,7 @@ function SquareContainer({
 
 	return isEraserModeActive ? (
 		<button
-			className={className}
+			className={clsx(className, "flex")}
 			ref={setNodeRef}
 			key={`${file}${rank}`}
 			type="button"
