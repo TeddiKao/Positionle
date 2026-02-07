@@ -8,6 +8,9 @@ function ChessboardGrid() {
 
 	const orientation = guesses[currentGuess].orientation;
 
+	const reversedRanks = [...ranks].reverse();
+	const reversedFiles = [...files].reverse();
+
 	return (
 		<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
 			{orientation === "white"
@@ -22,8 +25,10 @@ function ChessboardGrid() {
 							);
 						}),
 					)
-				: ranks.reverse().map((rank) =>
-						files.reverse().map((file) => {
+				: reversedRanks.map((rank) =>
+						reversedFiles.map((file) => {
+							console.log(`${file}${rank}`);
+
 							return (
 								<Square
 									key={`${file}${rank}`}
