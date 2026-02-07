@@ -63,7 +63,11 @@ function ActionsMenu() {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
-							aria-label="Show exact distances"
+							aria-label={
+								isShowingExactDistances
+									? "Hide exact distances"
+									: "Show exact distances"
+							}
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 							onClick={() =>
