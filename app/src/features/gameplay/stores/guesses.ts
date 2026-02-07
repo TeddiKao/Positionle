@@ -37,6 +37,9 @@ type GuessesStore = {
 
 	showExactDistances: () => void;
 	hideExactDistances: () => void;
+
+	activateEraserMode: () => void;
+	deactivateEraserMode: () => void;
 };
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -251,6 +254,40 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 					[state.currentGuess]: {
 						...currentGuessInfo,
 						isShowingExactDistances: false,
+					},
+				},
+			};
+		});
+	},
+
+	activateEraserMode: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (currentGuessInfo.isSubmitted) return {};
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isEraserModeActive: true,
+					},
+				},
+			};
+		});
+	},
+
+	deactivateEraserMode: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (currentGuessInfo.isSubmitted) return {};
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isEraserModeActive: false,
 					},
 				},
 			};

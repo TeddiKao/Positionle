@@ -6,6 +6,7 @@ const defaultGuessInfo: GuessInfo = {
 	guessResult: null,
 	orientation: "white",
 	isShowingExactDistances: false,
+	isEraserModeActive: false,
 };
 
 export { defaultGuessInfo };

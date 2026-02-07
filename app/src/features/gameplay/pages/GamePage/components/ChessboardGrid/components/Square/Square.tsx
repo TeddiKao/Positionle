@@ -1,4 +1,3 @@
-import { useDroppable } from "@dnd-kit/core";
 import {
 	isSquareOnBottomEdge,
 	isSquareOnLeftEdge,
@@ -13,6 +12,7 @@ import type {
 import { files } from "@/features/gameplay/constants/coordinates";
 import { clsx } from "clsx";
 import { getColorByDistance } from "@/features/gameplay/utils/colorComputation";
+import SquareContainer from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/components/SquareContainer";
 
 type SquareProps = {
 	file: File;
@@ -20,10 +20,6 @@ type SquareProps = {
 };
 
 function Square({ file, rank }: SquareProps) {
-	const { setNodeRef } = useDroppable({
-		id: `${file}${rank}`,
-	});
-
 	const { guesses, currentGuess } = useGuessesStore();
 
 	const guessResult = guesses[currentGuess].guessResult;
@@ -67,9 +63,9 @@ function Square({ file, rank }: SquareProps) {
 	}
 
 	return (
-		<div
-			ref={setNodeRef}
-			key={`${file}${rank}`}
+		<SquareContainer
+			file={file}
+			rank={rank}
 			className={clsx(getColorClass(), "relative")}
 		>
 			{isSquareOnLeftEdge(file, orientation) && (
@@ -124,7 +120,7 @@ function Square({ file, rank }: SquareProps) {
 					);
 				},
 			)}
-		</div>
+		</SquareContainer>
 	);
 }
 

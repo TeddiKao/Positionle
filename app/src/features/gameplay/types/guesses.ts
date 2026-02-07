@@ -19,6 +19,7 @@ type GuessInfo = {
 	guessResult: GuessResult | null;
 	orientation: PieceColor;
 	isShowingExactDistances: boolean;
+	isEraserModeActive: boolean;
 };
 
 export type { GuessInfo, GuessNumbers, GuessResult };

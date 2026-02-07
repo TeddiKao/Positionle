@@ -1,13 +1,17 @@
-import Eraser from "@/features/gameplay/icons/actionMenu/Eraser";
-import TrashCan from "@/features/gameplay/icons/actionMenu/TrashCan";
-import Flip from "@/features/gameplay/icons/actionMenu/Flip";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import {
+	IconEraser,
+	IconEye,
+	IconEyeOff,
+	IconRefresh as IconFlip,
+	IconTrash,
+} from "@tabler/icons-react";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
+import { clsx } from "clsx";
 
 function ActionsMenu() {
 	const {
@@ -17,9 +21,13 @@ function ActionsMenu() {
 		flipBoard,
 		showExactDistances,
 		hideExactDistances,
+		activateEraserMode,
+		deactivateEraserMode,
 	} = useGuessesStore();
+
 	const isShowingExactDistances =
 		guesses[currentGuess].isShowingExactDistances;
+	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -29,9 +37,26 @@ function ActionsMenu() {
 						<button
 							aria-label="Eraser mode (remove a piece)"
 							type="button"
-							className="hover:bg-gray-400 rounded-md p-1"
+							className={clsx(
+								" rounded-md p-1",
+								isEraserModeActive ? "bg-black" : "",
+								isEraserModeActive
+									? "hover:bg-gray-700"
+									: "hover:bg-gray-400",
+							)}
+							onClick={() => {
+								if (isEraserModeActive) {
+									deactivateEraserMode();
+								} else {
+									activateEraserMode();
+								}
+							}}
 						>
-							<Eraser />
+							<IconEraser
+								className={
+									isEraserModeActive ? "stroke-white" : ""
+								}
+							/>
 						</button>
 					</TooltipTrigger>
 
@@ -48,7 +73,7 @@ function ActionsMenu() {
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 						>
-							<TrashCan />
+							<IconTrash />
 						</button>
 					</TooltipTrigger>
 
@@ -63,7 +88,7 @@ function ActionsMenu() {
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
 						>
-							<Flip />
+							<IconFlip />
 						</button>
 					</TooltipTrigger>
 
