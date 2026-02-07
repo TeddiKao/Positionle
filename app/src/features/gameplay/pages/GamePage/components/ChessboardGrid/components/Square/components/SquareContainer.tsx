@@ -27,7 +27,7 @@ function SquareContainer({
 	return isEraserModeActive ? (
 		<button
 			className={clsx(className, "flex")}
-			onClick={() => removeFromBoard(`${file}${rank}`)}
+			onPointerDown={() => removeFromBoard(`${file}${rank}`)}
 			ref={setNodeRef}
 			key={`${file}${rank}`}
 			type="button"
