@@ -163,6 +163,8 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	},
 
 	submitGuess: () => {
+		let nextGuess: number | null = null;
+
 		set((state) => {
 			if (!state.correctPosition) return {};
 
@@ -175,6 +177,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			if (!submission) return {};
 
 			const guessResult = checkAnswer(state.correctPosition, submission);
+			nextGuess = state.currentGuess + 1;
 
 			return {
 				usedGuesses:
@@ -191,6 +194,13 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				},
 			};
 		});
+
+		if (!nextGuess) return {};
+		if (nextGuess > 6) return {};
+
+		setTimeout(() => {
+			set({ currentGuess: nextGuess as GuessNumbers });
+		}, 3000);
 	},
 
 	clearGuess: () => {
