@@ -28,7 +28,7 @@ function PieceForSetup({ abbreviation, icon }: PieceForSetupProps) {
 			{...listeners}
 			{...attributes}
 			className={clsx(
-				isDragging ? "hover:bg-gray-400" : "",
+				isDragging ? "" : "hover:bg-gray-400",
 				isDragging ? "z-50" : "",
 				"rounded-md",
 			)}
