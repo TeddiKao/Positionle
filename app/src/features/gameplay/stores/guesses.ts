@@ -34,6 +34,9 @@ type GuessesStore = {
 	submitGuess: () => void;
 	clearGuess: () => void;
 	flipBoard: () => void;
+
+	showExactDistances: () => void;
+	hideExactDistances: () => void;
 };
 
 const useGuessesStore = create<GuessesStore>((set) => ({
@@ -216,6 +219,38 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 					[state.currentGuess]: {
 						...currentGuessInfo,
 						orientation: newOrientation,
+					},
+				},
+			};
+		});
+	},
+
+	showExactDistances: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isShowingExactDistances: true,
+					},
+				},
+			};
+		});
+	},
+
+	hideExactDistances: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isShowingExactDistances: false,
 					},
 				},
 			};

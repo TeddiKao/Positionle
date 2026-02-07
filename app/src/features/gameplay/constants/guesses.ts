@@ -5,6 +5,7 @@ const defaultGuessInfo: GuessInfo = {
 	isSubmitted: false,
 	guessResult: null,
 	orientation: "white",
+	isShowingExactDistances: false,
 };
 
 export { defaultGuessInfo };
