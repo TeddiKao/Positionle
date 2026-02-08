@@ -3,12 +3,13 @@ import type { File, Rank } from "@/features/gameplay/types/coordinates";
 import { getPieceIcon } from "@/features/gameplay/utils/pieceIconDetection";
 
 type StaticSquareProps = {
-	squareInfo: SquareInfo;
+	squareInfo: SquareInfo | null;
 	file: File;
 	rank: Rank;
 };
 
 function StaticSquare({ squareInfo, file, rank }: StaticSquareProps) {
+	if (!squareInfo) return null;
 	if (!squareInfo.color) return null;
 	if (!squareInfo.piece) return null;
 
