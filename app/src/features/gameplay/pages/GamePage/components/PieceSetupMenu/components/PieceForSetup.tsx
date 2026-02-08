@@ -30,7 +30,7 @@ function PieceForSetup({ abbreviation, icon }: PieceForSetupProps) {
 			className={clsx(
 				isDragging ? "" : "hover:bg-gray-400",
 				isDragging ? "z-50" : "",
-				"rounded-md touch-none pointer-events-auto",
+				"rounded-md touch-none",
 			)}
 		>
 			<img className="w-12 h-12" src={icon} alt={abbreviation} />

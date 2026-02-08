@@ -31,7 +31,7 @@ function PieceIcon({ squareInfo, coordinate }: PieceIconProps) {
 			ref={setNodeRef}
 			{...attributes}
 			{...listeners}
-			className="absolute z-40 touch-none pointer-events-auto"
+			className="absolute z-40 touch-none"
 			src={pieceIcon}
 			key={key}
 			alt={key}
