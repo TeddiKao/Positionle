@@ -5,9 +5,14 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
-import ChessboardGrid from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/ChessboardGrid";
+import StaticChessboard from "@/features/gameplay/components/GameEndModal/components/StaticChessboard/StaticChessboard";
+import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function GameEndModal() {
+	const { correctPosition } = useGuessesStore();
+
+	if (!correctPosition) return null;
+
 	return (
 		<Dialog open={true}>
 			<DialogContent>
@@ -21,7 +26,9 @@ function GameEndModal() {
 					</DialogDescription>
 				</DialogHeader>
 
-				<ChessboardGrid />
+				<div className="flex flex-row justify-center">
+					<StaticChessboard boardRepresentation={correctPosition} />
+				</div>
 			</DialogContent>
 		</Dialog>
 	);

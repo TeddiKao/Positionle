@@ -8,7 +8,7 @@ type StaticChessboardProps = {
 
 function StaticChessboard({ boardRepresentation }: StaticChessboardProps) {
 	return (
-		<div className="grid grid-cols-8 w-full aspect-square shadow-lg shadow-gray-600">
+		<div className="grid grid-cols-8 w-full max-w-1/2 aspect-square shadow-lg shadow-gray-600">
 			{ranks.map((rank) =>
 				files.map((file) => {
 					return (
