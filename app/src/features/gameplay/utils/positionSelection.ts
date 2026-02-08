@@ -10,6 +10,7 @@ import type { PieceNameAbbreviation } from "@/features/gameplay/types/abbreviati
 import { files } from "@/features/gameplay/constants/coordinates";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import { positions } from "@/positions/positions";
+import type { CorrectPositionInfo } from "@/features/gameplay/types/guesses";
 
 function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 	const board: BoardRepresentation = {};
@@ -69,14 +70,23 @@ function convertFenToBoardRepresentation(fen: string): BoardRepresentation {
 	return board;
 }
 
-function randomlySelectPosition(): BoardRepresentation {
+function randomlySelectPosition(): CorrectPositionInfo {
 	if (positions.length === 0) {
 		throw new Error("No positions available");
 	}
 
 	const randomIndex = Math.floor(Math.random() * positions.length);
+	const selectedPositionFen = structuredClone(
+		positions[randomIndex].positionFen,
+	);
 
-	return convertFenToBoardRepresentation(positions[randomIndex].positionFen);
+	const convertedBoardRepresentation =
+		convertFenToBoardRepresentation(selectedPositionFen);
+
+	return {
+		...positions[randomIndex],
+		correctPosition: convertedBoardRepresentation,
+	};
 }
 
 console.log(convertFenToBoardRepresentation("B7/8/4b3/4kp2/6p1/6P1/1r3R2/6K1"));
