@@ -26,8 +26,18 @@ function GameEndModal() {
 					</DialogDescription>
 				</DialogHeader>
 
-				<div className="flex flex-col items-center">
+				<div className="flex flex-col gap-4 items-center">
 					<StaticChessboard boardRepresentation={correctPosition} />
+
+					<div className="flex flex-col items-center">
+						<p className="text-sm">World Cup 2025</p>
+						<p className="font-bold text-xl">
+							Magnus Carlsen vs Hikaru Nakamura
+						</p>
+						<p className="text-sm text-muted-foreground">
+							"Random caption"
+						</p>
+					</div>
 				</div>
 			</DialogContent>
 		</Dialog>
