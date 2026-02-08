@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { dualKingsideCastlingTest } from "@/dev/testPositions";
 import { randomlySelectPosition } from "@/features/gameplay/utils/positionSelection";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import GameEndModal from "@/features/gameplay/components/GameEndModal/GameEndModal";
 
 function GamePage() {
 	const {
@@ -65,24 +66,28 @@ function GamePage() {
 	}
 
 	return (
-		<div className="flex flex-col items-center gap-4">
-			<Logo />
-			<GuessNavigator />
+		<>
+			<div className="flex flex-col items-center gap-4">
+				<Logo />
+				<GuessNavigator />
 
-			<div className="grid grid-cols-3 w-full justify-center gap-4">
-				<DndContext
-					modifiers={[restrictToWindowEdges]}
-					onDragEnd={handleDragEnd}
-				>
-					<PieceSetupMenu />
-					<ChessboardGrid />
-				</DndContext>
+				<div className="grid grid-cols-3 w-full justify-center gap-4">
+					<DndContext
+						modifiers={[restrictToWindowEdges]}
+						onDragEnd={handleDragEnd}
+					>
+						<PieceSetupMenu />
+						<ChessboardGrid />
+					</DndContext>
 
-				<ActionsMenu />
+					<ActionsMenu />
+				</div>
+
+				<CheckAnswerButton />
 			</div>
 
-			<CheckAnswerButton />
-		</div>
+			<GameEndModal />
+		</>
 	);
 }
 
