@@ -1,14 +1,11 @@
 import { create } from "zustand";
 import type {
+	CorrectPositionInfo,
 	GuessInfo,
 	GuessNumbers,
 } from "@/features/gameplay/types/guesses";
 import { defaultGuessInfo } from "@/features/gameplay/constants/guesses";
-import type {
-	BoardRepresentation,
-	PieceColor,
-	SquareInfo,
-} from "@/features/gameplay/types/chess";
+import type { PieceColor, SquareInfo } from "@/features/gameplay/types/chess";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
 
@@ -21,8 +18,8 @@ type GuessesStore = {
 	increaseUsedGuesses: () => void;
 	resetUsedGuesses: () => void;
 
-	correctPosition: BoardRepresentation | null;
-	updateCorrectPosition: (position: BoardRepresentation) => void;
+	correctPositionInfo: CorrectPositionInfo | null;
+	updateCorrectPositionInfo: (position: CorrectPositionInfo) => void;
 	clearCorrectPosition: () => void;
 
 	guesses: Record<GuessNumbers, GuessInfo>;
@@ -81,12 +78,12 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 		set({ usedGuesses: 0 });
 	},
 
-	correctPosition: null,
-	updateCorrectPosition: (position) => {
-		set({ correctPosition: structuredClone(position) });
+	correctPositionInfo: null,
+	updateCorrectPositionInfo: (positionInfo: CorrectPositionInfo) => {
+		set({ correctPositionInfo: positionInfo });
 	},
 	clearCorrectPosition: () => {
-		set({ correctPosition: null });
+		set({ correctPositionInfo: null });
 	},
 
 	guesses: {
@@ -166,7 +163,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 		let nextGuess: number | null = null;
 
 		set((state) => {
-			if (!state.correctPosition) return {};
+			if (!state.correctPositionInfo) return {};
 
 			const currentGuess = state.currentGuess;
 			const currentGuessInfo = state.guesses[currentGuess];
@@ -176,7 +173,10 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			const submission = currentGuessInfo.guess;
 			if (!submission) return {};
 
-			const guessResult = checkAnswer(state.correctPosition, submission);
+			const guessResult = checkAnswer(
+				state.correctPositionInfo.correctPosition,
+				submission,
+			);
 			nextGuess = state.currentGuess + 1;
 
 			return {
