@@ -26,7 +26,7 @@ function GameEndModal() {
 					</DialogDescription>
 				</DialogHeader>
 
-				<div className="flex flex-row justify-center">
+				<div className="flex flex-col items-center">
 					<StaticChessboard boardRepresentation={correctPosition} />
 				</div>
 			</DialogContent>
