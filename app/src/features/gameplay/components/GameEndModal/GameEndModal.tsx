@@ -9,9 +9,9 @@ import StaticChessboard from "@/features/gameplay/components/GameEndModal/compon
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function GameEndModal() {
-	const { correctPosition } = useGuessesStore();
+	const { correctPositionInfo } = useGuessesStore();
 
-	if (!correctPosition) return null;
+	if (!correctPositionInfo) return null;
 
 	return (
 		<Dialog open={true}>
@@ -27,12 +27,17 @@ function GameEndModal() {
 				</DialogHeader>
 
 				<div className="flex flex-col gap-4 items-center">
-					<StaticChessboard boardRepresentation={correctPosition} />
+					<StaticChessboard
+						boardRepresentation={
+							correctPositionInfo.correctPosition
+						}
+					/>
 
 					<div className="flex flex-col items-center">
-						<p className="text-sm">World Cup 2025</p>
+						<p className="text-sm">{correctPositionInfo.source}</p>
 						<p className="font-bold text-xl">
-							Magnus Carlsen vs Hikaru Nakamura
+							{correctPositionInfo.whitePlayer} vs{" "}
+							{correctPositionInfo.blackPlayer}
 						</p>
 						<p className="text-sm text-muted-foreground">
 							"Random caption"

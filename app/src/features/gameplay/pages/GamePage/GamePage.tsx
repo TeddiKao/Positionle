@@ -22,18 +22,18 @@ function GamePage() {
 		currentGuess,
 		addToBoard,
 		movePieceOnBoard,
-		updateCorrectPosition,
+		updateCorrectPositionInfo,
 	} = useGuessesStore();
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
 		if (import.meta.env.VITE_USE_DEV_POSITION === "true") {
-			updateCorrectPosition(dualKingsideCastlingTest);
+			updateCorrectPositionInfo(dualKingsideCastlingTest);
 		} else {
-			const selectedPosition = randomlySelectPosition();
-			updateCorrectPosition(selectedPosition);
+			const selectedPositionInfo = randomlySelectPosition();
+			updateCorrectPositionInfo(selectedPositionInfo);
 		}
-	}, [updateCorrectPosition]);
+	}, [updateCorrectPositionInfo]);
 
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
