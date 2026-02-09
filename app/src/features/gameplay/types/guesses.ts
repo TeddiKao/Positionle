@@ -27,6 +27,7 @@ type CorrectPositionInfo = {
 	source: string;
 	whitePlayer: string | "NN";
 	blackPlayer: string | "NN";
+	caption: string;
 };
 
 export type { GuessInfo, GuessNumbers, GuessResult, CorrectPositionInfo };
