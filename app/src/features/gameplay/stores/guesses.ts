@@ -191,6 +191,11 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				useGameEndModalStore.getState().openModal();
 			}
 
+			if (state.usedGuesses + 1 >= 6) {
+				nextGuess = null;
+				useGameEndModalStore.getState().openModal();
+			}
+
 			return {
 				usedGuesses:
 					state.usedGuesses < 6 && !hasCorrectlyGuessed
