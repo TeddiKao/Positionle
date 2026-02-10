@@ -15,15 +15,19 @@ import { dualKingsideCastlingTest } from "@/dev/testPositions";
 import { randomlySelectPosition } from "@/features/gameplay/utils/positionSelection";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GameEndModal from "@/features/gameplay/components/GameEndModal/GameEndModal";
+import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 
 function GamePage() {
 	const {
 		guesses,
 		currentGuess,
+		hasCorrectlyGuessed,
 		addToBoard,
 		movePieceOnBoard,
 		updateCorrectPositionInfo,
 	} = useGuessesStore();
+
+	const { openModal } = useGameEndModalStore();
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
@@ -34,6 +38,12 @@ function GamePage() {
 			updateCorrectPositionInfo(selectedPositionInfo);
 		}
 	}, [updateCorrectPositionInfo]);
+
+	useEffect(() => {
+		if (hasCorrectlyGuessed) {
+			openModal();
+		}
+	}, [hasCorrectlyGuessed, openModal]);
 
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
