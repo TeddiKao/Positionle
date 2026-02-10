@@ -10,7 +10,7 @@ import useGuessesStore from "@/features/gameplay/stores/guesses";
 import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 
 function GameEndModal() {
-	const { correctPositionInfo } = useGuessesStore();
+	const { correctPositionInfo, hasCorrectlyGuessed } = useGuessesStore();
 	const { isOpen, openModal, closeModal } = useGameEndModalStore();
 
 	if (!correctPositionInfo) return null;
@@ -29,7 +29,9 @@ function GameEndModal() {
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className="text-center text-xl">
-						You guessed it!
+						{hasCorrectlyGuessed
+							? "You guessed it!"
+							: "Better luck next time"}
 					</DialogTitle>
 
 					<DialogDescription className="text-center">
