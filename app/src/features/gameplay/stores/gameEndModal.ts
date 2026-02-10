@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
 type GameEndModalStore = {
-	open: boolean;
+	isOpen: boolean;
 	openModal: () => void;
 	closeModal: () => void;
 };
 
 const useGameEndModalStore = create<GameEndModalStore>((set) => ({
-	open: false,
-	openModal: () => set({ open: true }),
-	closeModal: () => set({ open: false }),
+	isOpen: false,
+	openModal: () => set({ isOpen: true }),
+	closeModal: () => set({ isOpen: false }),
 }));
 
 export default useGameEndModalStore;
