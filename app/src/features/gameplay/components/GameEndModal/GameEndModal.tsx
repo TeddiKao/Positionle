@@ -7,14 +7,25 @@ import {
 } from "@/components/ui/dialog";
 import StaticChessboard from "@/features/gameplay/components/GameEndModal/components/StaticChessboard/StaticChessboard";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
+import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 
 function GameEndModal() {
 	const { correctPositionInfo } = useGuessesStore();
+	const { isOpen, openModal, closeModal } = useGameEndModalStore();
 
 	if (!correctPositionInfo) return null;
 
 	return (
-		<Dialog open={true}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open: boolean) => {
+				if (open) {
+					openModal();
+				} else {
+					closeModal();
+				}
+			}}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className="text-center text-xl">
@@ -40,7 +51,7 @@ function GameEndModal() {
 							{correctPositionInfo.blackPlayer}
 						</p>
 						<p className="text-sm text-muted-foreground">
-							"Random caption"
+							{correctPositionInfo.caption}
 						</p>
 					</div>
 				</div>
