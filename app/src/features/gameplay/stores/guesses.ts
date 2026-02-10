@@ -187,12 +187,13 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			);
 
 			if (hasCorrectlyGuessed) {
+				nextGuess = state.currentGuess;
 				useGameEndModalStore.getState().openModal();
 			}
 
 			return {
 				usedGuesses:
-					state.usedGuesses < 6
+					state.usedGuesses < 6 && !hasCorrectlyGuessed
 						? ((state.usedGuesses + 1) as GuessNumbers)
 						: state.usedGuesses,
 				guesses: {
