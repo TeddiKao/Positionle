@@ -22,6 +22,9 @@ type GuessesStore = {
 	updateCorrectPositionInfo: (position: CorrectPositionInfo) => void;
 	clearCorrectPosition: () => void;
 
+	hasCorrectlyGuessed: boolean;
+	markAsCorrectlyGuessed: () => void;
+
 	guesses: Record<GuessNumbers, GuessInfo>;
 
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
@@ -84,6 +87,11 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	},
 	clearCorrectPosition: () => {
 		set({ correctPositionInfo: null });
+	},
+
+	hasCorrectlyGuessed: false,
+	markAsCorrectlyGuessed: () => {
+		set({ hasCorrectlyGuessed: true });
 	},
 
 	guesses: {
