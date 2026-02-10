@@ -187,7 +187,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			);
 
 			if (hasCorrectlyGuessed) {
-				nextGuess = state.currentGuess;
+				nextGuess = null;
 				useGameEndModalStore.getState().openModal();
 			}
 
