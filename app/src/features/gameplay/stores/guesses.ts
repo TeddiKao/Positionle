@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { create } from "zustand";
 import type {
 	CorrectPositionInfo,
@@ -187,6 +188,11 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 			);
 			nextGuess = state.currentGuess + 1;
 
+			const hasCorrectlyGuessed = _.isEqual(
+				state.correctPositionInfo.correctPosition,
+				currentGuessInfo.guess,
+			);
+
 			return {
 				usedGuesses:
 					state.usedGuesses < 6
@@ -200,6 +206,7 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 						isSubmitted: true,
 					},
 				},
+				hasCorrectlyGuessed,
 			};
 		});
 
