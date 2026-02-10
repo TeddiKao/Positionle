@@ -22,6 +22,7 @@ function GamePage() {
 		guesses,
 		currentGuess,
 		hasCorrectlyGuessed,
+		usedGuesses,
 		addToBoard,
 		movePieceOnBoard,
 		updateCorrectPositionInfo,
@@ -44,6 +45,12 @@ function GamePage() {
 			openModal();
 		}
 	}, [hasCorrectlyGuessed, openModal]);
+
+	useEffect(() => {
+		if (usedGuesses >= 6) {
+			openModal();
+		}
+	}, [usedGuesses, openModal]);
 
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
