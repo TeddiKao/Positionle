@@ -1,4 +1,4 @@
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function CheckAnswerButton() {
@@ -13,8 +13,14 @@ function CheckAnswerButton() {
 	}
 
 	return (
-		<Button onClick={handleAnswerSubmission} type="button" className="w-full max-w-md hover:opacity-90">Check</Button>
-	)
+		<Button
+			onClick={handleAnswerSubmission}
+			type="button"
+			className="w-full max-w-md hover:opacity-90"
+		>
+			Check
+		</Button>
+	);
 }
 
 export default CheckAnswerButton;

@@ -9,6 +9,7 @@ import { defaultGuessInfo } from "@/features/gameplay/constants/guesses";
 import type { PieceColor, SquareInfo } from "@/features/gameplay/types/chess";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
+import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 
 type GuessesStore = {
 	currentGuess: GuessNumbers;
@@ -22,9 +23,6 @@ type GuessesStore = {
 	correctPositionInfo: CorrectPositionInfo | null;
 	updateCorrectPositionInfo: (position: CorrectPositionInfo) => void;
 	clearCorrectPosition: () => void;
-
-	hasCorrectlyGuessed: boolean;
-	markAsCorrectlyGuessed: () => void;
 
 	guesses: Record<GuessNumbers, GuessInfo>;
 
@@ -88,11 +86,6 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 	},
 	clearCorrectPosition: () => {
 		set({ correctPositionInfo: null });
-	},
-
-	hasCorrectlyGuessed: false,
-	markAsCorrectlyGuessed: () => {
-		set({ hasCorrectlyGuessed: true });
 	},
 
 	guesses: {
@@ -193,6 +186,10 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				currentGuessInfo.guess,
 			);
 
+			if (hasCorrectlyGuessed) {
+				useGameEndModalStore.getState().openModal();
+			}
+
 			return {
 				usedGuesses:
 					state.usedGuesses < 6
@@ -206,7 +203,6 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 						isSubmitted: true,
 					},
 				},
-				hasCorrectlyGuessed,
 			};
 		});
 
