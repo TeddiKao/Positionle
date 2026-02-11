@@ -17,6 +17,10 @@ function GameEndModal() {
 
 	if (!correctPositionInfo) return null;
 
+	function playAgain() {
+		closeModal();
+	}
+
 	return (
 		<Dialog
 			open={isOpen}
@@ -61,7 +65,11 @@ function GameEndModal() {
 				</div>
 
 				<DialogFooter>
-					<Button className="w-full hover:opacity-90">
+					<Button
+						type="button"
+						onClick={playAgain}
+						className="w-full hover:opacity-90"
+					>
 						Play again
 					</Button>
 				</DialogFooter>
