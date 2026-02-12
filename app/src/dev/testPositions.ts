@@ -17,6 +17,7 @@ const dualKingsideCastlingTest: CorrectPositionInfo = {
 	source: "Unknown",
 	whitePlayer: "NN",
 	blackPlayer: "NN",
+	caption: "",
 };
 
 export { dualKingsideCastlingTest };
