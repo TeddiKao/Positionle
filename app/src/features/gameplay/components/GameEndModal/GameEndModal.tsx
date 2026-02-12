@@ -60,9 +60,11 @@ function GameEndModal() {
 							{correctPositionInfo.whitePlayer} vs{" "}
 							{correctPositionInfo.blackPlayer}
 						</p>
-						<p className="text-sm text-muted-foreground">
-							{correctPositionInfo.caption}
-						</p>
+						{correctPositionInfo.caption && (
+							<p className="text-sm text-muted-foreground">
+								{correctPositionInfo.caption}
+							</p>
+						)}
 					</div>
 				</div>
 
