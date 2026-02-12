@@ -31,7 +31,6 @@ function GamePage() {
 	const { openModal } = useGameEndModalStore();
 
 	useEffect(() => {
-		console.log("Running effect");
 		// Replace "dualKingsideCastlingTest" with any position you like
 		if (usedGuesses === 0 && !hasCorrectlyGuessed) {
 			if (import.meta.env.VITE_USE_DEV_POSITION === "true") {
