@@ -4,6 +4,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
+	IconCopy,
 	IconEraser,
 	IconEye,
 	IconEyeOff,
@@ -116,6 +117,25 @@ function ActionsMenu() {
 							) : (
 								<IconEyeOff />
 							)}
+						</button>
+					</TooltipTrigger>
+
+					<TooltipContent side="right">
+						{isShowingExactDistances
+							? "Hide exact distances"
+							: "Show exact distances"}
+					</TooltipContent>
+				</Tooltip>
+
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<button
+							aria-label="Copy position"
+							type="button"
+							className="hover:bg-gray-400 rounded-md p-1"
+							onClick={() => {}}
+						>
+							<IconCopy />
 						</button>
 					</TooltipTrigger>
 
