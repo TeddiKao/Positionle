@@ -31,14 +31,17 @@ function GamePage() {
 	const { openModal } = useGameEndModalStore();
 
 	useEffect(() => {
+		console.log("Running effect");
 		// Replace "dualKingsideCastlingTest" with any position you like
-		if (import.meta.env.VITE_USE_DEV_POSITION === "true") {
-			updateCorrectPositionInfo(dualKingsideCastlingTest);
-		} else {
-			const selectedPositionInfo = randomlySelectPosition();
-			updateCorrectPositionInfo(selectedPositionInfo);
+		if (usedGuesses === 0 && !hasCorrectlyGuessed) {
+			if (import.meta.env.VITE_USE_DEV_POSITION === "true") {
+				updateCorrectPositionInfo(dualKingsideCastlingTest);
+			} else {
+				const selectedPositionInfo = randomlySelectPosition();
+				updateCorrectPositionInfo(selectedPositionInfo);
+			}
 		}
-	}, [updateCorrectPositionInfo]);
+	}, [updateCorrectPositionInfo, usedGuesses, hasCorrectlyGuessed]);
 
 	useEffect(() => {
 		if (hasCorrectlyGuessed) {
