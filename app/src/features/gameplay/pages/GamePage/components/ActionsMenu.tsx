@@ -129,30 +129,71 @@ function ActionsMenu() {
 					</TooltipContent>
 				</Tooltip>
 
-				<Tooltip>
-					<TooltipTrigger asChild>
-						<button
-							aria-label="Copy position"
-							type="button"
-							className="hover:bg-gray-400 rounded-md p-1"
-							onClick={() => {
-								if (currentGuess - 1 > 0) {
-									updatePosition(
-										guesses[
-											(currentGuess - 1) as GuessNumbers
-										].guess,
-									);
+				{currentGuess > 1 ? (
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<button
+								aria-label="Copy position"
+								type="button"
+								className={
+									currentGuess <= 1
+										? "rounded-md p-1"
+										: "hover:bg-gray-400 rounded-md p-1"
 								}
-							}}
-						>
-							<IconCopy />
-						</button>
-					</TooltipTrigger>
+								disabled={currentGuess <= 1}
+								aria-disabled={currentGuess <= 1}
+								onClick={() => {
+									if (currentGuess - 1 > 0) {
+										updatePosition(
+											guesses[
+												(currentGuess -
+													1) as GuessNumbers
+											].guess,
+										);
+									}
+								}}
+							>
+								<IconCopy
+									className={
+										currentGuess <= 1
+											? "stroke-gray-400"
+											: ""
+									}
+								/>
+							</button>
+						</TooltipTrigger>
 
-					<TooltipContent side="right">
-						Copy previous position
-					</TooltipContent>
-				</Tooltip>
+						<TooltipContent side="right">
+							Copy previous position
+						</TooltipContent>
+					</Tooltip>
+				) : (
+					<button
+						aria-label="Copy position"
+						type="button"
+						className={
+							currentGuess <= 1
+								? "rounded-md p-1"
+								: "hover:bg-gray-400 rounded-md p-1"
+						}
+						disabled={currentGuess <= 1}
+						aria-disabled={currentGuess <= 1}
+						onClick={() => {
+							if (currentGuess - 1 > 0) {
+								updatePosition(
+									guesses[(currentGuess - 1) as GuessNumbers]
+										.guess,
+								);
+							}
+						}}
+					>
+						<IconCopy
+							className={
+								currentGuess <= 1 ? "stroke-gray-400" : ""
+							}
+						/>
+					</button>
+				)}
 			</div>
 		</div>
 	);
