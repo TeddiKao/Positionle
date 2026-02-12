@@ -171,8 +171,6 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 	},
 
 	submitGuess: () => {
-		let nextGuess: number | null = null;
-
 		set((state) => {
 			if (!state.correctPositionInfo) return {};
 
@@ -188,20 +186,11 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 				state.correctPositionInfo.correctPosition,
 				submission,
 			);
-			nextGuess = state.currentGuess + 1;
 
 			const hasCorrectlyGuessed = _.isEqual(
 				state.correctPositionInfo.correctPosition,
 				currentGuessInfo.guess,
 			);
-
-			if (hasCorrectlyGuessed) {
-				nextGuess = null;
-			}
-
-			if (state.usedGuesses + 1 >= 6) {
-				nextGuess = null;
-			}
 
 			return {
 				usedGuesses:
@@ -220,13 +209,6 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 				hasCorrectlyGuessed: hasCorrectlyGuessed,
 			};
 		});
-
-		if (!nextGuess) return {};
-		if (nextGuess > 6) return {};
-
-		setTimeout(() => {
-			set({ currentGuess: nextGuess as GuessNumbers });
-		}, 3000);
 	},
 
 	clearGuess: () => {
