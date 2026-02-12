@@ -157,7 +157,7 @@ function ActionsMenu() {
 					</Tooltip>
 				) : (
 					<button
-						aria-label="Copy position"
+						aria-label="Copy position (disabled)"
 						type="button"
 						className="rounded-md p-1"
 						disabled={true}
