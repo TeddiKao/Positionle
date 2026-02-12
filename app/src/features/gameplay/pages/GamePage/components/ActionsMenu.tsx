@@ -135,13 +135,7 @@ function ActionsMenu() {
 							<button
 								aria-label="Copy position"
 								type="button"
-								className={
-									currentGuess <= 1
-										? "rounded-md p-1"
-										: "hover:bg-gray-400 rounded-md p-1"
-								}
-								disabled={currentGuess <= 1}
-								aria-disabled={currentGuess <= 1}
+								className="hover:bg-gray-400 rounded-md p-1"
 								onClick={() => {
 									if (currentGuess - 1 > 0) {
 										updatePosition(
@@ -153,13 +147,7 @@ function ActionsMenu() {
 									}
 								}}
 							>
-								<IconCopy
-									className={
-										currentGuess <= 1
-											? "stroke-gray-400"
-											: ""
-									}
-								/>
+								<IconCopy />
 							</button>
 						</TooltipTrigger>
 
