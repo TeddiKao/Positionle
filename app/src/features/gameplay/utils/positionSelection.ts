@@ -89,6 +89,4 @@ function randomlySelectPosition(): CorrectPositionInfo {
 	};
 }
 
-console.log(convertFenToBoardRepresentation("B7/8/4b3/4kp2/6p1/6P1/1r3R2/6K1"));
-
 export { randomlySelectPosition };
