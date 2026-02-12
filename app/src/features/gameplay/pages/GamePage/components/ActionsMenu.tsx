@@ -13,6 +13,7 @@ import {
 } from "@tabler/icons-react";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
+import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 
 function ActionsMenu() {
 	const {
@@ -24,6 +25,7 @@ function ActionsMenu() {
 		hideExactDistances,
 		activateEraserMode,
 		deactivateEraserMode,
+		updatePosition,
 	} = useGuessesStore();
 
 	const isShowingExactDistances =
@@ -133,7 +135,15 @@ function ActionsMenu() {
 							aria-label="Copy position"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
-							onClick={() => {}}
+							onClick={() => {
+								if (currentGuess - 1 > 0) {
+									updatePosition(
+										guesses[
+											(currentGuess - 1) as GuessNumbers
+										].guess,
+									);
+								}
+							}}
 						>
 							<IconCopy />
 						</button>
