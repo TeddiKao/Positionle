@@ -41,9 +41,11 @@ type GuessesStore = {
 
 	activateEraserMode: () => void;
 	deactivateEraserMode: () => void;
+
+	performReset: () => void;
 };
 
-const useGuessesStore = create<GuessesStore>((set) => ({
+const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 	currentGuess: 1,
 	moveToPreviousGuess: () => {
 		set((state) => {
@@ -326,6 +328,10 @@ const useGuessesStore = create<GuessesStore>((set) => ({
 				},
 			};
 		});
+	},
+
+	performReset: () => {
+		set(store.getInitialState());
 	},
 }));
 
