@@ -6,7 +6,11 @@ import type {
 	GuessNumbers,
 } from "@/features/gameplay/types/guesses";
 import { defaultGuessInfo } from "@/features/gameplay/constants/guesses";
-import type { PieceColor, SquareInfo } from "@/features/gameplay/types/chess";
+import type {
+	BoardRepresentation,
+	PieceColor,
+	SquareInfo,
+} from "@/features/gameplay/types/chess";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
 
@@ -41,6 +45,8 @@ type GuessesStore = {
 
 	activateEraserMode: () => void;
 	deactivateEraserMode: () => void;
+
+	updatePosition: (position: BoardRepresentation) => void;
 
 	performReset: () => void;
 };
@@ -306,6 +312,24 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 					[state.currentGuess]: {
 						...currentGuessInfo,
 						isEraserModeActive: false,
+					},
+				},
+			};
+		});
+	},
+
+	updatePosition: (position: BoardRepresentation) => {
+		set((state) => {
+			if (state.guesses[state.currentGuess].isSubmitted) return {};
+
+			const updatedPosition = structuredClone(position);
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						guess: updatedPosition,
 					},
 				},
 			};
