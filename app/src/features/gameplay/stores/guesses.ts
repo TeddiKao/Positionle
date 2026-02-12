@@ -205,7 +205,7 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 
 			return {
 				usedGuesses:
-					state.usedGuesses < 6 && !hasCorrectlyGuessed
+					state.usedGuesses < 6
 						? ((state.usedGuesses + 1) as GuessNumbers)
 						: state.usedGuesses,
 				guesses: {
