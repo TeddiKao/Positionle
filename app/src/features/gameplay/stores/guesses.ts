@@ -319,9 +319,11 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 	},
 
 	updatePosition: (position: BoardRepresentation) => {
-		const updatedPosition = structuredClone(position);
-
 		set((state) => {
+			if (state.guesses[state.currentGuess].isSubmitted) return {};
+
+			const updatedPosition = structuredClone(position);
+
 			return {
 				guesses: {
 					...state.guesses,
