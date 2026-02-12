@@ -16,6 +16,7 @@ function StaticChessboard({ boardRepresentation }: StaticChessboardProps) {
 							squareInfo={
 								boardRepresentation[`${file}${rank}`] ?? null
 							}
+							key={`${file}${rank}`}
 							file={file}
 							rank={rank}
 						/>
