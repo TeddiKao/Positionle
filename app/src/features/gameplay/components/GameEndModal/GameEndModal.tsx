@@ -12,13 +12,15 @@ import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 import { Button } from "@/components/ui/button";
 
 function GameEndModal() {
-	const { correctPositionInfo, hasCorrectlyGuessed } = useGuessesStore();
+	const { correctPositionInfo, hasCorrectlyGuessed, performReset } =
+		useGuessesStore();
 	const { isOpen, openModal, closeModal } = useGameEndModalStore();
 
 	if (!correctPositionInfo) return null;
 
 	function playAgain() {
 		closeModal();
+		performReset();
 	}
 
 	return (
