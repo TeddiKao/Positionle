@@ -140,9 +140,7 @@ function ActionsMenu() {
 					</TooltipTrigger>
 
 					<TooltipContent side="right">
-						{isShowingExactDistances
-							? "Hide exact distances"
-							: "Show exact distances"}
+						Copy previous position
 					</TooltipContent>
 				</Tooltip>
 			</div>
