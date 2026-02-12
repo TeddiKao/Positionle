@@ -3,6 +3,7 @@ type PositionData = {
 	source: string;
 	whitePlayer: string | "NN";
 	blackPlayer: string | "NN";
+	caption: string;
 };
 
 const positions: PositionData[] = [
@@ -11,6 +12,7 @@ const positions: PositionData[] = [
 		source: "World Chess Championship 2024 Game 14",
 		whitePlayer: "Ding Liren",
 		blackPlayer: "Gukesh D",
+		caption: "",
 	},
 
 	{
@@ -19,6 +21,7 @@ const positions: PositionData[] = [
 		source: "2nd UzChess Cup 2025",
 		whitePlayer: "Praggnanandhaa R",
 		blackPlayer: "Richard Rapport",
+		caption: "",
 	},
 
 	{
@@ -26,6 +29,7 @@ const positions: PositionData[] = [
 		source: "Norway Chess 2025",
 		whitePlayer: "Gukesh D",
 		blackPlayer: "Magnus Carlsen",
+		caption: "",
 	},
 
 	{
@@ -33,6 +37,7 @@ const positions: PositionData[] = [
 		source: "FIDE Grand Swiss 2025",
 		whitePlayer: "Aditya Mittal",
 		blackPlayer: "Yagiz Kaan Erdogmus",
+		caption: "",
 	},
 
 	{
@@ -40,6 +45,7 @@ const positions: PositionData[] = [
 		source: "FIDE World Cup 2025",
 		whitePlayer: "Pentala Harikrishna",
 		blackPlayer: "Nesterov, Arseniy",
+		caption: "",
 	},
 
 	{
@@ -47,6 +53,7 @@ const positions: PositionData[] = [
 		source: "Turkish Super League 2025",
 		whitePlayer: "Denis Lazavik",
 		blackPlayer: "Ediz Gurel",
+		caption: "",
 	},
 
 	{
@@ -54,6 +61,7 @@ const positions: PositionData[] = [
 		source: "Tata Steel Chess 2026",
 		whitePlayer: "Matthias Bluebaum",
 		blackPlayer: "Javokhir Sindarov",
+		caption: "",
 	},
 
 	{
@@ -61,6 +69,7 @@ const positions: PositionData[] = [
 		source: "Tata Steel Chess 2026",
 		whitePlayer: "Aravindh Chithambaram",
 		blackPlayer: "Hans Niemann",
+		caption: "",
 	},
 
 	{
@@ -68,6 +77,7 @@ const positions: PositionData[] = [
 		source: "Tata Steel Chess 2026",
 		whitePlayer: "Gukesh D",
 		blackPlayer: "Anish Giri",
+		caption: "",
 	},
 ];
 

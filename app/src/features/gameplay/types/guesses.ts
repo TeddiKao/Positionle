@@ -22,4 +22,12 @@ type GuessInfo = {
 	isEraserModeActive: boolean;
 };
 
-export type { GuessInfo, GuessNumbers, GuessResult };
+type CorrectPositionInfo = {
+	correctPosition: BoardRepresentation;
+	source: string;
+	whitePlayer: string | "NN";
+	blackPlayer: string | "NN";
+	caption: string;
+};
+
+export type { GuessInfo, GuessNumbers, GuessResult, CorrectPositionInfo };

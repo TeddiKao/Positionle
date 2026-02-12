@@ -14,25 +14,45 @@ import { useEffect } from "react";
 import { dualKingsideCastlingTest } from "@/dev/testPositions";
 import { randomlySelectPosition } from "@/features/gameplay/utils/positionSelection";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import GameEndModal from "@/features/gameplay/components/GameEndModal/GameEndModal";
+import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 
 function GamePage() {
 	const {
 		guesses,
 		currentGuess,
+		hasCorrectlyGuessed,
+		usedGuesses,
 		addToBoard,
 		movePieceOnBoard,
-		updateCorrectPosition,
+		updateCorrectPositionInfo,
 	} = useGuessesStore();
+
+	const { openModal } = useGameEndModalStore();
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
-		if (import.meta.env.VITE_USE_DEV_POSITION === "true") {
-			updateCorrectPosition(dualKingsideCastlingTest);
-		} else {
-			const selectedPosition = randomlySelectPosition();
-			updateCorrectPosition(selectedPosition);
+		if (usedGuesses === 0 && !hasCorrectlyGuessed) {
+			if (import.meta.env.VITE_USE_DEV_POSITION === "true") {
+				updateCorrectPositionInfo(dualKingsideCastlingTest);
+			} else {
+				const selectedPositionInfo = randomlySelectPosition();
+				updateCorrectPositionInfo(selectedPositionInfo);
+			}
 		}
-	}, [updateCorrectPosition]);
+	}, [updateCorrectPositionInfo, usedGuesses, hasCorrectlyGuessed]);
+
+	useEffect(() => {
+		if (hasCorrectlyGuessed) {
+			openModal();
+		}
+	}, [hasCorrectlyGuessed, openModal]);
+
+	useEffect(() => {
+		if (usedGuesses >= 6) {
+			openModal();
+		}
+	}, [usedGuesses, openModal]);
 
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
@@ -65,24 +85,28 @@ function GamePage() {
 	}
 
 	return (
-		<div className="flex flex-col items-center gap-4">
-			<Logo />
-			<GuessNavigator />
+		<>
+			<div className="flex flex-col items-center gap-4">
+				<Logo />
+				<GuessNavigator />
 
-			<div className="grid grid-cols-3 w-full justify-center gap-4">
-				<DndContext
-					modifiers={[restrictToWindowEdges]}
-					onDragEnd={handleDragEnd}
-				>
-					<PieceSetupMenu />
-					<ChessboardGrid />
-				</DndContext>
+				<div className="grid grid-cols-3 w-full justify-center gap-4">
+					<DndContext
+						modifiers={[restrictToWindowEdges]}
+						onDragEnd={handleDragEnd}
+					>
+						<PieceSetupMenu />
+						<ChessboardGrid />
+					</DndContext>
 
-				<ActionsMenu />
+					<ActionsMenu />
+				</div>
+
+				<CheckAnswerButton />
 			</div>
 
-			<CheckAnswerButton />
-		</div>
+			<GameEndModal />
+		</>
 	);
 }
 
