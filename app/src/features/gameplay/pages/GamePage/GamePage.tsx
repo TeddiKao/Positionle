@@ -16,6 +16,7 @@ import { randomlySelectPosition } from "@/features/gameplay/utils/positionSelect
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GameEndModal from "@/features/gameplay/components/GameEndModal/GameEndModal";
 import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
+import { ReactSketchCanvas } from "react-sketch-canvas";
 
 function GamePage() {
 	const {
@@ -96,7 +97,16 @@ function GamePage() {
 						onDragEnd={handleDragEnd}
 					>
 						<PieceSetupMenu />
-						<ChessboardGrid />
+
+						<div className="relative">
+							<ChessboardGrid />
+							<ReactSketchCanvas
+								className="absolute top-0 bottom-0 left-0 right-0"
+								width="100%"
+								height="100%"
+								canvasColor="transparent"
+							/>
+						</div>
 					</DndContext>
 
 					<ActionsMenu />
