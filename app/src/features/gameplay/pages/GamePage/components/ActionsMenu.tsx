@@ -4,10 +4,13 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import {
+	IconArrowBackUp,
+	IconArrowForwardUp,
 	IconCopy,
 	IconEraser,
 	IconEye,
 	IconEyeOff,
+	IconLogout2,
 	IconPencil,
 	IconRefresh as IconFlip,
 	IconTrash,
@@ -15,7 +18,11 @@ import {
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
-import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
 
 function ActionsMenu() {
 	const {
@@ -182,6 +189,46 @@ function ActionsMenu() {
 								<IconPencil className="stroke-white" />
 							</button>
 						</PopoverTrigger>
+
+						<PopoverContent
+							className="flex flex-col gap-2 pl-2 pr-6 py-1.5 w-max"
+							side="right"
+							sideOffset={8}
+							align="start"
+						>
+							<button
+								type="button"
+								className="flex flex-row items-center gap-2"
+							>
+								<IconEraser />
+								<span>Erase</span>
+							</button>
+							<button
+								type="button"
+								className="flex flex-row items-center gap-2"
+							>
+								<IconArrowBackUp />
+								<span>Undo</span>
+							</button>
+
+							<button
+								type="button"
+								className="flex flex-row items-center gap-2"
+							>
+								<IconArrowForwardUp />
+								<span>Redo</span>
+							</button>
+
+							<button
+								type="button"
+								className="flex flex-row items-center gap-2"
+							>
+								<IconLogout2 className="stroke-red-500" />
+								<span className="text-red-500">
+									Exit annotation
+								</span>
+							</button>
+						</PopoverContent>
 					</Popover>
 				)}
 
