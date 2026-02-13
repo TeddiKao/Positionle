@@ -15,6 +15,7 @@ import {
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 
 function ActionsMenu() {
 	const {
@@ -133,38 +134,56 @@ function ActionsMenu() {
 					</TooltipContent>
 				</Tooltip>
 
-				<Tooltip>
-					<TooltipTrigger asChild>
-						<button
-							aria-label={
-								isPenActive ? "Deactivate pen" : "Activate pen"
-							}
-							type="button"
-							className={clsx(
-								" rounded-md p-1",
-								isPenActive ? "bg-black" : "",
-								isPenActive
-									? "hover:bg-gray-700"
-									: "hover:bg-gray-400",
-							)}
-							onClick={() => {
-								if (isPenActive) {
-									deactivatePen();
-								} else {
-									activatePen();
+				{!isPenActive ? (
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<button
+								aria-label={
+									isPenActive
+										? "Deactivate pen"
+										: "Activate pen"
 								}
-							}}
-						>
-							<IconPencil
-								className={isPenActive ? "stroke-white" : ""}
-							/>
-						</button>
-					</TooltipTrigger>
+								type="button"
+								className={clsx(
+									" rounded-md p-1",
+									isPenActive ? "bg-black" : "",
+									isPenActive
+										? "hover:bg-gray-700"
+										: "hover:bg-gray-400",
+								)}
+								onClick={() => {
+									if (isPenActive) {
+										deactivatePen();
+									} else {
+										activatePen();
+									}
+								}}
+							>
+								<IconPencil
+									className={
+										isPenActive ? "stroke-white" : ""
+									}
+								/>
+							</button>
+						</TooltipTrigger>
 
-					<TooltipContent side="right">
-						{isPenActive ? "Deactivate pen" : "Activate pen"}
-					</TooltipContent>
-				</Tooltip>
+						<TooltipContent side="right">
+							{isPenActive ? "Deactivate pen" : "Activate pen"}
+						</TooltipContent>
+					</Tooltip>
+				) : (
+					<Popover>
+						<PopoverTrigger asChild>
+							<button
+								aria-label="Open pen menu"
+								type="button"
+								className="rounded-md p-1 bg-black hover:bg-gray-700"
+							>
+								<IconPencil className="stroke-white" />
+							</button>
+						</PopoverTrigger>
+					</Popover>
+				)}
 
 				{currentGuess > 1 ? (
 					<Tooltip>
