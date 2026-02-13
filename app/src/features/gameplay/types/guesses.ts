@@ -20,7 +20,7 @@ type GuessInfo = {
 	orientation: PieceColor;
 	isShowingExactDistances: boolean;
 	isEraserModeActive: boolean;
-	penActive: boolean;
+	isPenActive: boolean;
 };
 
 type CorrectPositionInfo = {

@@ -7,7 +7,7 @@ const defaultGuessInfo: GuessInfo = {
 	orientation: "white",
 	isShowingExactDistances: false,
 	isEraserModeActive: false,
-	penActive: false,
+	isPenActive: false,
 };
 
 export { defaultGuessInfo };
