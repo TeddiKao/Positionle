@@ -58,6 +58,13 @@ function GamePage() {
 	}, [hasCorrectlyGuessed, openModal]);
 
 	useEffect(() => {
+		if (!canvasRef.current) return;
+
+		canvasRef.current.clearCanvas();
+		canvasRef.current.loadPaths(guesses[currentGuess].annotations);
+	}, [currentGuess, guesses]);
+
+	useEffect(() => {
 		if (usedGuesses >= 6) {
 			openModal();
 		}
