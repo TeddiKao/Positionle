@@ -13,6 +13,7 @@ import type {
 } from "@/features/gameplay/types/chess";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
+import type { CanvasPath } from "react-sketch-canvas";
 
 type GuessesStore = {
 	currentGuess: GuessNumbers;
