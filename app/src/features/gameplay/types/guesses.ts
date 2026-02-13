@@ -21,6 +21,7 @@ type GuessInfo = {
 	isShowingExactDistances: boolean;
 	isEraserModeActive: boolean;
 	isPenActive: boolean;
+	annotations: CanvasPath[];
 };
 
 type CorrectPositionInfo = {
