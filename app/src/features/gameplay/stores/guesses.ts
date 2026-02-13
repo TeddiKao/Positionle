@@ -337,7 +337,21 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 		});
 	},
 
-	deactivatePen: () => {},
+	deactivatePen: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isPenActive: false,
+					},
+				},
+			};
+		});
+	},
 
 	updatePosition: (position: BoardRepresentation) => {
 		set((state) => {
