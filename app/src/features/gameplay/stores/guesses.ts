@@ -49,6 +49,8 @@ type GuessesStore = {
 	activatePen: () => void;
 	deactivatePen: () => void;
 
+	updateAnnotations: (annotations: CanvasPath[]) => void;
+
 	updatePosition: (position: BoardRepresentation) => void;
 
 	performReset: () => void;
@@ -347,6 +349,22 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 					[state.currentGuess]: {
 						...currentGuessInfo,
 						isPenActive: false,
+					},
+				},
+			};
+		});
+	},
+
+	updateAnnotations: (annotations: CanvasPath[]) => {
+		set((state) => {
+			if (state.guesses[state.currentGuess].isSubmitted) return {};
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						annotations: annotations,
 					},
 				},
 			};
