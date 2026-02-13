@@ -10,7 +10,7 @@ import type { PieceAbbreviation } from "@/features/gameplay/types/abbreviations"
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import type { DragMethods } from "@/features/gameplay/types/dragAndDrop";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { dualKingsideCastlingTest } from "@/dev/testPositions";
 import { randomlySelectPosition } from "@/features/gameplay/utils/positionSelection";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
@@ -32,6 +32,8 @@ function GamePage() {
 
 	const { openModal } = useGameEndModalStore();
 	const isPenActive = guesses[currentGuess].isPenActive;
+
+	const canvasRef = useRef(null);
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
@@ -103,6 +105,7 @@ function GamePage() {
 						<div className="relative">
 							<ChessboardGrid />
 							<ReactSketchCanvas
+								ref={canvasRef}
 								className={clsx(
 									"absolute top-0 bottom-0 left-0 right-0",
 									isPenActive
