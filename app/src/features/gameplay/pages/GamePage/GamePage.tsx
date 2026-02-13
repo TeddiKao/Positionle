@@ -17,6 +17,7 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GameEndModal from "@/features/gameplay/components/GameEndModal/GameEndModal";
 import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 import { ReactSketchCanvas } from "react-sketch-canvas";
+import { clsx } from "clsx";
 
 function GamePage() {
 	const {
@@ -30,6 +31,7 @@ function GamePage() {
 	} = useGuessesStore();
 
 	const { openModal } = useGameEndModalStore();
+	const isPenActive = guesses[currentGuess].isPenActive;
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
@@ -101,7 +103,12 @@ function GamePage() {
 						<div className="relative">
 							<ChessboardGrid />
 							<ReactSketchCanvas
-								className="absolute top-0 bottom-0 left-0 right-0"
+								className={clsx(
+									"absolute top-0 bottom-0 left-0 right-0",
+									isPenActive
+										? "pointer-events-auto"
+										: "pointer-events-none",
+								)}
 								width="100%"
 								height="100%"
 								canvasColor="transparent"
