@@ -46,6 +46,9 @@ type GuessesStore = {
 	activateEraserMode: () => void;
 	deactivateEraserMode: () => void;
 
+	activatePen: () => void;
+	deactivatePen: () => void;
+
 	updatePosition: (position: BoardRepresentation) => void;
 
 	performReset: () => void;
@@ -317,6 +320,24 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 			};
 		});
 	},
+
+	activatePen: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isPenActive: true,
+					},
+				},
+			};
+		});
+	},
+
+	deactivatePen: () => {},
 
 	updatePosition: (position: BoardRepresentation) => {
 		set((state) => {
