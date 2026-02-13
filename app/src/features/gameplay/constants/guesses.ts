@@ -8,6 +8,7 @@ const defaultGuessInfo: GuessInfo = {
 	isShowingExactDistances: false,
 	isEraserModeActive: false,
 	isPenActive: false,
+	annotations: [],
 };
 
 export { defaultGuessInfo };
