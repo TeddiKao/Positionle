@@ -8,6 +8,7 @@ import {
 	IconEraser,
 	IconEye,
 	IconEyeOff,
+	IconPencil,
 	IconRefresh as IconFlip,
 	IconTrash,
 } from "@tabler/icons-react";
@@ -25,12 +26,15 @@ function ActionsMenu() {
 		hideExactDistances,
 		activateEraserMode,
 		deactivateEraserMode,
+		activatePen,
+		deactivatePen,
 		updatePosition,
 	} = useGuessesStore();
 
 	const isShowingExactDistances =
 		guesses[currentGuess].isShowingExactDistances;
 	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
+	const isPenActive = guesses[currentGuess].isPenActive;
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -126,6 +130,39 @@ function ActionsMenu() {
 						{isShowingExactDistances
 							? "Hide exact distances"
 							: "Show exact distances"}
+					</TooltipContent>
+				</Tooltip>
+
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<button
+							aria-label={
+								isPenActive ? "Deactivate pen" : "Activate pen"
+							}
+							type="button"
+							className={clsx(
+								" rounded-md p-1",
+								isPenActive ? "bg-black" : "",
+								isPenActive
+									? "hover:bg-gray-700"
+									: "hover:bg-gray-400",
+							)}
+							onClick={() => {
+								if (isPenActive) {
+									deactivatePen();
+								} else {
+									activatePen();
+								}
+							}}
+						>
+							<IconPencil
+								className={isPenActive ? "stroke-white" : ""}
+							/>
+						</button>
+					</TooltipTrigger>
+
+					<TooltipContent side="right">
+						{isPenActive ? "Deactivate pen" : "Activate pen"}
 					</TooltipContent>
 				</Tooltip>
 
