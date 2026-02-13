@@ -16,7 +16,10 @@ import { randomlySelectPosition } from "@/features/gameplay/utils/positionSelect
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GameEndModal from "@/features/gameplay/components/GameEndModal/GameEndModal";
 import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
-import { ReactSketchCanvas } from "react-sketch-canvas";
+import {
+	ReactSketchCanvas,
+	type ReactSketchCanvasRef,
+} from "react-sketch-canvas";
 import { clsx } from "clsx";
 
 function GamePage() {
@@ -28,12 +31,13 @@ function GamePage() {
 		addToBoard,
 		movePieceOnBoard,
 		updateCorrectPositionInfo,
+		updateAnnotations,
 	} = useGuessesStore();
 
 	const { openModal } = useGameEndModalStore();
 	const isPenActive = guesses[currentGuess].isPenActive;
 
-	const canvasRef = useRef(null);
+	const canvasRef = useRef<ReactSketchCanvasRef>(null);
 
 	useEffect(() => {
 		// Replace "dualKingsideCastlingTest" with any position you like
@@ -58,6 +62,15 @@ function GamePage() {
 			openModal();
 		}
 	}, [usedGuesses, openModal]);
+
+	async function handleStroke() {
+		if (!canvasRef.current) return;
+
+		const paths = await canvasRef.current.exportPaths();
+		if (!paths) return;
+
+		updateAnnotations(paths);
+	}
 
 	function handleDragEnd(event: DragEndEvent) {
 		if (event.over) {
@@ -112,6 +125,7 @@ function GamePage() {
 										? "pointer-events-auto"
 										: "pointer-events-none",
 								)}
+								onStroke={handleStroke}
 								width="100%"
 								height="100%"
 								canvasColor="transparent"
