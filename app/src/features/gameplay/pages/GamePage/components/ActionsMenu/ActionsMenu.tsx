@@ -18,7 +18,6 @@ import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 import AnnotationToolbar from "@/features/gameplay/pages/GamePage/components/ActionsMenu/components/AnnotationToolbar";
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
 import type { RefObject } from "react";
-import { captureEvent } from "@/features/gameplay/utils/posthog";
 
 type ActionsMenuProps = {
 	canvasRef: RefObject<ReactSketchCanvasRef | null>;
@@ -64,8 +63,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								} else {
 									activateEraserMode();
 								}
-
-								captureEvent("eraserModeToggled");
 							}}
 						>
 							<IconEraser
@@ -86,7 +83,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 						<button
 							onClick={() => {
 								clearGuess();
-								captureEvent("guessCleared");
 							}}
 							aria-label="Clear board"
 							type="button"
@@ -104,7 +100,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 						<button
 							onClick={() => {
 								flipBoard();
-								captureEvent("boardFlipped");
 							}}
 							aria-label="Flip board"
 							type="button"
@@ -133,8 +128,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								} else {
 									showExactDistances();
 								}
-
-								captureEvent("distanceVisibilityToggled");
 							}}
 						>
 							{isShowingExactDistances ? (
@@ -161,7 +154,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								className="rounded-md p-1 hover:bg-gray-400"
 								onClick={() => {
 									activatePen();
-									captureEvent("penToggled");
 								}}
 							>
 								<IconPencil />
@@ -191,7 +183,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 													1) as GuessNumbers
 											].guess,
 										);
-										captureEvent("positionCopied");
 									}
 								}}
 							>
