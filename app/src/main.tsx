@@ -13,10 +13,10 @@ posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_KEY, {
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<BrowserRouter>
-			<PostHogProvider client={posthog}>
+		<PostHogProvider client={posthog}>
+			<BrowserRouter>
 				<App />
-			</PostHogProvider>
-		</BrowserRouter>
+			</BrowserRouter>
+		</PostHogProvider>
 	</StrictMode>,
 );
