@@ -138,11 +138,11 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 									hideExactDistances();
 								} else {
 									showExactDistances();
-								}
 
-								captureEvent("action_button_used", {
-									action: "show_exact_distances",
-								});
+									captureEvent("action_button_used", {
+										action: "show_exact_distances",
+									});
+								}
 							}}
 						>
 							{isShowingExactDistances ? (
