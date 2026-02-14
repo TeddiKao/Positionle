@@ -70,7 +70,7 @@ function Square({ file, rank }: SquareProps) {
 		>
 			{isSquareOnLeftEdge(file, orientation) && (
 				<span
-					className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}
+					className={`absolute top-1 left-1 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"} select-none`}
 				>
 					{rank}
 				</span>
@@ -78,7 +78,7 @@ function Square({ file, rank }: SquareProps) {
 
 			{isSquareOnBottomEdge(rank, orientation) && (
 				<span
-					className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"}`}
+					className={`absolute right-1 bottom-0.5 text-xs font-bold ${isDark ? "text-gray-100" : "text-gray-400"} select-none`}
 				>
 					{file}
 				</span>
