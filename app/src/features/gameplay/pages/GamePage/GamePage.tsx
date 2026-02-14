@@ -66,12 +66,13 @@ function GamePage() {
 
 	useEffect(() => {
 		if (!canvasRef.current) return;
+		if (hasCorrectlyGuessed) return;
 
 		canvasRef.current.clearCanvas();
 		canvasRef.current.loadPaths(guesses[currentGuess].annotations);
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [currentGuess]);
+	}, [currentGuess, hasCorrectlyGuessed]);
 
 	useEffect(() => {
 		if (usedGuesses >= 6) {
