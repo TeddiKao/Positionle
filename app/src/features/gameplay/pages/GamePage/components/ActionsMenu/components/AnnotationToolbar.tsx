@@ -79,7 +79,9 @@ function AnnotationToolbar({ canvasRef }: AnnotationToolbarProps) {
 				</button>
 				<button
 					type="button"
-					onClick={() => canvasRef.current?.undo()}
+					onClick={() => {
+						canvasRef.current?.undo();
+					}}
 					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
 				>
 					<IconArrowBackUp />
