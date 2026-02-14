@@ -62,12 +62,12 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								if (isEraserModeActive) {
 									deactivateEraserMode();
 								} else {
+									captureEvent("action_button_used", {
+										action: "activate_eraser_mode",
+									});
+
 									activateEraserMode();
 								}
-
-								captureEvent("action_button_used", {
-									action: "activate_eraser_mode",
-								});
 							}}
 						>
 							<IconEraser
