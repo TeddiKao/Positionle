@@ -66,7 +66,7 @@ function Square({ file, rank }: SquareProps) {
 		<SquareContainer
 			file={file}
 			rank={rank}
-			className={clsx(getColorClass(), "relative")}
+			className={clsx(getColorClass(), "relative select-none")}
 		>
 			{isSquareOnLeftEdge(file, orientation) && (
 				<span
