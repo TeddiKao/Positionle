@@ -69,7 +69,9 @@ function GamePage() {
 
 		canvasRef.current.clearCanvas();
 		canvasRef.current.loadPaths(guesses[currentGuess].annotations);
-	}, [currentGuess, guesses]);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [currentGuess]);
 
 	useEffect(() => {
 		if (usedGuesses >= 6) {
