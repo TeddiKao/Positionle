@@ -62,10 +62,12 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								if (isEraserModeActive) {
 									deactivateEraserMode();
 								} else {
+									captureEvent("action_button_used", {
+										action: "activate_eraser_mode",
+									});
+
 									activateEraserMode();
 								}
-
-								captureEvent("eraserModeToggled");
 							}}
 						>
 							<IconEraser
@@ -86,7 +88,9 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 						<button
 							onClick={() => {
 								clearGuess();
-								captureEvent("guessCleared");
+								captureEvent("action_button_used", {
+									action: "clear_guess",
+								});
 							}}
 							aria-label="Clear board"
 							type="button"
@@ -104,7 +108,9 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 						<button
 							onClick={() => {
 								flipBoard();
-								captureEvent("boardFlipped");
+								captureEvent("action_button_used", {
+									action: "flip_board",
+								});
 							}}
 							aria-label="Flip board"
 							type="button"
@@ -132,9 +138,11 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 									hideExactDistances();
 								} else {
 									showExactDistances();
-								}
 
-								captureEvent("distanceVisibilityToggled");
+									captureEvent("action_button_used", {
+										action: "show_exact_distances",
+									});
+								}
 							}}
 						>
 							{isShowingExactDistances ? (
@@ -161,7 +169,9 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								className="rounded-md p-1 hover:bg-gray-400"
 								onClick={() => {
 									activatePen();
-									captureEvent("penToggled");
+									captureEvent("action_button_used", {
+										action: "activate_pen",
+									});
 								}}
 							>
 								<IconPencil />
@@ -191,7 +201,10 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 													1) as GuessNumbers
 											].guess,
 										);
-										captureEvent("positionCopied");
+
+										captureEvent("action_button_used", {
+											action: "copy_position",
+										});
 									}
 								}}
 							>
