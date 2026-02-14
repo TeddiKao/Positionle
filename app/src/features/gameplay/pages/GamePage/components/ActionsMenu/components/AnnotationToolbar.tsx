@@ -99,7 +99,11 @@ function AnnotationToolbar({ canvasRef }: AnnotationToolbarProps) {
 
 				<button
 					type="button"
-					onClick={deactivatePen}
+					onClick={() => {
+						canvasRef.current?.eraseMode(false);
+						deactivateAnnotationEraser();
+						deactivatePen();
+					}}
 					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-red-200"
 				>
 					<IconLogout2 className="stroke-red-500" />
