@@ -51,6 +51,8 @@ type GuessesStore = {
 	deactivatePen: () => void;
 
 	updateAnnotations: (annotations: CanvasPath[]) => void;
+	activateAnnotationEraser: () => void;
+	deactivateAnnotationEraser: () => void;
 
 	updatePosition: (position: BoardRepresentation) => void;
 
@@ -358,8 +360,6 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 
 	updateAnnotations: (annotations: CanvasPath[]) => {
 		set((state) => {
-			if (state.guesses[state.currentGuess].isSubmitted) return {};
-
 			return {
 				guesses: {
 					...state.guesses,
@@ -371,6 +371,10 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 			};
 		});
 	},
+
+	activateAnnotationEraser: () => {},
+
+	deactivateAnnotationEraser: () => {},
 
 	updatePosition: (position: BoardRepresentation) => {
 		set((state) => {
