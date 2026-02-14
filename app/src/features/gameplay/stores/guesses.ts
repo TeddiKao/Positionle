@@ -263,6 +263,7 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 	showExactDistances: () => {
 		set((state) => {
 			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (!currentGuessInfo.isSubmitted) return {};
 
 			return {
 				guesses: {
@@ -279,6 +280,7 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 	hideExactDistances: () => {
 		set((state) => {
 			const currentGuessInfo = state.guesses[state.currentGuess];
+			if (!currentGuessInfo.isSubmitted) return {};
 
 			return {
 				guesses: {
