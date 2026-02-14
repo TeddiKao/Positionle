@@ -372,9 +372,41 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 		});
 	},
 
-	activateAnnotationEraser: () => {},
+	activateAnnotationEraser: () => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						annotationTools: {
+							...state.guesses[state.currentGuess]
+								.annotationTools,
+							isEraserActive: true,
+						},
+					},
+				},
+			};
+		});
+	},
 
-	deactivateAnnotationEraser: () => {},
+	deactivateAnnotationEraser: () => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						annotationTools: {
+							...state.guesses[state.currentGuess]
+								.annotationTools,
+							isEraserActive: false,
+						},
+					},
+				},
+			};
+		});
+	},
 
 	updatePosition: (position: BoardRepresentation) => {
 		set((state) => {
