@@ -13,7 +13,16 @@ import {
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 
 function AnnotationToolbar() {
-	const { deactivatePen } = useGuessesStore();
+	const {
+		deactivatePen,
+		guesses,
+		currentGuess,
+		activateAnnotationEraser,
+		deactivateAnnotationEraser,
+	} = useGuessesStore();
+	const currentGuessInfo = guesses[currentGuess];
+	const isAnnotationEraserActive =
+		currentGuessInfo.annotationTools.isEraserActive;
 
 	return (
 		<Popover>
@@ -35,6 +44,11 @@ function AnnotationToolbar() {
 			>
 				<button
 					type="button"
+					onClick={
+						isAnnotationEraserActive
+							? deactivateAnnotationEraser
+							: activateAnnotationEraser
+					}
 					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
 				>
 					<IconEraser />
