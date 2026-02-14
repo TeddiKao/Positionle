@@ -4,7 +4,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router";
 
 import { posthog } from "posthog-js";
-import { PostHogProvider } from "@posthog/react";
+import { PostHogErrorBoundary, PostHogProvider } from "@posthog/react";
 
 posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_KEY, {
 	api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST,
@@ -14,9 +14,11 @@ posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_KEY, {
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<PostHogProvider client={posthog}>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
+			<PostHogErrorBoundary>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</PostHogErrorBoundary>
 		</PostHogProvider>
 	</StrictMode>,
 );
