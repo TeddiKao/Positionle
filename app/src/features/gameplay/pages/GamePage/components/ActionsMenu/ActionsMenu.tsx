@@ -18,6 +18,7 @@ import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 import AnnotationToolbar from "@/features/gameplay/pages/GamePage/components/ActionsMenu/components/AnnotationToolbar";
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
 import type { RefObject } from "react";
+import { captureEvent } from "@/features/gameplay/utils/posthog";
 
 type ActionsMenuProps = {
 	canvasRef: RefObject<ReactSketchCanvasRef | null>;
@@ -63,6 +64,8 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								} else {
 									activateEraserMode();
 								}
+
+								captureEvent("eraserModeToggled");
 							}}
 						>
 							<IconEraser
@@ -81,7 +84,10 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
-							onClick={clearGuess}
+							onClick={() => {
+								clearGuess();
+								captureEvent("guessCleared");
+							}}
 							aria-label="Clear board"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
@@ -96,7 +102,10 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<button
-							onClick={flipBoard}
+							onClick={() => {
+								flipBoard();
+								captureEvent("boardFlipped");
+							}}
 							aria-label="Flip board"
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
@@ -118,11 +127,15 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 							}
 							type="button"
 							className="hover:bg-gray-400 rounded-md p-1"
-							onClick={() =>
-								isShowingExactDistances
-									? hideExactDistances()
-									: showExactDistances()
-							}
+							onClick={() => {
+								if (isShowingExactDistances) {
+									hideExactDistances();
+								} else {
+									showExactDistances();
+								}
+
+								captureEvent("distanceVisibilityToggled");
+							}}
 						>
 							{isShowingExactDistances ? (
 								<IconEye />
@@ -146,7 +159,10 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								aria-label="Deactivate pen"
 								type="button"
 								className="rounded-md p-1 hover:bg-gray-400"
-								onClick={activatePen}
+								onClick={() => {
+									activatePen();
+									captureEvent("penToggled");
+								}}
 							>
 								<IconPencil />
 							</button>
@@ -175,6 +191,7 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 													1) as GuessNumbers
 											].guess,
 										);
+										captureEvent("positionCopied");
 									}
 								}}
 							>
