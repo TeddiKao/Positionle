@@ -11,6 +11,7 @@ import {
 	IconPencil,
 } from "@tabler/icons-react";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
+import { clsx } from "clsx";
 
 function AnnotationToolbar() {
 	const {
@@ -30,7 +31,7 @@ function AnnotationToolbar() {
 				<button
 					aria-label="Open pen menu"
 					type="button"
-					className="rounded-md p-1 bg-black hover:bg-gray-700"
+					className="rounded-md p-1 bg-black hover:bg-gray-800"
 				>
 					<IconPencil className="stroke-white" />
 				</button>
@@ -49,10 +50,26 @@ function AnnotationToolbar() {
 							? deactivateAnnotationEraser
 							: activateAnnotationEraser
 					}
-					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
+					className={clsx(
+						"flex flex-row items-center gap-2 p-1 rounded-md",
+						isAnnotationEraserActive ? "bg-black" : "",
+						isAnnotationEraserActive
+							? "hover:bg-gray-800"
+							: "hover:bg-gray-400",
+					)}
 				>
-					<IconEraser />
-					<span>Erase</span>
+					<IconEraser
+						className={clsx(
+							isAnnotationEraserActive ? "stroke-white" : "",
+						)}
+					/>
+					<span
+						className={clsx(
+							isAnnotationEraserActive ? "text-white" : "",
+						)}
+					>
+						Erase
+					</span>
 				</button>
 				<button
 					type="button"

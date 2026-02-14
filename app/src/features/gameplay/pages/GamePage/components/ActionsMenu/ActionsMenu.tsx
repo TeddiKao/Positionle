@@ -49,7 +49,7 @@ function ActionsMenu() {
 								" rounded-md p-1",
 								isEraserModeActive ? "bg-black" : "",
 								isEraserModeActive
-									? "hover:bg-gray-700"
+									? "hover:bg-gray-800"
 									: "hover:bg-gray-400",
 							)}
 							onClick={() => {
@@ -148,7 +148,7 @@ function ActionsMenu() {
 									" rounded-md p-1",
 									isPenActive ? "bg-black" : "",
 									isPenActive
-										? "hover:bg-gray-700"
+										? "hover:bg-gray-800"
 										: "hover:bg-gray-400",
 								)}
 								onClick={() => {
