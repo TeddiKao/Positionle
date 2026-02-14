@@ -35,7 +35,14 @@ function GamePage() {
 	} = useGuessesStore();
 
 	const { openModal } = useGameEndModalStore();
-	const isPenActive = guesses[currentGuess].isPenActive;
+
+	const isPenActive = useGuessesStore(
+		(state) => state.guesses[state.currentGuess].isPenActive,
+	);
+	const isAnnotationEraserActive = useGuessesStore(
+		(state) =>
+			state.guesses[state.currentGuess].annotationTools.isEraserActive,
+	);
 
 	const canvasRef = useRef<ReactSketchCanvasRef>(null);
 
@@ -69,6 +76,10 @@ function GamePage() {
 			openModal();
 		}
 	}, [usedGuesses, openModal]);
+
+	useEffect(() => {
+		canvasRef.current?.eraseMode(isAnnotationEraserActive);
+	}, [isAnnotationEraserActive]);
 
 	async function handleStroke() {
 		if (!canvasRef.current) return;
