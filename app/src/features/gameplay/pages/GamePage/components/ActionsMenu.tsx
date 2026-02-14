@@ -24,6 +24,60 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 
+function AnnotationToolbar() {
+	return (
+		<Popover>
+			<PopoverTrigger asChild>
+				<button
+					aria-label="Open pen menu"
+					type="button"
+					className="rounded-md p-1 bg-black hover:bg-gray-700"
+				>
+					<IconPencil className="stroke-white" />
+				</button>
+			</PopoverTrigger>
+
+			<PopoverContent
+				className="flex flex-col pl-1 pr-2 py-2 w-max"
+				side="right"
+				sideOffset={8}
+				align="start"
+			>
+				<button
+					type="button"
+					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
+				>
+					<IconEraser />
+					<span>Erase</span>
+				</button>
+				<button
+					type="button"
+					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
+				>
+					<IconArrowBackUp />
+					<span>Undo</span>
+				</button>
+
+				<button
+					type="button"
+					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
+				>
+					<IconArrowForwardUp />
+					<span>Redo</span>
+				</button>
+
+				<button
+					type="button"
+					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-red-200"
+				>
+					<IconLogout2 className="stroke-red-500" />
+					<span className="text-red-500">Exit annotation</span>
+				</button>
+			</PopoverContent>
+		</Popover>
+	);
+}
+
 function ActionsMenu() {
 	const {
 		guesses,
@@ -179,57 +233,7 @@ function ActionsMenu() {
 						</TooltipContent>
 					</Tooltip>
 				) : (
-					<Popover>
-						<PopoverTrigger asChild>
-							<button
-								aria-label="Open pen menu"
-								type="button"
-								className="rounded-md p-1 bg-black hover:bg-gray-700"
-							>
-								<IconPencil className="stroke-white" />
-							</button>
-						</PopoverTrigger>
-
-						<PopoverContent
-							className="flex flex-col pl-1 pr-2 py-2 w-max"
-							side="right"
-							sideOffset={8}
-							align="start"
-						>
-							<button
-								type="button"
-								className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
-							>
-								<IconEraser />
-								<span>Erase</span>
-							</button>
-							<button
-								type="button"
-								className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
-							>
-								<IconArrowBackUp />
-								<span>Undo</span>
-							</button>
-
-							<button
-								type="button"
-								className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
-							>
-								<IconArrowForwardUp />
-								<span>Redo</span>
-							</button>
-
-							<button
-								type="button"
-								className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-red-200"
-							>
-								<IconLogout2 className="stroke-red-500" />
-								<span className="text-red-500">
-									Exit annotation
-								</span>
-							</button>
-						</PopoverContent>
-					</Popover>
+					<AnnotationToolbar />
 				)}
 
 				{currentGuess > 1 ? (
