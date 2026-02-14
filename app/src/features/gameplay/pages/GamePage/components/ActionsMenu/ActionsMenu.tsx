@@ -16,8 +16,14 @@ import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 import AnnotationToolbar from "@/features/gameplay/pages/GamePage/components/ActionsMenu/components/AnnotationToolbar";
+import type { ReactSketchCanvasRef } from "react-sketch-canvas";
+import type { RefObject } from "react";
 
-function ActionsMenu() {
+type ActionsMenuProps = {
+	canvasRef: RefObject<ReactSketchCanvasRef | null>;
+};
+
+function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 	const {
 		guesses,
 		currentGuess,
@@ -172,7 +178,7 @@ function ActionsMenu() {
 						</TooltipContent>
 					</Tooltip>
 				) : (
-					<AnnotationToolbar />
+					<AnnotationToolbar canvasRef={canvasRef} />
 				)}
 
 				{currentGuess > 1 ? (

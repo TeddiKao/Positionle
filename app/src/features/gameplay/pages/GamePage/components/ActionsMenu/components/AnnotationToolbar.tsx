@@ -12,8 +12,14 @@ import {
 } from "@tabler/icons-react";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
+import type { ReactSketchCanvasRef } from "react-sketch-canvas";
+import type { RefObject } from "react";
 
-function AnnotationToolbar() {
+type AnnotationToolbarProps = {
+	canvasRef: RefObject<ReactSketchCanvasRef | null>;
+};
+
+function AnnotationToolbar({ canvasRef }: AnnotationToolbarProps) {
 	const {
 		deactivatePen,
 		guesses,
@@ -73,6 +79,7 @@ function AnnotationToolbar() {
 				</button>
 				<button
 					type="button"
+					onClick={() => canvasRef.current?.undo()}
 					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
 				>
 					<IconArrowBackUp />
@@ -80,6 +87,7 @@ function AnnotationToolbar() {
 				</button>
 
 				<button
+					onClick={() => canvasRef.current?.redo()}
 					type="button"
 					className="flex flex-row items-center gap-2 p-1 rounded-md hover:bg-gray-400"
 				>

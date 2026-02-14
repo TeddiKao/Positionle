@@ -151,7 +151,7 @@ function GamePage() {
 						</div>
 					</DndContext>
 
-					<ActionsMenu />
+					<ActionsMenu canvasRef={canvasRef} />
 				</div>
 
 				<CheckAnswerButton />
