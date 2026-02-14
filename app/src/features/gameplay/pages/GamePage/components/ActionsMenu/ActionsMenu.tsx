@@ -15,7 +15,7 @@ import {
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
-import { AnnotationToolbar } from "@/features/gameplay/pages/GamePage/components/ActionsMenu/components/AnnotationToolbar";
+import AnnotationToolbar from "@/features/gameplay/pages/GamePage/components/ActionsMenu/components/AnnotationToolbar";
 
 function ActionsMenu() {
 	const {
