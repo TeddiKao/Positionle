@@ -104,7 +104,7 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 						<button
 							onClick={() => {
 								flipBoard();
-								captureEvent("guessCleared");
+								captureEvent("boardFlipped");
 							}}
 							aria-label="Flip board"
 							type="button"
