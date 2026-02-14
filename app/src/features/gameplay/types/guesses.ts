@@ -3,6 +3,7 @@ import type {
 	PieceColor,
 } from "@/features/gameplay/types/chess";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
+import type { CanvasPath } from "react-sketch-canvas";
 
 type GuessNumbers = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -20,6 +21,12 @@ type GuessInfo = {
 	orientation: PieceColor;
 	isShowingExactDistances: boolean;
 	isEraserModeActive: boolean;
+	isPenActive: boolean;
+
+	annotations: CanvasPath[];
+	annotationTools: {
+		isEraserActive: boolean;
+	};
 };
 
 type CorrectPositionInfo = {

@@ -13,6 +13,7 @@ import type {
 } from "@/features/gameplay/types/chess";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
+import type { CanvasPath } from "react-sketch-canvas";
 
 type GuessesStore = {
 	currentGuess: GuessNumbers;
@@ -45,6 +46,13 @@ type GuessesStore = {
 
 	activateEraserMode: () => void;
 	deactivateEraserMode: () => void;
+
+	activatePen: () => void;
+	deactivatePen: () => void;
+
+	updateAnnotations: (annotations: CanvasPath[]) => void;
+	activateAnnotationEraser: () => void;
+	deactivateAnnotationEraser: () => void;
 
 	updatePosition: (position: BoardRepresentation) => void;
 
@@ -312,6 +320,88 @@ const useGuessesStore = create<GuessesStore>((set, _get, store) => ({
 					[state.currentGuess]: {
 						...currentGuessInfo,
 						isEraserModeActive: false,
+					},
+				},
+			};
+		});
+	},
+
+	activatePen: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isPenActive: true,
+					},
+				},
+			};
+		});
+	},
+
+	deactivatePen: () => {
+		set((state) => {
+			const currentGuessInfo = state.guesses[state.currentGuess];
+
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...currentGuessInfo,
+						isPenActive: false,
+					},
+				},
+			};
+		});
+	},
+
+	updateAnnotations: (annotations: CanvasPath[]) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						annotations: annotations,
+					},
+				},
+			};
+		});
+	},
+
+	activateAnnotationEraser: () => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						annotationTools: {
+							...state.guesses[state.currentGuess]
+								.annotationTools,
+							isEraserActive: true,
+						},
+					},
+				},
+			};
+		});
+	},
+
+	deactivateAnnotationEraser: () => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[state.currentGuess]: {
+						...state.guesses[state.currentGuess],
+						annotationTools: {
+							...state.guesses[state.currentGuess]
+								.annotationTools,
+							isEraserActive: false,
+						},
 					},
 				},
 			};

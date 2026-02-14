@@ -8,14 +8,22 @@ import {
 	IconEraser,
 	IconEye,
 	IconEyeOff,
+	IconPencil,
 	IconRefresh as IconFlip,
 	IconTrash,
 } from "@tabler/icons-react";
 import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
+import AnnotationToolbar from "@/features/gameplay/pages/GamePage/components/ActionsMenu/components/AnnotationToolbar";
+import type { ReactSketchCanvasRef } from "react-sketch-canvas";
+import type { RefObject } from "react";
 
-function ActionsMenu() {
+type ActionsMenuProps = {
+	canvasRef: RefObject<ReactSketchCanvasRef | null>;
+};
+
+function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 	const {
 		guesses,
 		currentGuess,
@@ -25,12 +33,14 @@ function ActionsMenu() {
 		hideExactDistances,
 		activateEraserMode,
 		deactivateEraserMode,
+		activatePen,
 		updatePosition,
 	} = useGuessesStore();
 
 	const isShowingExactDistances =
 		guesses[currentGuess].isShowingExactDistances;
 	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
+	const isPenActive = guesses[currentGuess].isPenActive;
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -44,7 +54,7 @@ function ActionsMenu() {
 								" rounded-md p-1",
 								isEraserModeActive ? "bg-black" : "",
 								isEraserModeActive
-									? "hover:bg-gray-700"
+									? "hover:bg-gray-800"
 									: "hover:bg-gray-400",
 							)}
 							onClick={() => {
@@ -128,6 +138,27 @@ function ActionsMenu() {
 							: "Show exact distances"}
 					</TooltipContent>
 				</Tooltip>
+
+				{!isPenActive ? (
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<button
+								aria-label="Deactivate pen"
+								type="button"
+								className="rounded-md p-1 hover:bg-gray-400"
+								onClick={activatePen}
+							>
+								<IconPencil />
+							</button>
+						</TooltipTrigger>
+
+						<TooltipContent side="right">
+							Activate pen
+						</TooltipContent>
+					</Tooltip>
+				) : (
+					<AnnotationToolbar canvasRef={canvasRef} />
+				)}
 
 				{currentGuess > 1 ? (
 					<Tooltip>

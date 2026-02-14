@@ -7,6 +7,12 @@ const defaultGuessInfo: GuessInfo = {
 	orientation: "white",
 	isShowingExactDistances: false,
 	isEraserModeActive: false,
+	isPenActive: false,
+
+	annotations: [],
+	annotationTools: {
+		isEraserActive: false,
+	},
 };
 
 export { defaultGuessInfo };
