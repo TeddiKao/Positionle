@@ -34,7 +34,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 		activateEraserMode,
 		deactivateEraserMode,
 		activatePen,
-		deactivatePen,
 		updatePosition,
 	} = useGuessesStore();
 
@@ -144,37 +143,17 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<button
-								aria-label={
-									isPenActive
-										? "Deactivate pen"
-										: "Activate pen"
-								}
+								aria-label="Deactivate pen"
 								type="button"
-								className={clsx(
-									" rounded-md p-1",
-									isPenActive ? "bg-black" : "",
-									isPenActive
-										? "hover:bg-gray-800"
-										: "hover:bg-gray-400",
-								)}
-								onClick={() => {
-									if (isPenActive) {
-										deactivatePen();
-									} else {
-										activatePen();
-									}
-								}}
+								className="rounded-md p-1 hover:bg-gray-400"
+								onClick={activatePen}
 							>
-								<IconPencil
-									className={
-										isPenActive ? "stroke-white" : ""
-									}
-								/>
+								<IconPencil />
 							</button>
 						</TooltipTrigger>
 
 						<TooltipContent side="right">
-							{isPenActive ? "Deactivate pen" : "Activate pen"}
+							Activate pen
 						</TooltipContent>
 					</Tooltip>
 				) : (
