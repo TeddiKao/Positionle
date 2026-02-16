@@ -10,17 +10,28 @@ import StaticChessboard from "@/features/gameplay/components/GameEndModal/compon
 import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 import { Button } from "@/components/ui/button";
 import useGameStateStore from "@/features/gameplay/stores/gameState";
+import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
+import useAnnotationToolbarStore from "@/features/gameplay/stores/annotationToolbar";
+import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
 
 function GameEndModal() {
-	const { correctPositionInfo, hasCorrectlyGuessed, performGameStateReset } =
+	const { correctPositionInfo, hasCorrectlyGuessed, resetGameState } =
 		useGameStateStore();
+	const { resetGuessInfoState } = useGuessInfoStore();
+	const { resetActionMenuState } = useActionMenuStore();
+	const { resetAnnotationToolbarState } = useAnnotationToolbarStore();
+	
 	const { isOpen, openModal, closeModal } = useGameEndModalStore();
 
 	if (!correctPositionInfo) return null;
 
 	function playAgain() {
+		resetGameState();
+		resetGuessInfoState();
+		resetActionMenuState();
+		resetAnnotationToolbarState();
+
 		closeModal();
-		performGameStateReset();
 	}
 
 	return (
