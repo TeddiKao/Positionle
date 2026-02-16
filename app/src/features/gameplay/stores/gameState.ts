@@ -139,41 +139,39 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 	},
 
 	submitCurrentGuess: () => {
-		set((state) => {
-			if (!state.correctPositionInfo) return {};
+		const state = get();
+		if (!state.correctPositionInfo) return;
 
-			const currentGuess = get().currentGuess;
-			const currentGuessInfo =
-				useGuessInfoStore.getState().guesses[currentGuess];
+		const currentGuess = state.currentGuess;
+		const currentGuessInfo =
+			useGuessInfoStore.getState().guesses[currentGuess];
+		if (currentGuessInfo.isSubmitted) return;
 
-			if (currentGuessInfo.isSubmitted) return {};
+		const submission = currentGuessInfo.guess;
+		if (!submission) return {};
 
-			const submission = currentGuessInfo.guess;
-			if (!submission) return {};
+		const guessResult = checkAnswer(
+			state.correctPositionInfo?.correctPosition,
+			submission,
+		);
 
-			const guessResult = checkAnswer(
-				state.correctPositionInfo.correctPosition,
-				submission,
-			);
+		const hasCorrectlyGuessed = _.isEqual(
+			state.correctPositionInfo.correctPosition,
+			currentGuessInfo.guess,
+		);
 
-			const hasCorrectlyGuessed = _.isEqual(
-				state.correctPositionInfo.correctPosition,
-				currentGuessInfo.guess,
-			);
+		useGuessInfoStore.getState().markGuessAsSubmitted(state.currentGuess);
+		useGuessInfoStore
+			.getState()
+			.updateGuessResult(currentGuess, guessResult);
 
-			useGuessInfoStore.getState().markGuessAsSubmitted(currentGuess);
-			useGuessInfoStore
-				.getState()
-				.updateGuessResult(currentGuess, guessResult);
+		set({
+			usedGuesses:
+				state.usedGuesses < 6
+					? ((state.usedGuesses + 1) as GuessNumbers)
+					: state.usedGuesses,
 
-			return {
-				usedGuesses:
-					state.usedGuesses < 6
-						? ((state.usedGuesses + 1) as GuessNumbers)
-						: state.usedGuesses,
-
-				hasCorrectlyGuessed: hasCorrectlyGuessed,
-			};
+			hasCorrectlyGuessed: hasCorrectlyGuessed,
 		});
 	},
 
