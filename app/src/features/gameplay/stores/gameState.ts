@@ -121,14 +121,14 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 	},
 
 	movePieceOnBoardOfCurrentGuess: (from, to) => {
-		if (from === to) return {};
+		if (from === to) return;
 
 		const currentGuessInfo =
 			useGuessInfoStore.getState().guesses[get().currentGuess];
 
 		const updatedBoard = structuredClone(currentGuessInfo.guess);
 		const squareInfo = updatedBoard[from];
-		if (!squareInfo) return {};
+		if (!squareInfo) return;
 
 		delete updatedBoard[from];
 		updatedBoard[to] = squareInfo;
