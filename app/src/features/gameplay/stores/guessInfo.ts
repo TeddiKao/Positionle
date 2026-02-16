@@ -31,6 +31,8 @@ type GuessInfoStore = {
 		guessNumber: GuessNumbers,
 		orientation: PieceColor,
 	) => void;
+
+	submitGuess: (guessNumber: GuessNumbers) => void;
 };
 
 const useGuessInfoStore = create<GuessInfoStore>((set) => ({
@@ -111,6 +113,19 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 					...state.guesses,
 					[guessNumber]: {
 						orientation: orientation,
+					},
+				},
+			};
+		});
+	},
+
+	submitGuess: (guessNumber) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[guessNumber]: {
+						isSubmitted: true,
 					},
 				},
 			};
