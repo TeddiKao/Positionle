@@ -40,7 +40,7 @@ type GameStateStore = {
 
 	updatePositionOfCurrentGuess: (position: BoardRepresentation) => void;
 
-	submitCurrentGuess: (guessNumber: GuessNumbers) => void;
+	submitCurrentGuess: () => void;
 	performReset: () => void;
 };
 
