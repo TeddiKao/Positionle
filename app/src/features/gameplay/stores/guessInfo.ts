@@ -1,6 +1,7 @@
 import type {
 	GuessInfo,
 	GuessNumbers,
+	GuessResult,
 } from "@/features/gameplay/types/guesses";
 import { create } from "zustand";
 
@@ -32,7 +33,11 @@ type GuessInfoStore = {
 		orientation: PieceColor,
 	) => void;
 
-	submitGuess: (guessNumber: GuessNumbers) => void;
+	markGuessAsSubmitted: (guessNumber: GuessNumbers) => void;
+	updateGuessResult: (
+		guessNumber: GuessNumbers,
+		guessResult: GuessResult,
+	) => void;
 };
 
 const useGuessInfoStore = create<GuessInfoStore>((set) => ({
@@ -119,13 +124,26 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 		});
 	},
 
-	submitGuess: (guessNumber) => {
+	markGuessAsSubmitted: (guessNumber) => {
 		set((state) => {
 			return {
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
 						isSubmitted: true,
+					},
+				},
+			};
+		});
+	},
+
+	updateGuessResult: (guessNumber, guessResult) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[guessNumber]: {
+						guessResult: guessResult,
 					},
 				},
 			};
