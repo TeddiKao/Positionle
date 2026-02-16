@@ -151,7 +151,7 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 		if (!submission) return;
 
 		const guessResult = checkAnswer(
-			state.correctPositionInfo?.correctPosition,
+			state.correctPositionInfo.correctPosition,
 			submission,
 		);
 
