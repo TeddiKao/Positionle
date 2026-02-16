@@ -9,29 +9,113 @@ import type {
 	PieceColor,
 } from "@/features/gameplay/types/chess";
 import type { CanvasPath } from "react-sketch-canvas";
+import { defaultGuessInfo } from "@/features/gameplay/constants/guesses";
 
 type GuessInfoStore = {
 	guesses: Record<GuessNumbers, GuessInfo>;
 
 	updateBoardForGuess: (
-		guess: GuessNumbers,
+		guessNumber: GuessNumbers,
 		board: BoardRepresentation,
 	) => void;
 
 	updateAnnotationsForGuess: (
-		guess: GuessNumbers,
+		guessNumber: GuessNumbers,
 		annotations: CanvasPath[],
 	) => void;
 
-	showExactDistancesForGuess: (guess: GuessNumbers) => void;
-	hideExactDistancesForGuess: (guess: GuessNumbers) => void;
+	showExactDistancesForGuess: (guessNumber: GuessNumbers) => void;
+	hideExactDistancesForGuess: (guessNumber: GuessNumbers) => void;
 
 	updateOrientationForGuess: (
-		guess: GuessNumbers,
+		guessNumber: GuessNumbers,
 		orientation: PieceColor,
 	) => void;
 };
 
-const useGuessInfoStore = create((set) => ({}));
+const useGuessInfoStore = create<GuessInfoStore>((set) => ({
+	guesses: {
+		1: structuredClone(defaultGuessInfo),
+		2: structuredClone(defaultGuessInfo),
+		3: structuredClone(defaultGuessInfo),
+		4: structuredClone(defaultGuessInfo),
+		5: structuredClone(defaultGuessInfo),
+		6: structuredClone(defaultGuessInfo),
+	},
+
+	updateBoardForGuess: (
+		guessNumber: GuessNumbers,
+		board: BoardRepresentation,
+	) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[guessNumber]: {
+						guess: board,
+					},
+				},
+			};
+		});
+	},
+
+	updateAnnotationsForGuess: (
+		guessNumber: GuessNumbers,
+		annotations: CanvasPath[],
+	) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[guessNumber]: {
+						annotations: annotations,
+					},
+				},
+			};
+		});
+	},
+
+	showExactDistancesForGuess: (guessNumber: GuessNumbers) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[guessNumber]: {
+						isShowingExactDistances: true,
+					},
+				},
+			};
+		});
+	},
+
+	hideExactDistancesForGuess: (guessNumber: GuessNumbers) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[guessNumber]: {
+						isShowingExactDistances: false,
+					},
+				},
+			};
+		});
+	},
+
+	updateOrientationForGuess: (
+		guessNumber: GuessNumbers,
+		orientation: PieceColor,
+	) => {
+		set((state) => {
+			return {
+				guesses: {
+					...state.guesses,
+					[guessNumber]: {
+						orientation: orientation,
+					},
+				},
+			};
+		});
+	},
+}));
 
 export default useGuessInfoStore;
