@@ -198,10 +198,12 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								onClick={() => {
 									if (currentGuess - 1 > 0) {
 										updatePositionOfCurrentGuess(
-											guesses[
-												(currentGuess -
-													1) as GuessNumbers
-											].guess,
+											structuredClone(
+												guesses[
+													(currentGuess -
+														1) as GuessNumbers
+												].guess,
+											),
 										);
 
 										captureEvent("action_button_used", {
