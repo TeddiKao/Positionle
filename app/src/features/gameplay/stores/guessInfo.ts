@@ -59,6 +59,7 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
+						...state.guesses[guessNumber],
 						guess: board,
 					},
 				},
@@ -75,6 +76,7 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
+						...state.guesses[guessNumber],
 						annotations: annotations,
 					},
 				},
@@ -88,6 +90,7 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
+						...state.guesses[guessNumber],
 						isShowingExactDistances: true,
 					},
 				},
@@ -101,6 +104,7 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
+						...state.guesses[guessNumber],
 						isShowingExactDistances: false,
 					},
 				},
@@ -117,6 +121,7 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
+						...state.guesses[guessNumber],
 						orientation: orientation,
 					},
 				},
@@ -130,6 +135,7 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
+						...state.guesses[guessNumber],
 						isSubmitted: true,
 					},
 				},
@@ -143,6 +149,7 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				guesses: {
 					...state.guesses,
 					[guessNumber]: {
+						...state.guesses[guessNumber],
 						guessResult: guessResult,
 					},
 				},
