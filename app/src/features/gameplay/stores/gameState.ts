@@ -4,7 +4,10 @@ import type {
 	GuessNumbers,
 } from "@/features/gameplay/types/guesses";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
-import type { SquareInfo } from "@/features/gameplay/types/chess";
+import type {
+	BoardRepresentation,
+	SquareInfo,
+} from "@/features/gameplay/types/chess";
 import { create } from "zustand";
 
 type GameStateStore = {
@@ -28,6 +31,8 @@ type GameStateStore = {
 	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
 	removeFromBoard: (square: SquareCoordinate) => void;
 	movePieceOnBoard: (from: SquareCoordinate, to: SquareCoordinate) => void;
+
+	updatePosition: (position: BoardRepresentation) => void;
 
 	submitGuess: () => void;
 };
