@@ -1,6 +1,5 @@
 import type {
 	CorrectPositionInfo,
-	GuessInfo,
 	GuessNumbers,
 } from "@/features/gameplay/types/guesses";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
@@ -9,9 +8,9 @@ import type {
 	SquareInfo,
 } from "@/features/gameplay/types/chess";
 import { create } from "zustand";
-import { defaultGuessInfo } from "@/features/gameplay/constants/guesses";
 import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
 import _ from "lodash";
+import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
 
 type GameStateStore = {
 	currentGuess: GuessNumbers;
@@ -29,19 +28,23 @@ type GameStateStore = {
 	hasCorrectlyGuessed: boolean;
 	markAsCorrectlyGuessed: () => void;
 
-	guesses: Record<GuessNumbers, GuessInfo>;
+	addToBoardOfCurrentGuess: (
+		square: SquareCoordinate,
+		pieceInfo: SquareInfo,
+	) => void;
+	removeFromBoardOfCurrentGuess: (square: SquareCoordinate) => void;
+	movePieceOnBoardOfCurrentGuess: (
+		from: SquareCoordinate,
+		to: SquareCoordinate,
+	) => void;
 
-	addToBoard: (square: SquareCoordinate, pieceInfo: SquareInfo) => void;
-	removeFromBoard: (square: SquareCoordinate) => void;
-	movePieceOnBoard: (from: SquareCoordinate, to: SquareCoordinate) => void;
+	updatePositionOfCurrentGuess: (position: BoardRepresentation) => void;
 
-	updatePosition: (position: BoardRepresentation) => void;
-
-	submitGuess: () => void;
+	submitCurrentGuess: (guessNumber: GuessNumbers) => void;
 	performReset: () => void;
 };
 
-const useGameStateStore = create<GameStateStore>((set, _get, store) => ({
+const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 	currentGuess: 1,
 	moveToPreviousGuess: () => {
 		set((state) => {
@@ -93,85 +96,55 @@ const useGameStateStore = create<GameStateStore>((set, _get, store) => ({
 		set({ hasCorrectlyGuessed: true });
 	},
 
-	guesses: {
-		1: structuredClone(defaultGuessInfo),
-		2: structuredClone(defaultGuessInfo),
-		3: structuredClone(defaultGuessInfo),
-		4: structuredClone(defaultGuessInfo),
-		5: structuredClone(defaultGuessInfo),
-		6: structuredClone(defaultGuessInfo),
+	addToBoardOfCurrentGuess: (square, pieceInfo) => {
+		const currentGuessInfo =
+			useGuessInfoStore.getState().guesses[get().currentGuess];
+
+		const updatedBoard = structuredClone(currentGuessInfo.guess);
+		updatedBoard[square] = pieceInfo;
+
+		useGuessInfoStore
+			.getState()
+			.updateBoardForGuess(get().currentGuess, updatedBoard);
 	},
 
-	addToBoard: (square, pieceInfo) => {
-		set((state) => {
-			const copiedBoard = structuredClone(
-				state.guesses[state.currentGuess].guess,
-			);
-			copiedBoard[square] = pieceInfo;
+	removeFromBoardOfCurrentGuess: (square) => {
+		const currentGuessInfo =
+			useGuessInfoStore.getState().guesses[get().currentGuess];
+		const updatedBoard = structuredClone(currentGuessInfo.guess);
 
-			return {
-				guesses: {
-					...state.guesses,
-					[state.currentGuess]: {
-						...state.guesses[state.currentGuess],
-						guess: copiedBoard,
-					},
-				},
-			};
-		});
+		delete updatedBoard[square];
+
+		useGuessInfoStore
+			.getState()
+			.updateBoardForGuess(get().currentGuess, updatedBoard);
 	},
 
-	removeFromBoard: (square) => {
-		set((state) => {
-			const copiedBoard = structuredClone(
-				state.guesses[state.currentGuess].guess,
-			);
-			delete copiedBoard[square];
+	movePieceOnBoardOfCurrentGuess: (from, to) => {
+		if (from === to) return {};
 
-			return {
-				guesses: {
-					...state.guesses,
-					[state.currentGuess]: {
-						...state.guesses[state.currentGuess],
-						guess: copiedBoard,
-					},
-				},
-			};
-		});
+		const currentGuessInfo =
+			useGuessInfoStore.getState().guesses[get().currentGuess];
+
+		const updatedBoard = structuredClone(currentGuessInfo.guess);
+		const squareInfo = updatedBoard[from];
+		if (!squareInfo) return {};
+
+		delete updatedBoard[from];
+		updatedBoard[to] = squareInfo;
+
+		useGuessInfoStore
+			.getState()
+			.updateBoardForGuess(get().currentGuess, updatedBoard);
 	},
 
-	movePieceOnBoard: (from, to) => {
-		set((state) => {
-			const copiedBoard = structuredClone(
-				state.guesses[state.currentGuess].guess,
-			);
-			const squareInfo = copiedBoard[from];
-
-			if (from === to) return state;
-			if (!squareInfo) return state;
-
-			delete copiedBoard[from];
-
-			copiedBoard[to] = squareInfo;
-
-			return {
-				guesses: {
-					...state.guesses,
-					[state.currentGuess]: {
-						...state.guesses[state.currentGuess],
-						guess: copiedBoard,
-					},
-				},
-			};
-		});
-	},
-
-	submitGuess: () => {
+	submitCurrentGuess: () => {
 		set((state) => {
 			if (!state.correctPositionInfo) return {};
 
-			const currentGuess = state.currentGuess;
-			const currentGuessInfo = state.guesses[currentGuess];
+			const currentGuess = get().currentGuess;
+			const currentGuessInfo =
+				useGuessInfoStore.getState().guesses[currentGuess];
 
 			if (currentGuessInfo.isSubmitted) return {};
 
@@ -188,41 +161,26 @@ const useGameStateStore = create<GameStateStore>((set, _get, store) => ({
 				currentGuessInfo.guess,
 			);
 
+			useGuessInfoStore.getState().markGuessAsSubmitted(currentGuess);
+			useGuessInfoStore
+				.getState()
+				.updateGuessResult(currentGuess, guessResult);
+
 			return {
 				usedGuesses:
 					state.usedGuesses < 6
 						? ((state.usedGuesses + 1) as GuessNumbers)
 						: state.usedGuesses,
-				guesses: {
-					...state.guesses,
-					[currentGuess]: {
-						...currentGuessInfo,
-						guessResult,
-						isSubmitted: true,
-					},
-				},
 
 				hasCorrectlyGuessed: hasCorrectlyGuessed,
 			};
 		});
 	},
 
-	updatePosition: (position: BoardRepresentation) => {
-		set((state) => {
-			if (state.guesses[state.currentGuess].isSubmitted) return {};
-
-			const updatedPosition = structuredClone(position);
-
-			return {
-				guesses: {
-					...state.guesses,
-					[state.currentGuess]: {
-						...state.guesses[state.currentGuess],
-						guess: updatedPosition,
-					},
-				},
-			};
-		});
+	updatePositionOfCurrentGuess: (position: BoardRepresentation) => {
+		useGuessInfoStore
+			.getState()
+			.updateBoardForGuess(get().currentGuess, position);
 	},
 
 	performReset: () => {
