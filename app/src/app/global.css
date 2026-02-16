@@ -12,6 +12,10 @@
     [role="button"]:not(:disabled) {
         cursor: pointer;
     }
+
+    [data-radix-portal] > .dialog-content {
+        z-index: 2000;
+    }
 }
 
 @theme {
