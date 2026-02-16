@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import type { File, Rank } from "@/features/gameplay/types/coordinates";
 import { clsx } from "clsx";
-import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
 import useGameStateStore from "@/features/gameplay/stores/gameState";
+import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
 
 type SquareContainerProps = {
 	file: File;
@@ -22,9 +22,8 @@ function SquareContainer({
 		id: `${file}${rank}`,
 	});
 
-	const { guesses } = useGuessInfoStore();
-	const { currentGuess, removeFromBoardOfCurrentGuess } = useGameStateStore();
-	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
+	const { removeFromBoardOfCurrentGuess } = useGameStateStore();
+	const { isEraserModeActive } = useActionMenuStore();
 
 	return isEraserModeActive ? (
 		<button

@@ -31,10 +31,12 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 
 	const { guesses } = useGuessInfoStore();
 	const {
+		isEraserModeActive,
 		activateEraserMode,
 		deactivateEraserMode,
 		clearGuess,
 		flipBoard,
+		isPenActive,
 		activatePen,
 		showExactDistances,
 		hideExactDistances,
@@ -42,8 +44,6 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 
 	const isShowingExactDistances =
 		guesses[currentGuess].isShowingExactDistances;
-	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
-	const isPenActive = guesses[currentGuess].isPenActive;
 
 	return (
 		<div className="flex flex-col justify-center">
