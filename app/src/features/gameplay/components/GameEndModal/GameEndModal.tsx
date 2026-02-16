@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import useGameStateStore from "@/features/gameplay/stores/gameState";
 
 function GameEndModal() {
-	const { correctPositionInfo, hasCorrectlyGuessed, performReset } =
+	const { correctPositionInfo, hasCorrectlyGuessed, performGameStateReset } =
 		useGameStateStore();
 	const { isOpen, openModal, closeModal } = useGameEndModalStore();
 
@@ -20,7 +20,7 @@ function GameEndModal() {
 
 	function playAgain() {
 		closeModal();
-		performReset();
+		performGameStateReset();
 	}
 
 	return (
