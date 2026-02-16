@@ -2,7 +2,6 @@ import {
 	isSquareOnBottomEdge,
 	isSquareOnLeftEdge,
 } from "@/features/gameplay/utils/edgeDetection";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
 import PieceIcon from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/components/PieceIcon";
 import type {
 	File,
@@ -13,6 +12,8 @@ import { files } from "@/features/gameplay/constants/coordinates";
 import { clsx } from "clsx";
 import { getColorByDistance } from "@/features/gameplay/utils/colorComputation";
 import SquareContainer from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/components/SquareContainer";
+import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
+import useGameStateStore from "@/features/gameplay/stores/gameState";
 
 type SquareProps = {
 	file: File;
@@ -20,7 +21,8 @@ type SquareProps = {
 };
 
 function Square({ file, rank }: SquareProps) {
-	const { guesses, currentGuess } = useGuessesStore();
+	const { guesses } = useGuessInfoStore();
+	const { currentGuess } = useGameStateStore();
 
 	const guessResult = guesses[currentGuess].guessResult;
 	const squareResult = guessResult?.[`${file}${rank}`];

@@ -7,13 +7,13 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import StaticChessboard from "@/features/gameplay/components/GameEndModal/components/StaticChessboard/StaticChessboard";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
 import useGameEndModalStore from "@/features/gameplay/stores/gameEndModal";
 import { Button } from "@/components/ui/button";
+import useGameStateStore from "@/features/gameplay/stores/gameState";
 
 function GameEndModal() {
 	const { correctPositionInfo, hasCorrectlyGuessed, performReset } =
-		useGuessesStore();
+		useGameStateStore();
 	const { isOpen, openModal, closeModal } = useGameEndModalStore();
 
 	if (!correctPositionInfo) return null;

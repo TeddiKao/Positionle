@@ -1,10 +1,12 @@
 import Square from "@/features/gameplay/pages/GamePage/components/ChessboardGrid/components/Square/Square";
 import { files, ranks } from "@/features/gameplay/constants/coordinates";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
 import type { File, Rank } from "@/features/gameplay/types/coordinates";
+import useGameStateStore from "@/features/gameplay/stores/gameState";
+import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
 
 function ChessboardGrid() {
-	const { guesses, currentGuess } = useGuessesStore();
+	const { guesses } = useGuessInfoStore();
+	const { currentGuess } = useGameStateStore();
 
 	const orientation = guesses[currentGuess].orientation;
 

@@ -1,18 +1,30 @@
 import LeftArrow from "@/features/gameplay/icons/guessNavigator/LeftArrow";
 import RightArrow from "@/features/gameplay/icons/guessNavigator/RightArrow";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
+import useGameStateStore from "@/features/gameplay/stores/gameState";
 
 function GuessNavigator() {
-	const { currentGuess, usedGuesses, moveToPreviousGuess, moveToNextGuess } = useGuessesStore();
+	const { currentGuess, usedGuesses, moveToPreviousGuess, moveToNextGuess } =
+		useGameStateStore();
 
 	return (
 		<div className="flex flex-row items-center gap-2 px-2 py-1 rounded-lg shadow-md bg-gray-50 shadow-gray-400">
 			{currentGuess > 1 ? (
-				<button onClick={moveToPreviousGuess} aria-label="Previous guess" type="button" className="hover:bg-gray-400 rounded-md">
+				<button
+					onClick={moveToPreviousGuess}
+					aria-label="Previous guess"
+					type="button"
+					className="hover:bg-gray-400 rounded-md"
+				>
 					<LeftArrow />
 				</button>
 			) : (
-				<button aria-disabled="true" disabled aria-label="Previous guess" type="button" className="opacity-40">
+				<button
+					aria-disabled="true"
+					disabled
+					aria-label="Previous guess"
+					type="button"
+					className="opacity-40"
+				>
 					<LeftArrow />
 				</button>
 			)}
@@ -20,16 +32,27 @@ function GuessNavigator() {
 			<p>Guess {currentGuess} of 6</p>
 
 			{currentGuess < 6 && usedGuesses >= currentGuess ? (
-				<button onClick={moveToNextGuess} aria-label="Next guess" type="button" className="hover:bg-gray-400 rounded-md">
+				<button
+					onClick={moveToNextGuess}
+					aria-label="Next guess"
+					type="button"
+					className="hover:bg-gray-400 rounded-md"
+				>
 					<RightArrow />
 				</button>
 			) : (
-				<button aria-disabled="true" disabled aria-label="Next guess" type="button" className="opacity-40">
+				<button
+					aria-disabled="true"
+					disabled
+					aria-label="Next guess"
+					type="button"
+					className="opacity-40"
+				>
 					<RightArrow />
 				</button>
 			)}
 		</div>
-	)
+	);
 }
 
 export default GuessNavigator;
