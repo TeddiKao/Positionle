@@ -35,6 +35,7 @@ type GameStateStore = {
 	updatePosition: (position: BoardRepresentation) => void;
 
 	submitGuess: () => void;
+	performReset: () => void;
 };
 
 const useGameStateStore = create<GameStateStore>(() => {});
