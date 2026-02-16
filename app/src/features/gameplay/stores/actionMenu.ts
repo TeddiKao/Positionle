@@ -16,9 +16,11 @@ type ActionMenuStore = {
 	isPenActive: boolean;
 	activatePen: () => void;
 	deactivatePen: () => void;
+
+	resetActionMenuState: () => void;
 };
 
-const useActionMenuStore = create<ActionMenuStore>((set) => ({
+const useActionMenuStore = create<ActionMenuStore>((set, _get, store) => ({
 	clearGuess: (guessNumber: GuessNumbers) => {
 		useGuessInfoStore.getState().updateBoardForGuess(guessNumber, {});
 	},
@@ -50,6 +52,10 @@ const useActionMenuStore = create<ActionMenuStore>((set) => ({
 	isPenActive: false,
 	activatePen: () => set({ isPenActive: true }),
 	deactivatePen: () => set({ isPenActive: false }),
+
+	resetActionMenuState: () => {
+		set(store.getInitialState());
+	},
 }));
 
 export default useActionMenuStore;

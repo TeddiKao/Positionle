@@ -12,21 +12,30 @@ type AnnotationToolbarStore = {
 		guessNumber: GuessNumbers,
 		annotations: CanvasPath[],
 	) => void;
+
+	resetAnnotationToolbarState: () => void;
 };
 
-const useAnnotationToolbarStore = create<AnnotationToolbarStore>((set) => ({
-	isAnnotationEraserActive: false,
-	activateAnnotationEraser: () => set({ isAnnotationEraserActive: true }),
-	deactivateAnnotationEraser: () => set({ isAnnotationEraserActive: false }),
+const useAnnotationToolbarStore = create<AnnotationToolbarStore>(
+	(set, _get, store) => ({
+		isAnnotationEraserActive: false,
+		activateAnnotationEraser: () => set({ isAnnotationEraserActive: true }),
+		deactivateAnnotationEraser: () =>
+			set({ isAnnotationEraserActive: false }),
 
-	updateAnnotationsForGuess: (
-		guessNumber: GuessNumbers,
-		annotations: CanvasPath[],
-	) => {
-		useGuessInfoStore
-			.getState()
-			.updateAnnotationsForGuess(guessNumber, annotations);
-	},
-}));
+		updateAnnotationsForGuess: (
+			guessNumber: GuessNumbers,
+			annotations: CanvasPath[],
+		) => {
+			useGuessInfoStore
+				.getState()
+				.updateAnnotationsForGuess(guessNumber, annotations);
+		},
+
+		resetAnnotationToolbarState: () => {
+			set(store.getInitialState());
+		},
+	}),
+);
 
 export default useAnnotationToolbarStore;

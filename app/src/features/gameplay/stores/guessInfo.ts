@@ -38,9 +38,11 @@ type GuessInfoStore = {
 		guessNumber: GuessNumbers,
 		guessResult: GuessResult,
 	) => void;
+
+	resetGuessInfoState: () => void;
 };
 
-const useGuessInfoStore = create<GuessInfoStore>((set) => ({
+const useGuessInfoStore = create<GuessInfoStore>((set, _get, store) => ({
 	guesses: {
 		1: structuredClone(defaultGuessInfo),
 		2: structuredClone(defaultGuessInfo),
@@ -155,6 +157,10 @@ const useGuessInfoStore = create<GuessInfoStore>((set) => ({
 				},
 			};
 		});
+	},
+
+	resetGuessInfoState: () => {
+		set(store.getInitialState());
 	},
 }));
 

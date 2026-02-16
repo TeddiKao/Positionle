@@ -41,7 +41,7 @@ type GameStateStore = {
 	updatePositionOfCurrentGuess: (position: BoardRepresentation) => void;
 
 	submitCurrentGuess: () => void;
-	performGameStateReset: () => void;
+	resetGameState: () => void;
 };
 
 const useGameStateStore = create<GameStateStore>((set, get, store) => ({
@@ -183,7 +183,7 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 			.updateBoardForGuess(get().currentGuess, position);
 	},
 
-	performGameStateReset: () => {
+	resetGameState: () => {
 		set(store.getInitialState());
 	},
 }));
