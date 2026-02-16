@@ -3,6 +3,8 @@ import { create } from "zustand";
 
 type AnnotationToolbarStore = {
 	updateAnnotations: (annotations: CanvasPath[]) => void;
+
+	isAnnotationEraserActive: () => void;
 	activateAnnotationEraser: () => void;
 	deactivateAnnotationEraser: () => void;
 };
