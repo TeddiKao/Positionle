@@ -166,7 +166,7 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<button
-								aria-label="Deactivate pen"
+								aria-label="Activate pen"
 								type="button"
 								className="rounded-md p-1 hover:bg-gray-400"
 								onClick={() => {
