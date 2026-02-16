@@ -18,15 +18,11 @@ type GuessInfo = {
 	guess: BoardRepresentation;
 	isSubmitted: boolean;
 	guessResult: GuessResult | null;
+
 	orientation: PieceColor;
 	isShowingExactDistances: boolean;
-	isEraserModeActive: boolean;
-	isPenActive: boolean;
 
 	annotations: CanvasPath[];
-	annotationTools: {
-		isEraserActive: boolean;
-	};
 };
 
 type CorrectPositionInfo = {

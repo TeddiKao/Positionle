@@ -7,7 +7,6 @@ import CheckAnswerButton from "@/features/gameplay/pages/GamePage/components/Che
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 import { getPieceInfoFromAbbreviation } from "@/features/gameplay/utils/abbreviations";
 import type { PieceAbbreviation } from "@/features/gameplay/types/abbreviations";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
 import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 import type { DragMethods } from "@/features/gameplay/types/dragAndDrop";
 import { useEffect, useRef } from "react";
@@ -21,28 +20,28 @@ import {
 	type ReactSketchCanvasRef,
 } from "react-sketch-canvas";
 import { clsx } from "clsx";
+import useGameStateStore from "@/features/gameplay/stores/gameState";
+import useAnnotationToolbarStore from "@/features/gameplay/stores/annotationToolbar";
+import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
+import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
 
 function GamePage() {
+	const { guesses } = useGuessInfoStore();
 	const {
-		guesses,
 		currentGuess,
 		hasCorrectlyGuessed,
 		usedGuesses,
-		addToBoard,
-		movePieceOnBoard,
+		addToBoardOfCurrentGuess,
+		movePieceOnBoardOfCurrentGuess,
 		updateCorrectPositionInfo,
-		updateAnnotations,
-	} = useGuessesStore();
+	} = useGameStateStore();
+
+	const { updateAnnotationsForGuess } = useAnnotationToolbarStore();
 
 	const { openModal } = useGameEndModalStore();
 
-	const isPenActive = useGuessesStore(
-		(state) => state.guesses[state.currentGuess].isPenActive,
-	);
-	const isAnnotationEraserActive = useGuessesStore(
-		(state) =>
-			state.guesses[state.currentGuess].annotationTools.isEraserActive,
-	);
+	const { isPenActive } = useActionMenuStore();
+	const { isAnnotationEraserActive } = useAnnotationToolbarStore();
 
 	const canvasRef = useRef<ReactSketchCanvasRef>(null);
 
@@ -90,7 +89,7 @@ function GamePage() {
 		const paths = await canvasRef.current.exportPaths();
 		if (!paths) return;
 
-		updateAnnotations(paths);
+		updateAnnotationsForGuess(currentGuess, paths);
 	}
 
 	function handleDragEnd(event: DragEndEvent) {
@@ -110,12 +109,12 @@ function GamePage() {
 				);
 				const droppedCoordinate = event.over.id as SquareCoordinate;
 
-				addToBoard(droppedCoordinate, draggedPieceInfo);
+				addToBoardOfCurrentGuess(droppedCoordinate, draggedPieceInfo);
 			} else if ((dragMethod as DragMethods) === "from-square") {
 				const draggedFrom = info;
 				const draggedTo = event.over.id;
 
-				movePieceOnBoard(
+				movePieceOnBoardOfCurrentGuess(
 					draggedFrom as SquareCoordinate,
 					draggedTo as SquareCoordinate,
 				);

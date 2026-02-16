@@ -10,10 +10,11 @@ import {
 	IconLogout2,
 	IconPencil,
 } from "@tabler/icons-react";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
 import type { RefObject } from "react";
+import useAnnotationToolbarStore from "@/features/gameplay/stores/annotationToolbar";
+import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
 
 type AnnotationToolbarProps = {
 	canvasRef: RefObject<ReactSketchCanvasRef | null>;
@@ -21,15 +22,12 @@ type AnnotationToolbarProps = {
 
 function AnnotationToolbar({ canvasRef }: AnnotationToolbarProps) {
 	const {
-		deactivatePen,
-		guesses,
-		currentGuess,
+		isAnnotationEraserActive,
 		activateAnnotationEraser,
 		deactivateAnnotationEraser,
-	} = useGuessesStore();
-	const currentGuessInfo = guesses[currentGuess];
-	const isAnnotationEraserActive =
-		currentGuessInfo.annotationTools.isEraserActive;
+	} = useAnnotationToolbarStore();
+
+	const { deactivatePen } = useActionMenuStore();
 
 	return (
 		<Popover>

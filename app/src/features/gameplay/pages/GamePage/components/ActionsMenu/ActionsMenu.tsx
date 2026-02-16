@@ -12,36 +12,38 @@ import {
 	IconRefresh as IconFlip,
 	IconTrash,
 } from "@tabler/icons-react";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
 import { clsx } from "clsx";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 import AnnotationToolbar from "@/features/gameplay/pages/GamePage/components/ActionsMenu/components/AnnotationToolbar";
 import type { ReactSketchCanvasRef } from "react-sketch-canvas";
 import type { RefObject } from "react";
 import { captureEvent } from "@/features/gameplay/utils/posthog";
+import useGameStateStore from "@/features/gameplay/stores/gameState";
+import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
+import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
 
 type ActionsMenuProps = {
 	canvasRef: RefObject<ReactSketchCanvasRef | null>;
 };
 
 function ActionsMenu({ canvasRef }: ActionsMenuProps) {
+	const { currentGuess, updatePositionOfCurrentGuess } = useGameStateStore();
+
+	const { guesses } = useGuessInfoStore();
 	const {
-		guesses,
-		currentGuess,
-		clearGuess,
-		flipBoard,
-		showExactDistances,
-		hideExactDistances,
+		isEraserModeActive,
 		activateEraserMode,
 		deactivateEraserMode,
+		clearGuess,
+		flipBoard,
+		isPenActive,
 		activatePen,
-		updatePosition,
-	} = useGuessesStore();
+		showExactDistances,
+		hideExactDistances,
+	} = useActionMenuStore();
 
 	const isShowingExactDistances =
 		guesses[currentGuess].isShowingExactDistances;
-	const isEraserModeActive = guesses[currentGuess].isEraserModeActive;
-	const isPenActive = guesses[currentGuess].isPenActive;
 
 	return (
 		<div className="flex flex-col justify-center">
@@ -87,7 +89,7 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 					<TooltipTrigger asChild>
 						<button
 							onClick={() => {
-								clearGuess();
+								clearGuess(currentGuess);
 								captureEvent("action_button_used", {
 									action: "clear_guess",
 								});
@@ -107,7 +109,7 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 					<TooltipTrigger asChild>
 						<button
 							onClick={() => {
-								flipBoard();
+								flipBoard(currentGuess);
 								captureEvent("action_button_used", {
 									action: "flip_board",
 								});
@@ -135,9 +137,9 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 							className="hover:bg-gray-400 rounded-md p-1"
 							onClick={() => {
 								if (isShowingExactDistances) {
-									hideExactDistances();
+									hideExactDistances(currentGuess);
 								} else {
-									showExactDistances();
+									showExactDistances(currentGuess);
 
 									captureEvent("action_button_used", {
 										action: "show_exact_distances",
@@ -164,7 +166,7 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<button
-								aria-label="Deactivate pen"
+								aria-label="Activate pen"
 								type="button"
 								className="rounded-md p-1 hover:bg-gray-400"
 								onClick={() => {
@@ -195,11 +197,13 @@ function ActionsMenu({ canvasRef }: ActionsMenuProps) {
 								className="hover:bg-gray-400 rounded-md p-1"
 								onClick={() => {
 									if (currentGuess - 1 > 0) {
-										updatePosition(
-											guesses[
-												(currentGuess -
-													1) as GuessNumbers
-											].guess,
+										updatePositionOfCurrentGuess(
+											structuredClone(
+												guesses[
+													(currentGuess -
+														1) as GuessNumbers
+												].guess,
+											),
 										);
 
 										captureEvent("action_button_used", {

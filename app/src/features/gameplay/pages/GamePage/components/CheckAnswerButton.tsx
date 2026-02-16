@@ -1,15 +1,17 @@
 import { Button } from "@/components/ui/button";
-import useGuessesStore from "@/features/gameplay/stores/guesses";
+import useGameStateStore from "@/features/gameplay/stores/gameState";
+import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
 
 function CheckAnswerButton() {
-	const { guesses, currentGuess, submitGuess } = useGuessesStore();
+	const { currentGuess, submitCurrentGuess } = useGameStateStore();
+	const { guesses } = useGuessInfoStore();
 
 	function handleAnswerSubmission() {
 		if (guesses[currentGuess].isSubmitted) {
 			return;
 		}
 
-		submitGuess();
+		submitCurrentGuess();
 	}
 
 	return (

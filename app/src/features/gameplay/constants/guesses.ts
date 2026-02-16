@@ -4,15 +4,11 @@ const defaultGuessInfo: GuessInfo = {
 	guess: {},
 	isSubmitted: false,
 	guessResult: null,
+
 	orientation: "white",
 	isShowingExactDistances: false,
-	isEraserModeActive: false,
-	isPenActive: false,
 
 	annotations: [],
-	annotationTools: {
-		isEraserActive: false,
-	},
 };
 
 export { defaultGuessInfo };
