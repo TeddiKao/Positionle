@@ -148,7 +148,7 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 		if (currentGuessInfo.isSubmitted) return;
 
 		const submission = currentGuessInfo.guess;
-		if (!submission) return {};
+		if (!submission) return;
 
 		const guessResult = checkAnswer(
 			state.correctPositionInfo?.correctPosition,
