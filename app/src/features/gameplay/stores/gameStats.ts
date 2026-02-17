@@ -16,16 +16,12 @@ const useGameStatsStore = create<GameStatsStore>()(
 		(set, _get, store) => ({
 			gamesPlayed: 0,
 			incrementGamesPlayed: () => {
-				set((state) => {
-					return { gamesPlayed: state.gamesPlayed + 1 };
-				});
+				set((state) => ({ gamesWon: state.gamesWon + 1 }));
 			},
 
 			gamesWon: 0,
 			incrementGamesWon: () => {
-				set((state) => {
-					return { gamesWon: state.gamesWon + 1 };
-				});
+				set((state) => ({ gamesWon: state.gamesWon + 1 }));
 			},
 
 			resetGameStats: () => set(store.getInitialState()),
