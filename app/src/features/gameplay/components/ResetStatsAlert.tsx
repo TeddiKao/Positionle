@@ -32,7 +32,7 @@ function ResetStatsAlert() {
 					<AlertDialogTitle>Reset stats?</AlertDialogTitle>
 					<AlertDialogDescription>
 						Are you sure you would like to reset your stats? This
-						action cannot be undone
+						action cannot be undone.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 
