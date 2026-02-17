@@ -56,7 +56,7 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 		useActionMenuStore.getState().deactivateEraserMode();
 		useAnnotationToolbarStore.getState().deactivateAnnotationEraser();
 
-		set({ currentGuess: (state.currentGuess + 1) as GuessNumbers });
+		set({ currentGuess: (state.currentGuess - 1) as GuessNumbers });
 	},
 
 	moveToNextGuess: () => {
