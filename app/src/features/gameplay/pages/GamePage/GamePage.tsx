@@ -171,7 +171,7 @@ function GamePage() {
 
 					<div className="flex flex-row items-center justify-end pt-4 pr-6">
 						<Tooltip>
-							<TooltipTrigger>
+							<TooltipTrigger asChild>
 								<button
 									onClick={() => {
 										openGameStatsModal();
