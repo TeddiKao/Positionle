@@ -164,11 +164,11 @@ function GamePage() {
 		<>
 			<div className="flex flex-col items-center gap-4">
 				<div className="grid grid-cols-3 w-full">
-					<div className="flex flex-row items-center justify-center col-start-2 -mt-2">
+					<div className="flex flex-row items-center justify-center col-start-2">
 						<Logo />
 					</div>
 
-					<div className="flex flex-row items-center justify-end py-4 pr-6">
+					<div className="flex flex-row items-center justify-end pt-4 pr-6">
 						<Tooltip>
 							<TooltipTrigger>
 								<button
@@ -183,6 +183,7 @@ function GamePage() {
 						</Tooltip>
 					</div>
 				</div>
+
 				<GuessNavigator />
 
 				<div className="grid grid-cols-3 w-full justify-center gap-4">
