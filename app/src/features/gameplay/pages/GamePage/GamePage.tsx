@@ -25,6 +25,8 @@ import useAnnotationToolbarStore from "@/features/gameplay/stores/annotationTool
 import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
 import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
 import GameStatsModal from "@/features/gameplay/components/GameStatsModal";
+import useGameStatsStore from "@/features/gameplay/stores/gameStats";
+import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -44,6 +46,13 @@ function GamePage() {
 	const { isPenActive } = useActionMenuStore();
 	const { isAnnotationEraserActive } = useAnnotationToolbarStore();
 
+	const {
+		incrementGamesPlayed,
+		incrementGamesWon,
+		increaseCurrentWinStreak,
+		resetCurrentWinStreak,
+	} = useGameStatsStore();
+
 	const canvasRef = useRef<ReactSketchCanvasRef>(null);
 
 	useEffect(() => {
@@ -60,9 +69,20 @@ function GamePage() {
 
 	useEffect(() => {
 		if (hasCorrectlyGuessed) {
+			incrementGamesPlayed();
+			incrementGamesWon(usedGuesses as GuessNumbers);
+			increaseCurrentWinStreak();
+
 			openModal();
 		}
-	}, [hasCorrectlyGuessed, openModal]);
+	}, [
+		usedGuesses,
+		hasCorrectlyGuessed,
+		openModal,
+		incrementGamesPlayed,
+		incrementGamesWon,
+		increaseCurrentWinStreak,
+	]);
 
 	useEffect(() => {
 		if (!canvasRef.current) return;
@@ -76,9 +96,11 @@ function GamePage() {
 
 	useEffect(() => {
 		if (usedGuesses >= 6) {
+			incrementGamesPlayed();
+			resetCurrentWinStreak();
 			openModal();
 		}
-	}, [usedGuesses, openModal]);
+	}, [usedGuesses, openModal, incrementGamesPlayed, resetCurrentWinStreak]);
 
 	useEffect(() => {
 		canvasRef.current?.eraseMode(isAnnotationEraserActive);
