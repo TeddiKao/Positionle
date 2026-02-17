@@ -95,12 +95,18 @@ function GamePage() {
 	}, [currentGuess, hasCorrectlyGuessed]);
 
 	useEffect(() => {
-		if (usedGuesses >= 6) {
+		if (usedGuesses >= 6 && !hasCorrectlyGuessed) {
 			incrementGamesPlayed();
 			resetCurrentWinStreak();
 			openModal();
 		}
-	}, [usedGuesses, openModal, incrementGamesPlayed, resetCurrentWinStreak]);
+	}, [
+		usedGuesses,
+		hasCorrectlyGuessed,
+		openModal,
+		incrementGamesPlayed,
+		resetCurrentWinStreak,
+	]);
 
 	useEffect(() => {
 		canvasRef.current?.eraseMode(isAnnotationEraserActive);
