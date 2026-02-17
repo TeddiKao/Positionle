@@ -24,6 +24,7 @@ import useGameStateStore from "@/features/gameplay/stores/gameState";
 import useAnnotationToolbarStore from "@/features/gameplay/stores/annotationToolbar";
 import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
 import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
+import GameStatsModal from "@/features/gameplay/components/GameStatsModal";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -160,6 +161,7 @@ function GamePage() {
 			</div>
 
 			<GameEndModal />
+			<GameStatsModal />
 		</>
 	);
 }
