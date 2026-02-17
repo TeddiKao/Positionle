@@ -11,6 +11,8 @@ import { create } from "zustand";
 import { checkAnswer } from "@/features/gameplay/utils/answerCheck";
 import _ from "lodash";
 import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
+import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
+import useAnnotationToolbarStore from "@/features/gameplay/stores/annotationToolbar";
 
 type GameStateStore = {
 	currentGuess: GuessNumbers;
@@ -49,6 +51,12 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 	moveToPreviousGuess: () => {
 		set((state) => {
 			if (state.currentGuess > 1) {
+				useActionMenuStore.getState().deactivatePen();
+				useActionMenuStore.getState().deactivateEraserMode();
+				useAnnotationToolbarStore
+					.getState()
+					.deactivateAnnotationEraser();
+
 				return {
 					currentGuess: (state.currentGuess - 1) as GuessNumbers,
 				};
@@ -60,6 +68,12 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 	moveToNextGuess: () => {
 		set((state) => {
 			if (state.currentGuess < 6) {
+				useActionMenuStore.getState().deactivatePen();
+				useActionMenuStore.getState().deactivateEraserMode();
+				useAnnotationToolbarStore
+					.getState()
+					.deactivateAnnotationEraser();
+
 				return {
 					currentGuess: (state.currentGuess + 1) as GuessNumbers,
 				};
