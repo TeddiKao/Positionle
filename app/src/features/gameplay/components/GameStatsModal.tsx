@@ -10,7 +10,7 @@ function GameStatsModal() {
 		<Dialog open={true}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle className="text-center text-base">
+					<DialogTitle className="text-center text-base font-bold">
 						Stats
 					</DialogTitle>
 				</DialogHeader>
