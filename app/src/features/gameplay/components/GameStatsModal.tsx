@@ -1,11 +1,13 @@
 import {
 	Dialog,
 	DialogContent,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { Button } from "@/components/ui/button";
 
 const chartConfig = {
 	wins: {
@@ -60,7 +62,7 @@ function GameStatsModal() {
 						</h3>
 
 						<ChartContainer
-							className="min-h-[30%] max-h-[70%]"
+							className="min-h-[30%]"
 							config={chartConfig}
 						>
 							<BarChart
@@ -101,7 +103,7 @@ function GameStatsModal() {
 									},
 								]}
 							>
-								<Bar dataKey="wins" radius={8} barSize={28} />
+								<Bar dataKey="wins" radius={8} />
 								<XAxis type="number" dataKey="wins" hide />
 								<YAxis
 									dataKey="tries"
@@ -113,6 +115,12 @@ function GameStatsModal() {
 						</ChartContainer>
 					</div>
 				</div>
+
+				<DialogFooter>
+					<Button type="button" variant="destructive">
+						Reset stats
+					</Button>
+				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);
