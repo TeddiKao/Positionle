@@ -12,6 +12,7 @@ type GameStatsStore = {
 	currentWinStreak: number;
 	highestWinStreak: number;
 	increaseCurrentWinStreak: () => void;
+	resetCurrentWinStreak: () => void;
 
 	resetGameStats: () => void;
 };
@@ -53,6 +54,8 @@ const useGameStatsStore = create<GameStatsStore>()(
 					),
 				}));
 			},
+
+			resetCurrentWinStreak: () => set({ currentWinStreak: 0 }),
 
 			resetGameStats: () => set(store.getInitialState()),
 		}),
