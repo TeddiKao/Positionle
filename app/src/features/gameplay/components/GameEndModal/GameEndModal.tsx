@@ -20,8 +20,8 @@ function GameEndModal() {
 	const { resetGuessInfoState } = useGuessInfoStore();
 	const { resetActionMenuState } = useActionMenuStore();
 	const { resetAnnotationToolbarState } = useAnnotationToolbarStore();
-	
-	const { isOpen, openModal, closeModal } = useGameEndModalStore();
+
+	const { isOpen, openGameEndModal, closeModal } = useGameEndModalStore();
 
 	if (!correctPositionInfo) return null;
 
@@ -39,7 +39,7 @@ function GameEndModal() {
 			open={isOpen}
 			onOpenChange={(open: boolean) => {
 				if (open) {
-					openModal();
+					openGameEndModal();
 				} else {
 					closeModal();
 				}

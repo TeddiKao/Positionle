@@ -28,6 +28,7 @@ import GameStatsModal from "@/features/gameplay/components/GameStatsModal";
 import useGameStatsStore from "@/features/gameplay/stores/gameStats";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 import { ChartColumnIcon } from "lucide-react";
+import useGameStatsModalStore from "@/features/gameplay/stores/gameStatsModal";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -42,7 +43,8 @@ function GamePage() {
 
 	const { updateAnnotationsForGuess } = useAnnotationToolbarStore();
 
-	const { openModal } = useGameEndModalStore();
+	const { openGameEndModal } = useGameEndModalStore();
+	const { openGameStatsModal } = useGameStatsModalStore();
 
 	const { isPenActive } = useActionMenuStore();
 	const { isAnnotationEraserActive } = useAnnotationToolbarStore();
@@ -74,12 +76,12 @@ function GamePage() {
 			incrementGamesWon(usedGuesses as GuessNumbers);
 			increaseCurrentWinStreak();
 
-			openModal();
+			openGameEndModal();
 		}
 	}, [
 		usedGuesses,
 		hasCorrectlyGuessed,
-		openModal,
+		openGameEndModal,
 		incrementGamesPlayed,
 		incrementGamesWon,
 		increaseCurrentWinStreak,
@@ -99,12 +101,12 @@ function GamePage() {
 		if (usedGuesses >= 6 && !hasCorrectlyGuessed) {
 			incrementGamesPlayed();
 			resetCurrentWinStreak();
-			openModal();
+			openGameEndModal();
 		}
 	}, [
 		usedGuesses,
 		hasCorrectlyGuessed,
-		openModal,
+		openGameEndModal,
 		incrementGamesPlayed,
 		resetCurrentWinStreak,
 	]);
@@ -161,7 +163,7 @@ function GamePage() {
 					</div>
 
 					<div className="flex flex-row items-center justify-end p-4">
-						<button type="button">
+						<button onClick={openGameStatsModal} type="button">
 							<ChartColumnIcon />
 						</button>
 					</div>

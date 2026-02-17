@@ -2,13 +2,13 @@ import { create } from "zustand";
 
 type GameStatsModalStore = {
 	isOpen: boolean;
-	openModal: () => void;
+	openGameStatsModal: () => void;
 	closeModal: () => void;
 };
 
 const useGameStatsModalStore = create<GameStatsModalStore>((set) => ({
 	isOpen: false,
-	openModal: () => set({ isOpen: true }),
+	openGameStatsModal: () => set({ isOpen: true }),
 	closeModal: () => set({ isOpen: false }),
 }));
 

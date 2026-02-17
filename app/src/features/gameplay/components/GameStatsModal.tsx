@@ -30,7 +30,7 @@ function GameStatsModal() {
 		highestWinStreak,
 	} = useGameStatsStore();
 
-	const { isOpen, openModal, closeModal } = useGameStatsModalStore();
+	const { isOpen, openGameStatsModal, closeModal } = useGameStatsModalStore();
 
 	const totalWins = calculateTotalWins(gamesWonDistribution);
 	const winRate = calculateWinRate(totalWins, gamesPlayed);
@@ -40,7 +40,7 @@ function GameStatsModal() {
 			open={isOpen}
 			onOpenChange={(open) => {
 				if (open) {
-					openModal();
+					openGameStatsModal();
 				} else {
 					closeModal();
 				}
