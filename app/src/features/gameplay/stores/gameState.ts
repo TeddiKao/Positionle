@@ -49,38 +49,28 @@ type GameStateStore = {
 const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 	currentGuess: 1,
 	moveToPreviousGuess: () => {
-		set((state) => {
-			if (state.currentGuess > 1) {
-				useActionMenuStore.getState().deactivatePen();
-				useActionMenuStore.getState().deactivateEraserMode();
-				useAnnotationToolbarStore
-					.getState()
-					.deactivateAnnotationEraser();
+		const state = get();
+		if (state.currentGuess <= 1) return;
 
-				return {
-					currentGuess: (state.currentGuess - 1) as GuessNumbers,
-				};
-			} else {
-				return { currentGuess: state.currentGuess };
-			}
-		});
+		useActionMenuStore.getState().deactivatePen();
+		useActionMenuStore.getState().deactivateEraserMode();
+		useAnnotationToolbarStore.getState().deactivateAnnotationEraser();
+
+		return {
+			currentGuess: (state.currentGuess - 1) as GuessNumbers,
+		};
 	},
 	moveToNextGuess: () => {
-		set((state) => {
-			if (state.currentGuess < 6) {
-				useActionMenuStore.getState().deactivatePen();
-				useActionMenuStore.getState().deactivateEraserMode();
-				useAnnotationToolbarStore
-					.getState()
-					.deactivateAnnotationEraser();
+		const state = get();
+		if (state.currentGuess >= 6) return;
 
-				return {
-					currentGuess: (state.currentGuess + 1) as GuessNumbers,
-				};
-			} else {
-				return { currentGuess: state.currentGuess };
-			}
-		});
+		useActionMenuStore.getState().deactivatePen();
+		useActionMenuStore.getState().deactivateEraserMode();
+		useAnnotationToolbarStore.getState().deactivateAnnotationEraser();
+
+		return {
+			currentGuess: (state.currentGuess + 1) as GuessNumbers,
+		};
 	},
 
 	usedGuesses: 0,
