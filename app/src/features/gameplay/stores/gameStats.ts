@@ -9,6 +9,10 @@ type GameStatsStore = {
 	gamesWonDistribution: Record<GuessNumbers, number>;
 	incrementGamesWon: (numberOfTries: GuessNumbers) => void;
 
+	currentWinStreak: number;
+	highestWinStreak: number;
+	increaseCurrentWinStreak: () => void;
+
 	resetGameStats: () => void;
 };
 
@@ -35,6 +39,18 @@ const useGameStatsStore = create<GameStatsStore>()(
 						[numberOfTries]:
 							state.gamesWonDistribution[numberOfTries] + 1,
 					},
+				}));
+			},
+
+			currentWinStreak: 0,
+			highestWinStreak: 0,
+			increaseCurrentWinStreak: () => {
+				set((state) => ({
+					currentWinStreak: state.currentWinStreak + 1,
+					highestWinStreak: Math.max(
+						state.currentWinStreak + 1,
+						state.highestWinStreak,
+					),
 				}));
 			},
 
