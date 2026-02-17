@@ -14,6 +14,7 @@ import {
 	convertGamesWonDistributionToGraphData,
 } from "@/features/gameplay/utils/statsCalculation";
 import useGameStatsStore from "@/features/gameplay/stores/gameStats";
+import useGameStatsModalStore from "@/features/gameplay/stores/gameStatsModal";
 
 const chartConfig = {
 	wins: {
@@ -29,11 +30,22 @@ function GameStatsModal() {
 		highestWinStreak,
 	} = useGameStatsStore();
 
+	const { isOpen, openModal, closeModal } = useGameStatsModalStore();
+
 	const totalWins = calculateTotalWins(gamesWonDistribution);
 	const winRate = calculateWinRate(totalWins, gamesPlayed);
 
 	return (
-		<Dialog open={true}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) => {
+				if (open) {
+					openModal();
+				} else {
+					closeModal();
+				}
+			}}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className="text-center text-base font-bold">
