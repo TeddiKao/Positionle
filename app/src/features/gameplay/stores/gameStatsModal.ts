@@ -6,10 +6,10 @@ type GameStatsModalStore = {
 	closeModal: () => void;
 };
 
-const useGameStateModalStore = create<GameStatsModalStore>((set) => ({
+const useGameStatsModalStore = create<GameStatsModalStore>((set) => ({
 	isOpen: false,
 	openModal: () => set({ isOpen: true }),
 	closeModal: () => set({ isOpen: false }),
 }));
 
-export default useGameStateModalStore;
+export default useGameStatsModalStore;
