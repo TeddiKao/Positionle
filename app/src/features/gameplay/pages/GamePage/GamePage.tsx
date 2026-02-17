@@ -27,6 +27,7 @@ import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
 import GameStatsModal from "@/features/gameplay/components/GameStatsModal";
 import useGameStatsStore from "@/features/gameplay/stores/gameStats";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
+import { ChartColumnIcon } from "lucide-react";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -154,7 +155,17 @@ function GamePage() {
 	return (
 		<>
 			<div className="flex flex-col items-center gap-4">
-				<Logo />
+				<div className="grid grid-cols-3 items-center w-full">
+					<div className="flex flex-row items-center justify-center col-start-2">
+						<Logo />
+					</div>
+
+					<div className="flex flex-row items-center justify-end p-4">
+						<button type="button">
+							<ChartColumnIcon />
+						</button>
+					</div>
+				</div>
 				<GuessNavigator />
 
 				<div className="grid grid-cols-3 w-full justify-center gap-4">
