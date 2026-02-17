@@ -15,6 +15,7 @@ import {
 } from "@/features/gameplay/utils/statsCalculation";
 import useGameStatsStore from "@/features/gameplay/stores/gameStats";
 import useGameStatsModalStore from "@/features/gameplay/stores/gameStatsModal";
+import useResetStatsAlertStore from "@/features/gameplay/stores/resetStatsAlert";
 
 const chartConfig = {
 	wins: {
@@ -28,10 +29,10 @@ function GameStatsModal() {
 		gamesWonDistribution,
 		currentWinStreak,
 		highestWinStreak,
-		resetGameStats,
 	} = useGameStatsStore();
 
 	const { isOpen, openGameStatsModal, closeModal } = useGameStatsModalStore();
+	const { openResetStatsAlert } = useResetStatsAlertStore();
 
 	const totalWins = calculateTotalWins(gamesWonDistribution);
 	const winRate = calculateWinRate(totalWins, gamesPlayed);
@@ -130,7 +131,7 @@ function GameStatsModal() {
 
 				<DialogFooter>
 					<Button
-						onClick={resetGameStats}
+						onClick={openResetStatsAlert}
 						type="button"
 						variant="destructive"
 					>
