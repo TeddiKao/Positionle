@@ -35,6 +35,7 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import ResetStatsAlert from "@/features/gameplay/components/ResetStatsAlert";
+import { captureEvent } from "@/features/gameplay/utils/posthog";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -172,7 +173,10 @@ function GamePage() {
 						<Tooltip>
 							<TooltipTrigger>
 								<button
-									onClick={openGameStatsModal}
+									onClick={() => {
+										openGameStatsModal();
+										captureEvent("game_stats_modal_opened");
+									}}
 									type="button"
 								>
 									<ChartColumnIcon />
