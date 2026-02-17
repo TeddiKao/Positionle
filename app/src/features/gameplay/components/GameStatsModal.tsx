@@ -4,6 +4,14 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
+
+const chartConfig = {
+	wins: {
+		color: "#0f0f0f",
+	},
+} satisfies ChartConfig;
 
 function GameStatsModal() {
 	return (
@@ -44,6 +52,65 @@ function GameStatsModal() {
 							</span>
 							<span className="text-center">Highest streak</span>
 						</div>
+					</div>
+
+					<div className="flex flex-col gap-2">
+						<h3 className="text-lg font-bold">
+							Win distribution (Total: 8)
+						</h3>
+
+						<ChartContainer
+							className="min-h-[30%] max-h-[70%]"
+							config={chartConfig}
+						>
+							<BarChart
+								layout="vertical"
+								margin={{
+									left: -44,
+								}}
+								accessibilityLayer
+								data={[
+									{
+										tries: 1,
+										wins: 4,
+									},
+
+									{
+										tries: 2,
+										wins: 7,
+									},
+
+									{
+										tries: 3,
+										wins: 6,
+									},
+
+									{
+										tries: 4,
+										wins: 4,
+									},
+
+									{
+										tries: 5,
+										wins: 4,
+									},
+
+									{
+										tries: 6,
+										wins: 4,
+									},
+								]}
+							>
+								<Bar dataKey="wins" radius={8} barSize={28} />
+								<XAxis type="number" dataKey="wins" hide />
+								<YAxis
+									dataKey="tries"
+									type="category"
+									axisLine={false}
+									tickLine={false}
+								/>
+							</BarChart>
+						</ChartContainer>
 					</div>
 				</div>
 			</DialogContent>
