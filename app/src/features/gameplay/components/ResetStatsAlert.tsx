@@ -9,10 +9,12 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import useResetStatsAlertStore from "@/features/gameplay/stores/resetStatsAlert";
+import useGameStatsStore from "@/features/gameplay/stores/gameStats";
 
 function ResetStatsAlert() {
 	const { isOpen, openResetStatsAlert, closeResetStatsAlert } =
 		useResetStatsAlertStore();
+	const { resetGameStats } = useGameStatsStore();
 
 	return (
 		<AlertDialog
@@ -35,7 +37,9 @@ function ResetStatsAlert() {
 				</AlertDialogHeader>
 
 				<AlertDialogFooter>
-					<AlertDialogAction>Reset stats</AlertDialogAction>
+					<AlertDialogAction onClick={resetGameStats}>
+						Reset stats
+					</AlertDialogAction>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
 				</AlertDialogFooter>
 			</AlertDialogContent>
