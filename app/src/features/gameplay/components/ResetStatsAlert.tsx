@@ -37,7 +37,10 @@ function ResetStatsAlert() {
 				</AlertDialogHeader>
 
 				<AlertDialogFooter>
-					<AlertDialogAction onClick={resetGameStats}>
+					<AlertDialogAction
+						variant="destructive"
+						onClick={resetGameStats}
+					>
 						Reset stats
 					</AlertDialogAction>
 					<AlertDialogCancel>Cancel</AlertDialogCancel>
