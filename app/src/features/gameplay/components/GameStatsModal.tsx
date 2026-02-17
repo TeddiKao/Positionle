@@ -8,6 +8,11 @@ import {
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
+import {
+	calculateTotalWins,
+	calculateWinRate,
+} from "@/features/gameplay/utils/statsCalculation";
+import useGameStatsStore from "@/features/gameplay/stores/gameStats";
 
 const chartConfig = {
 	wins: {
@@ -16,6 +21,16 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function GameStatsModal() {
+	const {
+		gamesPlayed,
+		gamesWonDistribution,
+		currentWinStreak,
+		highestWinStreak,
+	} = useGameStatsStore();
+
+	const totalWins = calculateTotalWins(gamesWonDistribution);
+	const winRate = calculateWinRate(totalWins, gamesPlayed);
+
 	return (
 		<Dialog open={true}>
 			<DialogContent>
@@ -29,28 +44,28 @@ function GameStatsModal() {
 					<div className="grid grid-cols-4">
 						<div className="flex flex-col">
 							<span className="text-center font-bold text-2xl">
-								10
+								{gamesPlayed}
 							</span>
 							<span className="text-center">Games played</span>
 						</div>
 
 						<div className="flex flex-col">
 							<span className="text-center font-bold text-2xl">
-								80%
+								{winRate}%
 							</span>
 							<span className="text-center">Win rate</span>
 						</div>
 
 						<div className="flex flex-col">
 							<span className="text-center font-bold text-2xl">
-								7
+								{currentWinStreak}
 							</span>
 							<span className="text-center">Current streak</span>
 						</div>
 
 						<div className="flex flex-col">
 							<span className="text-center font-bold text-2xl">
-								7
+								{highestWinStreak}
 							</span>
 							<span className="text-center">Highest streak</span>
 						</div>
