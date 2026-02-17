@@ -34,6 +34,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import ResetStatsAlert from "@/features/gameplay/components/ResetStatsAlert";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -217,6 +218,7 @@ function GamePage() {
 
 			<GameEndModal />
 			<GameStatsModal />
+			<ResetStatsAlert />
 		</>
 	);
 }
