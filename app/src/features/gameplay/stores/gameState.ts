@@ -58,6 +58,7 @@ const useGameStateStore = create<GameStateStore>((set, get, store) => ({
 
 		set({ currentGuess: (state.currentGuess + 1) as GuessNumbers });
 	},
+
 	moveToNextGuess: () => {
 		const state = get();
 		if (state.currentGuess >= 6) return;
