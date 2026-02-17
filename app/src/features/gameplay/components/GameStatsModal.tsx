@@ -28,6 +28,7 @@ function GameStatsModal() {
 		gamesWonDistribution,
 		currentWinStreak,
 		highestWinStreak,
+		resetGameStats,
 	} = useGameStatsStore();
 
 	const { isOpen, openGameStatsModal, closeModal } = useGameStatsModalStore();
@@ -128,7 +129,11 @@ function GameStatsModal() {
 				</div>
 
 				<DialogFooter>
-					<Button type="button" variant="destructive">
+					<Button
+						onClick={resetGameStats}
+						type="button"
+						variant="destructive"
+					>
 						Reset stats
 					</Button>
 				</DialogFooter>
