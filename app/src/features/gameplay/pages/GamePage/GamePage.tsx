@@ -29,6 +29,11 @@ import useGameStatsStore from "@/features/gameplay/stores/gameStats";
 import type { GuessNumbers } from "@/features/gameplay/types/guesses";
 import { ChartColumnIcon } from "lucide-react";
 import useGameStatsModalStore from "@/features/gameplay/stores/gameStatsModal";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -157,15 +162,24 @@ function GamePage() {
 	return (
 		<>
 			<div className="flex flex-col items-center gap-4">
-				<div className="grid grid-cols-3 items-center w-full">
-					<div className="flex flex-row items-center justify-center col-start-2">
+				<div className="grid grid-cols-3 w-full">
+					<div className="flex flex-row items-center justify-center col-start-2 -mt-2">
 						<Logo />
 					</div>
 
-					<div className="flex flex-row items-center justify-end p-4">
-						<button onClick={openGameStatsModal} type="button">
-							<ChartColumnIcon />
-						</button>
+					<div className="flex flex-row items-center justify-end py-4 pr-6">
+						<Tooltip>
+							<TooltipTrigger>
+								<button
+									onClick={openGameStatsModal}
+									type="button"
+								>
+									<ChartColumnIcon />
+								</button>
+							</TooltipTrigger>
+
+							<TooltipContent>Stats</TooltipContent>
+						</Tooltip>
 					</div>
 				</div>
 				<GuessNavigator />
