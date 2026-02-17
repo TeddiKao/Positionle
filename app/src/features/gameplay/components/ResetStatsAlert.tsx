@@ -8,10 +8,23 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import useResetStatsAlertStore from "@/features/gameplay/stores/resetStatsAlert";
 
 function ResetStatsAlert() {
+	const { isOpen, openResetStatsAlert, closeResetStatsAlert } =
+		useResetStatsAlertStore();
+
 	return (
-		<AlertDialog>
+		<AlertDialog
+			open={isOpen}
+			onOpenChange={(open) => {
+				if (open) {
+					openResetStatsAlert();
+				} else {
+					closeResetStatsAlert();
+				}
+			}}
+		>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>Reset stats?</AlertDialogTitle>
