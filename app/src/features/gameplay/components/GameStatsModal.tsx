@@ -6,7 +6,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
-import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import {
 	calculateTotalWins,
@@ -91,7 +91,18 @@ function GameStatsModal() {
 									gamesWonDistribution,
 								)}
 							>
-								<Bar dataKey="wins" radius={8} />
+								<Bar dataKey="wins" radius={8}>
+									<LabelList
+										dataKey="wins"
+										position="insideRight"
+										offset={8}
+										fontSize={12}
+										className="fill-white"
+										formatter={(value: number) =>
+											value <= 0 ? "" : value
+										}
+									/>
+								</Bar>
 								<XAxis type="number" dataKey="wins" hide />
 								<YAxis
 									dataKey="tries"
