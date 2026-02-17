@@ -19,7 +19,10 @@ function convertGamesWonDistributionToGraphData(
 	const graphData: { tries: number; wins: number }[] = [];
 
 	Object.entries(guessDistribution).forEach(([tries, wins]) => {
-		graphData.push({ tries: Number(tries), wins });
+		graphData.push({
+			tries: Number(tries),
+			wins: Number(wins),
+		});
 	});
 
 	return graphData;
