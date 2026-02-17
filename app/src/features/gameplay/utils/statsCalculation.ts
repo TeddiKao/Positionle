@@ -13,7 +13,7 @@ function calculateTotalWins(winDistribution: Record<GuessNumbers, number>) {
 	return _.sum(Object.values(winDistribution));
 }
 
-function convertGuessDistributionToGraphData(
+function convertGamesWonDistributionToGraphData(
 	guessDistribution: Record<GuessNumbers, number>,
 ) {
 	const graphData: { tries: number; wins: number }[] = [];
@@ -28,5 +28,5 @@ function convertGuessDistributionToGraphData(
 export {
 	calculateWinRate,
 	calculateTotalWins,
-	convertGuessDistributionToGraphData,
+	convertGamesWonDistributionToGraphData,
 };

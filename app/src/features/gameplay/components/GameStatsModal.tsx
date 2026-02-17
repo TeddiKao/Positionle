@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import {
 	calculateTotalWins,
 	calculateWinRate,
+	convertGamesWonDistributionToGraphData,
 } from "@/features/gameplay/utils/statsCalculation";
 import useGameStatsStore from "@/features/gameplay/stores/gameStats";
 
@@ -73,7 +74,7 @@ function GameStatsModal() {
 
 					<div className="flex flex-col gap-2">
 						<h3 className="text-lg font-bold">
-							Win distribution (Total: 8)
+							Win distribution (Total: {totalWins})
 						</h3>
 
 						<ChartContainer
@@ -86,37 +87,9 @@ function GameStatsModal() {
 									left: -44,
 								}}
 								accessibilityLayer
-								data={[
-									{
-										tries: 1,
-										wins: 4,
-									},
-
-									{
-										tries: 2,
-										wins: 7,
-									},
-
-									{
-										tries: 3,
-										wins: 6,
-									},
-
-									{
-										tries: 4,
-										wins: 4,
-									},
-
-									{
-										tries: 5,
-										wins: 4,
-									},
-
-									{
-										tries: 6,
-										wins: 4,
-									},
-								]}
+								data={convertGamesWonDistributionToGraphData(
+									gamesWonDistribution,
+								)}
 							>
 								<Bar dataKey="wins" radius={8} />
 								<XAxis type="number" dataKey="wins" hide />
