@@ -18,10 +18,23 @@ import {
 	multiPieceColorClasses,
 	multiPieceDistances,
 } from "@/features/gameplay/constants/playDemonstration";
+import useHowToPlayModalStore from "@/features/gameplay/stores/howToPlayModal";
 
 function HowToPlayModal() {
+	const { isOpen, openHowToPlayModal, closeHowToPlayModal } =
+		useHowToPlayModalStore();
+
 	return (
-		<Dialog open={true}>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) => {
+				if (open) {
+					openHowToPlayModal();
+				} else {
+					closeHowToPlayModal();
+				}
+			}}
+		>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className="text-center text-xl font-bold">
