@@ -33,7 +33,7 @@ function HowToPlayModal() {
 					<div className="grid grid-cols-2">
 						<StaticChessboard
 							boardRepresentation={correctPositionDemonstration}
-							squareColors={correctPositionColorClasses}
+							squareColorClasses={correctPositionColorClasses}
 						/>
 					</div>
 				</div>
