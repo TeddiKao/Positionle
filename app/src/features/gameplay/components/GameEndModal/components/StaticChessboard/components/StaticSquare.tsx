@@ -6,17 +6,27 @@ import { files } from "@/features/gameplay/constants/coordinates";
 
 type StaticSquareProps = {
 	squareInfo: SquareInfo | null;
+	squareColorClass?: string;
 	file: File;
 	rank: Rank;
 };
 
-function StaticSquare({ squareInfo, file, rank }: StaticSquareProps) {
+function StaticSquare({
+	squareInfo,
+	file,
+	rank,
+	squareColorClass,
+}: StaticSquareProps) {
 	const fileIndex = files.indexOf(file);
 	const isDark = (rank + fileIndex) % 2 === 1;
 
 	return (
 		<div
-			className={clsx("relative", isDark ? "bg-gray-400" : "bg-gray-100")}
+			className={clsx(
+				"relative",
+				isDark ? "bg-gray-400" : "bg-gray-100",
+				squareColorClass,
+			)}
 		>
 			{squareInfo && squareInfo.color && squareInfo.piece && (
 				<img

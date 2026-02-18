@@ -1,9 +1,11 @@
 import type { BoardRepresentation } from "@/features/gameplay/types/chess";
 import { files, ranks } from "@/features/gameplay/constants/coordinates";
 import StaticSquare from "@/features/gameplay/components/GameEndModal/components/StaticChessboard/components/StaticSquare";
+import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 
 type StaticChessboardProps = {
 	boardRepresentation: BoardRepresentation;
+	squareColors?: Record<SquareCoordinate, string>;
 };
 
 function StaticChessboard({ boardRepresentation }: StaticChessboardProps) {
