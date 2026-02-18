@@ -7,6 +7,7 @@ import { files } from "@/features/gameplay/constants/coordinates";
 type StaticSquareProps = {
 	squareInfo: SquareInfo | null;
 	squareColorClass?: string;
+	squareDistance?: number;
 	file: File;
 	rank: Rank;
 };
@@ -16,6 +17,7 @@ function StaticSquare({
 	file,
 	rank,
 	squareColorClass,
+	squareDistance,
 }: StaticSquareProps) {
 	const fileIndex = files.indexOf(file);
 	const isDark = (rank + fileIndex) % 2 === 1;
@@ -28,6 +30,17 @@ function StaticSquare({
 				squareColorClass,
 			)}
 		>
+			<span
+				className={clsx(
+					"absolute top-0 bottom-0 left-0 right-0 flex flex-row items-center justify-center z-50 font-bold",
+					squareInfo?.color === "white"
+						? "text-gray-950"
+						: "text-gray-50",
+				)}
+			>
+				{squareDistance}
+			</span>
+
 			{squareInfo && squareInfo.color && squareInfo.piece && (
 				<img
 					alt={`${file}${rank}`}

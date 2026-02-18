@@ -6,11 +6,13 @@ import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 type StaticChessboardProps = {
 	boardRepresentation: BoardRepresentation;
 	squareColorClasses?: Partial<Record<SquareCoordinate, string>>;
+	squareDistances?: Partial<Record<SquareCoordinate, number>>;
 };
 
 function StaticChessboard({
 	boardRepresentation,
 	squareColorClasses,
+	squareDistances,
 }: StaticChessboardProps) {
 	return (
 		<div className="grid grid-cols-8 w-full max-w-1/2 aspect-square shadow-lg shadow-gray-600">
@@ -27,6 +29,7 @@ function StaticChessboard({
 							squareColorClass={
 								squareColorClasses?.[`${file}${rank}`]
 							}
+							squareDistance={squareDistances?.[`${file}${rank}`]}
 						/>
 					);
 				}),
