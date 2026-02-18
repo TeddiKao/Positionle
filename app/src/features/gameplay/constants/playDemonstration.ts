@@ -29,6 +29,20 @@ const wrongLocationDistances: Partial<Record<SquareCoordinate, number>> = {
 	a2: 6,
 };
 
+const multiPieceDemonstration: BoardRepresentation = {
+	d4: { piece: "pawn", color: "white" },
+	a7: { piece: "pawn", color: "white" },
+};
+
+const multiPieceColorClasses: Partial<Record<SquareCoordinate, string>> = {
+	d4: "bg-lime-500",
+	a7: "bg-gray-600",
+};
+
+const multiPieceDistances: Partial<Record<SquareCoordinate, number>> = {
+	d4: 1,
+};
+
 export {
 	correctPositionDemonstration,
 	correctPositionColorClasses,
@@ -37,4 +51,7 @@ export {
 	wrongLocationDemonstration,
 	wrongLocationColorClasses,
 	wrongLocationDistances,
+	multiPieceDemonstration,
+	multiPieceColorClasses,
+	multiPieceDistances,
 };
