@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/tooltip";
 import ResetStatsAlert from "@/features/gameplay/components/ResetStatsAlert";
 import { captureEvent } from "@/features/gameplay/utils/posthog";
+import { IconBrandGithub } from "@tabler/icons-react";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -169,7 +170,7 @@ function GamePage() {
 						<Logo />
 					</div>
 
-					<div className="flex flex-row items-center justify-end pt-4 pr-6">
+					<div className="flex flex-row gap-2 items-center justify-end pt-1.5 pr-6">
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<button
@@ -184,6 +185,21 @@ function GamePage() {
 							</TooltipTrigger>
 
 							<TooltipContent>Stats</TooltipContent>
+						</Tooltip>
+
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<a
+									href="https://github.com/TeddiKao/Positionle"
+									onClick={() => {
+										captureEvent("github_repo_accessed");
+									}}
+								>
+									<IconBrandGithub />
+								</a>
+							</TooltipTrigger>
+
+							<TooltipContent>GitHub repo</TooltipContent>
 						</Tooltip>
 					</div>
 				</div>
