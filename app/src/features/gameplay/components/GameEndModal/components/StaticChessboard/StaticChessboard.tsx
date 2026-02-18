@@ -5,7 +5,7 @@ import type { SquareCoordinate } from "@/features/gameplay/types/coordinates";
 
 type StaticChessboardProps = {
 	boardRepresentation: BoardRepresentation;
-	squareColors?: Record<SquareCoordinate, string>;
+	squareColors?: Partial<Record<SquareCoordinate, string>>;
 };
 
 function StaticChessboard({ boardRepresentation }: StaticChessboardProps) {
