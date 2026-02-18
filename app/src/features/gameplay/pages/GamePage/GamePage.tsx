@@ -37,6 +37,7 @@ import {
 import ResetStatsAlert from "@/features/gameplay/components/ResetStatsAlert";
 import { captureEvent } from "@/features/gameplay/utils/posthog";
 import { IconBrandGithub } from "@tabler/icons-react";
+import HowToPlayModal from "@/features/gameplay/components/HowToPlayModal";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -240,6 +241,7 @@ function GamePage() {
 			<GameEndModal />
 			<GameStatsModal />
 			<ResetStatsAlert />
+			<HowToPlayModal />
 		</>
 	);
 }
