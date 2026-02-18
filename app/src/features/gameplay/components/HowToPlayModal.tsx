@@ -14,6 +14,9 @@ import {
 	wrongLocationDemonstration,
 	wrongLocationColorClasses,
 	wrongLocationDistances,
+	multiPieceDemonstration,
+	multiPieceColorClasses,
+	multiPieceDistances,
 } from "@/features/gameplay/constants/playDemonstration";
 
 function HowToPlayModal() {
@@ -38,7 +41,7 @@ function HowToPlayModal() {
 						Examples (with the pawn on e4 as the correct
 						position):{" "}
 					</h3>
-					<div className="grid grid-cols-2">
+					<div className="grid grid-cols-2 gap-2">
 						<div className="flex flex-col items-center gap-2">
 							<StaticChessboard
 								boardRepresentation={
@@ -71,6 +74,20 @@ function HowToPlayModal() {
 								The pawn is in the game but on the wrong square.
 								The number (6) shows how far away it is: rank
 								distance (2) + file distance (4).
+							</p>
+						</div>
+
+						<div className="flex flex-col items-center gap-2">
+							<StaticChessboard
+								boardRepresentation={multiPieceDemonstration}
+								squareColorClasses={multiPieceColorClasses}
+								squareDistances={multiPieceDistances}
+							/>
+							<p className="text-sm text-center">
+								If there are multiple identical pieces, each one
+								is matched to the closest correct square. Only
+								the closest match shows a distance; extra
+								guesses are shown as not in the game.
 							</p>
 						</div>
 					</div>
