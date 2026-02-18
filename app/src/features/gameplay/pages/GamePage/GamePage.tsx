@@ -24,6 +24,18 @@ import useGameStateStore from "@/features/gameplay/stores/gameState";
 import useAnnotationToolbarStore from "@/features/gameplay/stores/annotationToolbar";
 import useGuessInfoStore from "@/features/gameplay/stores/guessInfo";
 import useActionMenuStore from "@/features/gameplay/stores/actionMenu";
+import GameStatsModal from "@/features/gameplay/components/GameStatsModal";
+import useGameStatsStore from "@/features/gameplay/stores/gameStats";
+import type { GuessNumbers } from "@/features/gameplay/types/guesses";
+import { ChartColumnIcon } from "lucide-react";
+import useGameStatsModalStore from "@/features/gameplay/stores/gameStatsModal";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
+import ResetStatsAlert from "@/features/gameplay/components/ResetStatsAlert";
+import { captureEvent } from "@/features/gameplay/utils/posthog";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -38,10 +50,18 @@ function GamePage() {
 
 	const { updateAnnotationsForGuess } = useAnnotationToolbarStore();
 
-	const { openModal } = useGameEndModalStore();
+	const { openGameEndModal } = useGameEndModalStore();
+	const { openGameStatsModal } = useGameStatsModalStore();
 
 	const { isPenActive } = useActionMenuStore();
 	const { isAnnotationEraserActive } = useAnnotationToolbarStore();
+
+	const {
+		incrementGamesPlayed,
+		incrementGamesWon,
+		increaseCurrentWinStreak,
+		resetCurrentWinStreak,
+	} = useGameStatsStore();
 
 	const canvasRef = useRef<ReactSketchCanvasRef>(null);
 
@@ -59,9 +79,20 @@ function GamePage() {
 
 	useEffect(() => {
 		if (hasCorrectlyGuessed) {
-			openModal();
+			incrementGamesPlayed();
+			incrementGamesWon(usedGuesses as GuessNumbers);
+			increaseCurrentWinStreak();
+
+			openGameEndModal();
 		}
-	}, [hasCorrectlyGuessed, openModal]);
+	}, [
+		usedGuesses,
+		hasCorrectlyGuessed,
+		openGameEndModal,
+		incrementGamesPlayed,
+		incrementGamesWon,
+		increaseCurrentWinStreak,
+	]);
 
 	useEffect(() => {
 		if (!canvasRef.current) return;
@@ -74,10 +105,18 @@ function GamePage() {
 	}, [currentGuess, hasCorrectlyGuessed]);
 
 	useEffect(() => {
-		if (usedGuesses >= 6) {
-			openModal();
+		if (usedGuesses >= 6 && !hasCorrectlyGuessed) {
+			incrementGamesPlayed();
+			resetCurrentWinStreak();
+			openGameEndModal();
 		}
-	}, [usedGuesses, openModal]);
+	}, [
+		usedGuesses,
+		hasCorrectlyGuessed,
+		openGameEndModal,
+		incrementGamesPlayed,
+		resetCurrentWinStreak,
+	]);
 
 	useEffect(() => {
 		canvasRef.current?.eraseMode(isAnnotationEraserActive);
@@ -125,7 +164,30 @@ function GamePage() {
 	return (
 		<>
 			<div className="flex flex-col items-center gap-4">
-				<Logo />
+				<div className="grid grid-cols-3 w-full">
+					<div className="flex flex-row items-center justify-center col-start-2">
+						<Logo />
+					</div>
+
+					<div className="flex flex-row items-center justify-end pt-4 pr-6">
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<button
+									onClick={() => {
+										openGameStatsModal();
+										captureEvent("game_stats_modal_opened");
+									}}
+									type="button"
+								>
+									<ChartColumnIcon />
+								</button>
+							</TooltipTrigger>
+
+							<TooltipContent>Stats</TooltipContent>
+						</Tooltip>
+					</div>
+				</div>
+
 				<GuessNavigator />
 
 				<div className="grid grid-cols-3 w-full justify-center gap-4">
@@ -160,6 +222,8 @@ function GamePage() {
 			</div>
 
 			<GameEndModal />
+			<GameStatsModal />
+			<ResetStatsAlert />
 		</>
 	);
 }
