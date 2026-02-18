@@ -36,7 +36,9 @@ import {
 } from "@/components/ui/tooltip";
 import ResetStatsAlert from "@/features/gameplay/components/ResetStatsAlert";
 import { captureEvent } from "@/features/gameplay/utils/posthog";
-import { IconBrandGithub } from "@tabler/icons-react";
+import { IconBrandGithub, IconHelp } from "@tabler/icons-react";
+import HowToPlayModal from "@/features/gameplay/components/HowToPlayModal";
+import useHowToPlayModalStore from "@/features/gameplay/stores/howToPlayModal";
 
 function GamePage() {
 	const { guesses } = useGuessInfoStore();
@@ -53,6 +55,7 @@ function GamePage() {
 
 	const { openGameEndModal } = useGameEndModalStore();
 	const { openGameStatsModal } = useGameStatsModalStore();
+	const { openHowToPlayModal } = useHowToPlayModalStore();
 
 	const { isPenActive } = useActionMenuStore();
 	const { isAnnotationEraserActive } = useAnnotationToolbarStore();
@@ -175,6 +178,25 @@ function GamePage() {
 							<TooltipTrigger asChild>
 								<button
 									onClick={() => {
+										openHowToPlayModal();
+										captureEvent(
+											"how_to_play_modal_opened",
+										);
+									}}
+									type="button"
+									aria-label="How to play"
+								>
+									<IconHelp aria-hidden="true" />
+								</button>
+							</TooltipTrigger>
+
+							<TooltipContent>How to play</TooltipContent>
+						</Tooltip>
+
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<button
+									onClick={() => {
 										openGameStatsModal();
 										captureEvent("game_stats_modal_opened");
 									}}
@@ -240,6 +262,7 @@ function GamePage() {
 			<GameEndModal />
 			<GameStatsModal />
 			<ResetStatsAlert />
+			<HowToPlayModal />
 		</>
 	);
 }
