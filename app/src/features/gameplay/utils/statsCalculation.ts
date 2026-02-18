@@ -6,7 +6,11 @@ function calculateWinRate(wins: number, gamesPlayed: number) {
 
 	const winPercentage = (wins / gamesPlayed) * 100;
 
-	return Math.round(parseFloat(winPercentage.toFixed(1)));
+	if (winPercentage < 99) {
+		return Math.round(winPercentage);
+	} else {
+		return parseFloat(winPercentage.toFixed(1));
+	}
 }
 
 function calculateTotalWins(winDistribution: Record<GuessNumbers, number>) {
