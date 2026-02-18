@@ -184,8 +184,9 @@ function GamePage() {
 										);
 									}}
 									type="button"
+									aria-label="How to play"
 								>
-									<IconHelp />
+									<IconHelp aria-hidden="true" />
 								</button>
 							</TooltipTrigger>
 
